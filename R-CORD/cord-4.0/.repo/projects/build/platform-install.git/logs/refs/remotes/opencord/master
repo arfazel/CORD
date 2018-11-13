@@ -1,0 +1,1 @@
+0000000000000000000000000000000000000000 d82447ce5c3da3e9eac5afc61766b6a998ad409a cord <cord@TestDC-S1.(none)> 1517306880 -0600	fetch --progress opencord --tags +refs/heads/*:refs/remotes/opencord/* +refs/heads/cord-4.0:refs/remotes/opencord/cord-4.0: storing head

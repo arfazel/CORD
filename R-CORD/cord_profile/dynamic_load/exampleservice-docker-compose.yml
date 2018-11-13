@@ -1,0 +1,33 @@
+# NOTE: this template is used by the xos-services-up in platform-install
+
+version: '2'
+
+networks:
+  xos:
+    external: true
+
+services:
+  exampleservice-synchronizer:
+    image: docker-registry:5000/xosproject/exampleservice-synchronizer:candidate
+    networks:
+      - xos
+    depends_on:
+      - registrator
+      - xos_redis
+    links:
+      - consul:consul
+      - xos_redis:redis
+    volumes:
+      - /opt/cord_profile/xos_config_synchronizer.yaml:/opt/xos/xos_config.yaml:ro
+      - /opt/cord_profile/node_key:/opt/cord_profile/node_key:ro
+      - /opt/credentials:/opt/xos/services/exampleservice/credentials:ro
+      - /opt/cord_profile/im_cert_chain.pem:/usr/local/share/ca-certificates/local_certs.crt:ro
+      - /opt/cord_profile/key_import/exampleservice_rsa:/opt/xos/services/exampleservice/keys/exampleservice_rsa:ro
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1000k"
+        max-file: "5"
+    environment:
+      SERVICE_NAME: "xos-exampleservice-synchronizer"
+    restart: unless-stopped

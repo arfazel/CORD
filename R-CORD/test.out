@@ -1,0 +1,521 @@
+ssh head1 "cd /opt/cord/build; ansible-playbook --skip-tags "set_compute_node_password,switch_support,reboot,interface_config" -i /etc/maas/ansible/pod-inventory --extra-vars "@/opt/cord_profile/genconfig/config.yml" --private-key ~/.ssh/cord_rsa ./platform-install/collect-diag-playbook.yml" 2>&1 | tee -a /home/cord/cord/build/logs/20180710T102030Z_collect-diag-maas
+ [ERROR]: Traceback (most recent call last):   File
+"/usr/lib/python2.7/runpy.py", line 162, in _run_module_as_main     "__main__",
+fname, loader, pkg_name)   File "/usr/lib/python2.7/runpy.py", line 72, in
+_run_code     exec code in run_globals   File "/usr/lib/python2.7/dist-
+packages/maascli/__main__.py", line 20, in <module>     main()   File
+"/usr/lib/python2.7/dist-packages/maascli/__init__.py", line 29, in main
+locale.setlocale(locale.LC_ALL, "")   File "/usr/lib/python2.7/locale.py", line
+579, in setlocale     return _setlocale(category, locale) locale.Error:
+unsupported locale setting Traceback (most recent call last):   File
+"/usr/lib/python2.7/runpy.py", line 162, in _run_module_as_main     "__main__",
+fname, loader, pkg_name)   File "/usr/lib/python2.7/runpy.py", line 72, in
+_run_code     exec code in run_globals   File "/usr/lib/python2.7/dist-
+packages/maascli/__main__.py", line 20, in <module>     main()   File
+"/usr/lib/python2.7/dist-packages/maascli/__init__.py", line 29, in main
+locale.setlocale(locale.LC_ALL, "")   File "/usr/lib/python2.7/locale.py", line
+579, in setlocale     return _setlocale(category, locale) locale.Error:
+unsupported locale setting Traceback (most recent call last):   File
+"/usr/lib/python2.7/runpy.py", line 162, in _run_module_as_main     "__main__",
+fname, loader, pkg_name)   File "/usr/lib/python2.7/runpy.py", line 72, in
+_run_code     exec code in run_globals   File "/usr/lib/python2.7/dist-
+packages/maascli/__main__.py", line 20, in <module>     main()   File
+"/usr/lib/python2.7/dist-packages/maascli/__init__.py", line 29, in main
+locale.setlocale(locale.LC_ALL, "")   File "/usr/lib/python2.7/locale.py", line
+579, in setlocale     return _setlocale(category, locale) locale.Error:
+unsupported locale setting
+
+PLAY [Create diag_dir fact] ****************************************************
+
+TASK [Gathering Facts] *********************************************************
+Tuesday 10 July 2018  15:21:46 +0000 (0:00:00.094)       0:00:00.094 ********** 
+ok: [head1]
+
+TASK [Set diag_dir name to diag-rfc3339_datetime] ******************************
+Tuesday 10 July 2018  15:21:56 +0000 (0:00:09.593)       0:00:09.688 ********** 
+ok: [head1]
+
+PLAY [Diagnostics on head node] ************************************************
+
+TASK [Gathering Facts] *********************************************************
+Tuesday 10 July 2018  15:21:56 +0000 (0:00:00.192)       0:00:09.880 ********** 
+ok: [head1]
+
+TASK [head-diag : Create diag_dir subdirs] *************************************
+Tuesday 10 July 2018  15:22:04 +0000 (0:00:08.147)       0:00:18.028 ********** 
+changed: [head1] => (item=head)
+changed: [head1] => (item=juju)
+changed: [head1] => (item=openstack)
+changed: [head1] => (item=onos-cord)
+changed: [head1] => (item=onos-fabric)
+changed: [head1] => (item=docker)
+
+TASK [head-diag : Head node diag collection] ***********************************
+Tuesday 10 July 2018  15:22:06 +0000 (0:00:01.866)       0:00:19.894 ********** 
+changed: [head1] => (item=arp -n)
+changed: [head1] => (item=brctl show)
+changed: [head1] => (item=cat /etc/lsb-release)
+changed: [head1] => (item=cat /etc/resolv.conf)
+changed: [head1] => (item=date -u)
+changed: [head1] => (item=df -k)
+changed: [head1] => (item=free)
+changed: [head1] => (item=ifconfig -a)
+changed: [head1] => (item=ip addr list)
+changed: [head1] => (item=ip link list)
+changed: [head1] => (item=ip neighbor)
+changed: [head1] => (item=ip route)
+changed: [head1] => (item=ps aux)
+changed: [head1] => (item=route -n)
+changed: [head1] => (item=sudo docker ps -a)
+changed: [head1] => (item=sudo iptables -S)
+changed: [head1] => (item=sudo iptables -t nat -S)
+changed: [head1] => (item=sudo lxc list)
+changed: [head1] => (item=sudo virsh list)
+ [WARNING]: Consider using 'become', 'become_method', and 'become_user' rather
+than running sudo
+
+TASK [head-diag : Juju diag collection] ****************************************
+Tuesday 10 July 2018  15:22:18 +0000 (0:00:11.685)       0:00:31.579 ********** 
+changed: [head1] => (item=juju status --format=summary)
+changed: [head1] => (item=juju status --format=tabular)
+changed: [head1] => (item=juju status --format=json)
+
+TASK [head-diag : OpenStack diag collection] ***********************************
+Tuesday 10 July 2018  15:22:20 +0000 (0:00:02.354)       0:00:33.934 ********** 
+changed: [head1] => (item=glance image-list)
+changed: [head1] => (item=nova list --all-tenants)
+changed: [head1] => (item=nova host-list)
+changed: [head1] => (item=nova hypervisor-list)
+changed: [head1] => (item=keystone tenant-list)
+changed: [head1] => (item=keystone user-list)
+changed: [head1] => (item=neutron net-list)
+changed: [head1] => (item=neutron subnet-list)
+changed: [head1] => (item=neutron port-list)
+
+TASK [head-diag : ONOS-CORD diag collection - REST API] ************************
+Tuesday 10 July 2018  15:22:28 +0000 (0:00:07.886)       0:00:41.820 ********** 
+changed: [head1] => (item=hosts)
+
+TASK [head-diag : ONOS-CORD diag collection - ONOS CLI] ************************
+Tuesday 10 July 2018  15:22:28 +0000 (0:00:00.588)       0:00:42.408 ********** 
+changed: [head1] => (item=apps -s -a)
+changed: [head1] => (item=bundle:list)
+changed: [head1] => (item=cordvtn-node-check compute1)
+changed: [head1] => (item=cordvtn-nodes)
+changed: [head1] => (item=cordvtn-networks)
+changed: [head1] => (item=cordvtn-ports)
+changed: [head1] => (item=dhcp-list)
+changed: [head1] => (item=devices)
+changed: [head1] => (item=flows)
+changed: [head1] => (item=hosts)
+changed: [head1] => (item=log:display)
+changed: [head1] => (item=nodes)
+changed: [head1] => (item=netcfg)
+changed: [head1] => (item=ports)
+changed: [head1] => (item=summary)
+
+TASK [head-diag : ONOS-FABRIC diag collection - REST API] **********************
+Tuesday 10 July 2018  15:22:41 +0000 (0:00:12.757)       0:00:55.166 ********** 
+changed: [head1] => (item=hosts)
+
+TASK [head-diag : ONOS-FABRIC diag collection - ONOS CLI] **********************
+Tuesday 10 July 2018  15:22:42 +0000 (0:00:00.595)       0:00:55.761 ********** 
+changed: [head1] => (item=apps -s -a)
+changed: [head1] => (item=bundle:list)
+changed: [head1] => (item=devices)
+changed: [head1] => (item=flows)
+changed: [head1] => (item=hosts)
+changed: [head1] => (item=log:display)
+changed: [head1] => (item=nodes)
+changed: [head1] => (item=netcfg)
+changed: [head1] => (item=ports)
+changed: [head1] => (item=summary)
+changed: [head1] => (item=links)
+changed: [head1] => (item=sr-ecmp-spg)
+changed: [head1] => (item=sr-next-hops)
+
+TASK [head-diag : Docker diag collection - Find names for all running Docker containers] ***
+Tuesday 10 July 2018  15:22:56 +0000 (0:00:14.592)       0:01:10.353 ********** 
+changed: [head1]
+
+TASK [head-diag : Docker diag collection - Collect logs from Docker containers] ***
+Tuesday 10 July 2018  15:22:57 +0000 (0:00:00.570)       0:01:10.924 ********** 
+changed: [head1] => (item=rcord_xos_gui_1)
+changed: [head1] => (item=rcord_volt-synchronizer_1)
+changed: [head1] => (item=rcord_fabric-synchronizer_1)
+changed: [head1] => (item=rcord_xos_chameleon_1)
+changed: [head1] => (item=rcord_vrouter-synchronizer_1)
+changed: [head1] => (item=rcord_rcord-synchronizer_1)
+changed: [head1] => (item=rcord_addressmanager-synchronizer_1)
+changed: [head1] => (item=rcord_xos_ws_1)
+changed: [head1] => (item=rcord_onos-synchronizer_1)
+changed: [head1] => (item=rcord_openstack-synchronizer_1)
+changed: [head1] => (item=rcord_vtn-synchronizer_1)
+changed: [head1] => (item=rcord_vtr-synchronizer_1)
+changed: [head1] => (item=rcord_xos_tosca_1)
+changed: [head1] => (item=rcord_vsg-synchronizer_1)
+changed: [head1] => (item=rcord_xos_core_1)
+changed: [head1] => (item=rcord_exampleservice-synchronizer_1)
+changed: [head1] => (item=rcord_gui-extension-rcord_1)
+changed: [head1] => (item=rcord_gui-extension-vtr_1)
+changed: [head1] => (item=rcord_gui_extensions_store_1)
+changed: [head1] => (item=rcord_xos_redis_1)
+changed: [head1] => (item=rcord_xos_db_1)
+changed: [head1] => (item=rcord_registrator_1)
+changed: [head1] => (item=rcord_elk_1)
+changed: [head1] => (item=rcord_consul_1)
+changed: [head1] => (item=onosfabric_xos-onos_1)
+changed: [head1] => (item=onoscord_xos-onos_1)
+changed: [head1] => (item=mavenrepo)
+changed: [head1] => (item=switchq)
+changed: [head1] => (item=automation)
+changed: [head1] => (item=provisioner)
+changed: [head1] => (item=generator)
+changed: [head1] => (item=allocator)
+changed: [head1] => (item=harvester)
+changed: [head1] => (item=storage)
+changed: [head1] => (item=registry)
+changed: [head1] => (item=registry-mirror)
+
+TASK [head-diag : Docker diag collection - inspect Docker containers] **********
+Tuesday 10 July 2018  15:23:09 +0000 (0:00:12.192)       0:01:23.116 ********** 
+changed: [head1] => (item=rcord_xos_gui_1)
+changed: [head1] => (item=rcord_volt-synchronizer_1)
+changed: [head1] => (item=rcord_fabric-synchronizer_1)
+changed: [head1] => (item=rcord_xos_chameleon_1)
+changed: [head1] => (item=rcord_vrouter-synchronizer_1)
+changed: [head1] => (item=rcord_rcord-synchronizer_1)
+changed: [head1] => (item=rcord_addressmanager-synchronizer_1)
+changed: [head1] => (item=rcord_xos_ws_1)
+changed: [head1] => (item=rcord_onos-synchronizer_1)
+changed: [head1] => (item=rcord_openstack-synchronizer_1)
+changed: [head1] => (item=rcord_vtn-synchronizer_1)
+changed: [head1] => (item=rcord_vtr-synchronizer_1)
+changed: [head1] => (item=rcord_xos_tosca_1)
+changed: [head1] => (item=rcord_vsg-synchronizer_1)
+changed: [head1] => (item=rcord_xos_core_1)
+changed: [head1] => (item=rcord_exampleservice-synchronizer_1)
+changed: [head1] => (item=rcord_gui-extension-rcord_1)
+changed: [head1] => (item=rcord_gui-extension-vtr_1)
+changed: [head1] => (item=rcord_gui_extensions_store_1)
+changed: [head1] => (item=rcord_xos_redis_1)
+changed: [head1] => (item=rcord_xos_db_1)
+changed: [head1] => (item=rcord_registrator_1)
+changed: [head1] => (item=rcord_elk_1)
+changed: [head1] => (item=rcord_consul_1)
+changed: [head1] => (item=onosfabric_xos-onos_1)
+changed: [head1] => (item=onoscord_xos-onos_1)
+changed: [head1] => (item=mavenrepo)
+changed: [head1] => (item=switchq)
+changed: [head1] => (item=automation)
+changed: [head1] => (item=provisioner)
+changed: [head1] => (item=generator)
+changed: [head1] => (item=allocator)
+changed: [head1] => (item=harvester)
+changed: [head1] => (item=storage)
+changed: [head1] => (item=registry)
+changed: [head1] => (item=registry-mirror)
+
+TASK [head-diag : Docker diag collection - Collect memory and CPU stats from docker containers] ***
+Tuesday 10 July 2018  15:23:20 +0000 (0:00:10.677)       0:01:33.793 ********** 
+changed: [head1]
+
+PLAY [Diagnostics on compute nodes] ********************************************
+skipping: no hosts matched
+
+PLAY [Collect compute node diagnostics on head node] ***************************
+
+TASK [Gathering Facts] *********************************************************
+Tuesday 10 July 2018  15:23:23 +0000 (0:00:02.993)       0:01:36.786 ********** 
+ok: [head1]
+
+TASK [rsync diag_dir from compute nodes to head node] **************************
+Tuesday 10 July 2018  15:23:31 +0000 (0:00:08.139)       0:01:44.926 ********** 
+
+PLAY RECAP *********************************************************************
+head1                      : ok=16   changed=12   unreachable=0    failed=0   
+
+Tuesday 10 July 2018  15:23:31 +0000 (0:00:00.030)       0:01:44.956 ********** 
+=============================================================================== 
+head-diag : ONOS-FABRIC diag collection - ONOS CLI --------------------- 14.59s
+head-diag : ONOS-CORD diag collection - ONOS CLI ----------------------- 12.76s
+head-diag : Docker diag collection - Collect logs from Docker containers -- 12.19s
+head-diag : Head node diag collection ---------------------------------- 11.68s
+head-diag : Docker diag collection - inspect Docker containers --------- 10.68s
+Gathering Facts --------------------------------------------------------- 9.59s
+Gathering Facts --------------------------------------------------------- 8.15s
+Gathering Facts --------------------------------------------------------- 8.14s
+head-diag : OpenStack diag collection ----------------------------------- 7.89s
+head-diag : Docker diag collection - Collect memory and CPU stats from docker containers --- 2.99s
+head-diag : Juju diag collection ---------------------------------------- 2.35s
+head-diag : Create diag_dir subdirs ------------------------------------- 1.87s
+head-diag : ONOS-FABRIC diag collection - REST API ---------------------- 0.60s
+head-diag : ONOS-CORD diag collection - REST API ------------------------ 0.59s
+head-diag : Docker diag collection - Find names for all running Docker containers --- 0.57s
+Set diag_dir name to diag-rfc3339_datetime ------------------------------ 0.19s
+rsync diag_dir from compute nodes to head node -------------------------- 0.03s
+ssh head1 "cd /opt/cord/build; ansible-playbook --skip-tags "set_compute_node_password,switch_support,reboot,interface_config" -i ./platform-install/inventory/head-localhost --extra-vars "@/opt/cord_profile/genconfig/config.yml" ./platform-install/pod-test-playbook.yml" 2>&1 | tee -a /home/cord/cord/build/logs/20180710T102030Z_pod-test
+[DEPRECATION WARNING]: 'include' for playbook includes. You should use 
+'import_playbook' instead. This feature will be removed in version 2.8. 
+Deprecation warnings can be disabled by setting deprecation_warnings=False in 
+ansible.cfg.
+
+PLAY [Create test client] ******************************************************
+
+TASK [Gathering Facts] *********************************************************
+Tuesday 10 July 2018  15:23:32 +0000 (0:00:00.073)       0:00:00.073 ********** 
+ok: [localhost]
+
+TASK [test-client-install : Create testclient LXD profile] *********************
+Tuesday 10 July 2018  15:23:41 +0000 (0:00:08.645)       0:00:08.718 ********** 
+changed: [localhost]
+
+TASK [test-client-install : Create testclient container] ***********************
+Tuesday 10 July 2018  15:23:42 +0000 (0:00:00.673)       0:00:09.392 ********** 
+changed: [localhost]
+
+TASK [test-client-install : Stop container] ************************************
+Tuesday 10 July 2018  15:24:13 +0000 (0:00:31.857)       0:00:41.249 ********** 
+[DEPRECATION WARNING]: Using tests as filters is deprecated. Instead of using 
+`result|success` use `result is success`. This feature will be removed in 
+version 2.9. Deprecation warnings can be disabled by setting 
+deprecation_warnings=False in ansible.cfg.
+changed: [localhost]
+
+PLAY [Create test subscriber] **************************************************
+
+TASK [Gathering Facts] *********************************************************
+Tuesday 10 July 2018  15:24:24 +0000 (0:00:10.343)       0:00:51.592 ********** 
+ok: [localhost]
+
+TASK [test-subscriber-config : Create test-subscriber.yaml TOSCA config] *******
+Tuesday 10 July 2018  15:24:31 +0000 (0:00:07.540)       0:00:59.133 ********** 
+changed: [localhost]
+
+PLAY [Enable the test subscriber] **********************************************
+
+TASK [Gathering Facts] *********************************************************
+Tuesday 10 July 2018  15:24:32 +0000 (0:00:00.838)       0:00:59.971 ********** 
+ok: [localhost]
+
+TASK [test-subscriber-enable : Run TOSCA to add test-subscriber] ***************
+Tuesday 10 July 2018  15:24:40 +0000 (0:00:08.147)       0:01:08.119 ********** 
+[DEPRECATION WARNING]: Using tests as filters is deprecated. Instead of using 
+`result|success` use `result is success`. This feature will be removed in 
+version 2.9. Deprecation warnings can be disabled by setting 
+deprecation_warnings=False in ansible.cfg.
+ok: [localhost] => (item=test-subscriber.yaml)
+
+PLAY [Test VSG] ****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+Tuesday 10 July 2018  15:24:42 +0000 (0:00:01.668)       0:01:09.787 ********** 
+ok: [localhost]
+
+TASK [test-vsg : Wait for vSG VM to come up] ***********************************
+Tuesday 10 July 2018  15:24:50 +0000 (0:00:08.117)       0:01:17.905 ********** 
+[DEPRECATION WARNING]: Using tests as filters is deprecated. Instead of using 
+`result|success` use `result is success`. This feature will be removed in 
+version 2.9. Deprecation warnings can be disabled by setting 
+deprecation_warnings=False in ansible.cfg.
+FAILED - RETRYING: Wait for vSG VM to come up (10 retries left).
+changed: [localhost]
+
+TASK [test-vsg : Get ID of VM] *************************************************
+Tuesday 10 July 2018  15:25:55 +0000 (0:01:04.998)       0:02:22.904 ********** 
+changed: [localhost]
+
+TASK [test-vsg : Get mgmt IP of VM] ********************************************
+Tuesday 10 July 2018  15:26:01 +0000 (0:00:06.446)       0:02:29.350 ********** 
+changed: [localhost]
+
+TASK [test-vsg : Get name of compute node] *************************************
+Tuesday 10 July 2018  15:26:04 +0000 (0:00:02.628)       0:02:31.978 ********** 
+changed: [localhost]
+
+TASK [test-vsg : Wait for Docker container inside VM to come up] ***************
+Tuesday 10 July 2018  15:26:06 +0000 (0:00:01.949)       0:02:33.928 ********** 
+[DEPRECATION WARNING]: Using tests as filters is deprecated. Instead of using 
+`result|success` use `result is success`. This feature will be removed in 
+version 2.9. Deprecation warnings can be disabled by setting 
+deprecation_warnings=False in ansible.cfg.
+FAILED - RETRYING: Wait for Docker container inside VM to come up (40 retries left).
+FAILED - RETRYING: Wait for Docker container inside VM to come up (39 retries left).
+FAILED - RETRYING: Wait for Docker container inside VM to come up (38 retries left).
+FAILED - RETRYING: Wait for Docker container inside VM to come up (37 retries left).
+FAILED - RETRYING: Wait for Docker container inside VM to come up (36 retries left).
+FAILED - RETRYING: Wait for Docker container inside VM to come up (35 retries left).
+FAILED - RETRYING: Wait for Docker container inside VM to come up (34 retries left).
+FAILED - RETRYING: Wait for Docker container inside VM to come up (33 retries left).
+FAILED - RETRYING: Wait for Docker container inside VM to come up (32 retries left).
+FAILED - RETRYING: Wait for Docker container inside VM to come up (31 retries left).
+changed: [localhost]
+
+TASK [test-vsg : start container] **********************************************
+Tuesday 10 July 2018  15:32:40 +0000 (0:06:33.891)       0:09:07.820 ********** 
+changed: [localhost]
+
+TASK [test-vsg : Make sure testclient has default route to vSG] ****************
+Tuesday 10 July 2018  15:32:41 +0000 (0:00:01.424)       0:09:09.244 ********** 
+[DEPRECATION WARNING]: Using tests as filters is deprecated. Instead of using 
+`result|success` use `result is success`. This feature will be removed in 
+version 2.9. Deprecation warnings can be disabled by setting 
+deprecation_warnings=False in ansible.cfg.
+changed: [localhost]
+
+TASK [test-vsg : Test external connectivity in test client] ********************
+Tuesday 10 July 2018  15:32:50 +0000 (0:00:08.281)       0:09:17.525 ********** 
+changed: [localhost]
+
+TASK [test-vsg : Output from ping test] ****************************************
+Tuesday 10 July 2018  15:32:53 +0000 (0:00:03.106)       0:09:20.632 ********** 
+ok: [localhost] => {
+    "pingtest.stdout_lines": [
+        "PING 104.197.35.99 (104.197.35.99) 56(84) bytes of data.", 
+        "64 bytes from 104.197.35.99: icmp_seq=1 ttl=47 time=121 ms", 
+        "64 bytes from 104.197.35.99: icmp_seq=2 ttl=47 time=120 ms", 
+        "64 bytes from 104.197.35.99: icmp_seq=3 ttl=47 time=120 ms", 
+        "", 
+        "--- 104.197.35.99 ping statistics ---", 
+        "3 packets transmitted, 3 received, 0% packet loss, time 2003ms", 
+        "rtt min/avg/max/mdev = 120.772/121.048/121.532/0.528 ms"
+    ]
+}
+
+PLAY [Create exampleservice configuration] *************************************
+
+TASK [Gathering Facts] *********************************************************
+Tuesday 10 July 2018  15:32:53 +0000 (0:00:00.284)       0:09:20.917 ********** 
+ok: [localhost]
+
+TASK [exampleservice-config : Create fake/empty ssh keys if profile hasn't created them] ***
+Tuesday 10 July 2018  15:33:01 +0000 (0:00:08.204)       0:09:29.121 ********** 
+ok: [localhost] => (item=exampleservice_rsa)
+ok: [localhost] => (item=exampleservice_rsa.pub)
+
+TASK [exampleservice-config : Copy exampleservice onboarding TOSCA files to cord_profile] ***
+Tuesday 10 July 2018  15:33:02 +0000 (0:00:00.520)       0:09:29.642 ********** 
+changed: [localhost]
+
+TASK [exampleservice-config : TOSCA to create exampleservice test config] ******
+Tuesday 10 July 2018  15:33:02 +0000 (0:00:00.618)       0:09:30.261 ********** 
+changed: [localhost]
+
+PLAY [Test ExampleService] *****************************************************
+
+TASK [Gathering Facts] *********************************************************
+Tuesday 10 July 2018  15:33:03 +0000 (0:00:00.602)       0:09:30.863 ********** 
+ok: [localhost]
+
+TASK [test-exampleservice : Configure XOS with profile specific TOSCA (new Engine)] ***
+Tuesday 10 July 2018  15:33:11 +0000 (0:00:07.874)       0:09:38.738 ********** 
+[DEPRECATION WARNING]: Using tests as filters is deprecated. Instead of using 
+`result|success` use `result is success`. This feature will be removed in 
+version 2.9. Deprecation warnings can be disabled by setting 
+deprecation_warnings=False in ansible.cfg.
+ok: [localhost]
+
+TASK [test-exampleservice : Wait for ExampleService VM to come up] *************
+Tuesday 10 July 2018  15:33:13 +0000 (0:00:02.366)       0:09:41.105 ********** 
+[DEPRECATION WARNING]: Using tests as filters is deprecated. Instead of using 
+`result|success` use `result is success`. This feature will be removed in 
+version 2.9. Deprecation warnings can be disabled by setting 
+deprecation_warnings=False in ansible.cfg.
+FAILED - RETRYING: Wait for ExampleService VM to come up (10 retries left).
+changed: [localhost]
+
+TASK [test-exampleservice : Get ID of VM] **************************************
+Tuesday 10 July 2018  15:34:15 +0000 (0:01:01.992)       0:10:43.097 ********** 
+changed: [localhost]
+
+TASK [test-exampleservice : Get mgmt IP of VM] *********************************
+Tuesday 10 July 2018  15:34:16 +0000 (0:00:01.082)       0:10:44.180 ********** 
+changed: [localhost]
+
+TASK [test-exampleservice : Get public IP of VM] *******************************
+Tuesday 10 July 2018  15:34:17 +0000 (0:00:01.155)       0:10:45.336 ********** 
+changed: [localhost]
+
+TASK [test-exampleservice : Get name of compute node] **************************
+Tuesday 10 July 2018  15:34:19 +0000 (0:00:01.074)       0:10:46.410 ********** 
+changed: [localhost]
+
+TASK [test-exampleservice : Wait for Apache to come up inside VM] **************
+Tuesday 10 July 2018  15:34:20 +0000 (0:00:01.364)       0:10:47.775 ********** 
+[DEPRECATION WARNING]: Using tests as filters is deprecated. Instead of using 
+`result|success` use `result is success`. This feature will be removed in 
+version 2.9. Deprecation warnings can be disabled by setting 
+deprecation_warnings=False in ansible.cfg.
+FAILED - RETRYING: Wait for Apache to come up inside VM (20 retries left).
+changed: [localhost]
+
+TASK [test-exampleservice : start container] ***********************************
+Tuesday 10 July 2018  15:35:53 +0000 (0:01:32.928)       0:12:20.704 ********** 
+ok: [localhost]
+
+TASK [test-exampleservice : Make sure testclient has default route to vSG] *****
+Tuesday 10 July 2018  15:35:53 +0000 (0:00:00.562)       0:12:21.266 ********** 
+[DEPRECATION WARNING]: Using tests as filters is deprecated. Instead of using 
+`result|success` use `result is success`. This feature will be removed in 
+version 2.9. Deprecation warnings can be disabled by setting 
+deprecation_warnings=False in ansible.cfg.
+changed: [localhost]
+
+TASK [test-exampleservice : Download the curl package through the vSG] *********
+Tuesday 10 July 2018  15:35:54 +0000 (0:00:00.671)       0:12:21.938 ********** 
+changed: [localhost]
+
+TASK [test-exampleservice : Test connectivity to ExampleService from test client] ***
+Tuesday 10 July 2018  15:35:58 +0000 (0:00:03.670)       0:12:25.609 ********** 
+changed: [localhost]
+
+TASK [test-exampleservice : Output from curl test] *****************************
+Tuesday 10 July 2018  15:35:59 +0000 (0:00:00.953)       0:12:26.562 ********** 
+ok: [localhost] => {
+    "curltest.stdout_lines": [
+        "", 
+        "", 
+        "<html>", 
+        "<body style=\"background-color:#FFFFFF;\">", 
+        "<font color=\"#000000\">", 
+        "", 
+        "<h1>ExampleService</h1>", 
+        "", 
+        "<ul>", 
+        "<li>Service Message: \"hello\"</li>", 
+        "<li>Tenant Message: \"world\"</li>", 
+        "</ul>", 
+        "", 
+        "", 
+        "</font>", 
+        "", 
+        "</body>", 
+        "</html>"
+    ]
+}
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=35   changed=23   unreachable=0    failed=0   
+
+Tuesday 10 July 2018  15:35:59 +0000 (0:00:00.048)       0:12:26.611 ********** 
+=============================================================================== 
+test-vsg : Wait for Docker container inside VM to come up ------------- 393.89s
+test-exampleservice : Wait for Apache to come up inside VM ------------- 92.93s
+test-vsg : Wait for vSG VM to come up ---------------------------------- 65.00s
+test-exampleservice : Wait for ExampleService VM to come up ------------ 61.99s
+test-client-install : Create testclient container ---------------------- 31.86s
+test-client-install : Stop container ----------------------------------- 10.34s
+Gathering Facts --------------------------------------------------------- 8.65s
+test-vsg : Make sure testclient has default route to vSG ---------------- 8.28s
+Gathering Facts --------------------------------------------------------- 8.20s
+Gathering Facts --------------------------------------------------------- 8.15s
+Gathering Facts --------------------------------------------------------- 8.12s
+Gathering Facts --------------------------------------------------------- 7.87s
+Gathering Facts --------------------------------------------------------- 7.54s
+test-vsg : Get ID of VM ------------------------------------------------- 6.45s
+test-exampleservice : Download the curl package through the vSG --------- 3.67s
+test-vsg : Test external connectivity in test client -------------------- 3.11s
+test-vsg : Get mgmt IP of VM -------------------------------------------- 2.63s
+test-exampleservice : Configure XOS with profile specific TOSCA (new Engine) --- 2.37s
+test-vsg : Get name of compute node ------------------------------------- 1.95s
+test-subscriber-enable : Run TOSCA to add test-subscriber --------------- 1.67s

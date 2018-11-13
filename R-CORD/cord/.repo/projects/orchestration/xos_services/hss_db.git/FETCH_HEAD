@@ -1,0 +1,5 @@
+06e455a9d100a7d4585dfdb0a2cf7cfd29c3d421		branch 'cord-5.0' of https://gerrit.opencord.org/hss_db
+a5b529929e192b69db5226a37cbeda5379287c9f		branch 'master' of https://gerrit.opencord.org/hss_db
+297ba51d9fe5ed3f6343df9d5500b487453c2529	not-for-merge	tag '1.0.0' of https://gerrit.opencord.org/hss_db
+fc1db8b5c94b2c1e019f56121653bc70dd13fa63	not-for-merge	tag '1.0.1' of https://gerrit.opencord.org/hss_db
+fa1d4f35ec321f326ece27e0e81e119a140fda12	not-for-merge	tag '1.0.2' of https://gerrit.opencord.org/hss_db

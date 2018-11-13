@@ -1,0 +1,69 @@
+# pack-refs with: peeled fully-peeled 
+a40b32e5b88afd7a1b5b53e12759302cf9d9f1e7 refs/remotes/opencord/bugfix/wrong-gateway
+cdc1e6414e5c032cffb777964b33a9baad5ebdd4 refs/remotes/opencord/cord-1.0
+94c8a1b6b65990d684d0f6c7a7b62710492e3530 refs/remotes/opencord/cord-2.0
+ec1c852e6389aeea087059def5736cac13278c09 refs/remotes/opencord/cord-3.0
+45583fdabc1eeb13db81f98fdf94d05a68c46858 refs/remotes/opencord/cord-4.0
+99a618dc97e2792fd657849650385a68c93f4a65 refs/remotes/opencord/cord-4.1
+d05de401d75eaf7db11b3636c17c27a718c5bbe3 refs/remotes/opencord/cord-5.0
+fcfa46f0b4ffc2e07fd281c2cf19df0e0f1e1c01 refs/remotes/opencord/feature/add-exampleservice
+39278865a190f9caa52c2b527de94e8b7bc9a2a9 refs/remotes/opencord/feature/bidirectional
+d17947d6f74f9f8a9fb477e1d2a6dc9cfb88045f refs/remotes/opencord/feature/cord-pod-deploy
+0da06985e2198a8d220fd6b20d77d620733df2d5 refs/remotes/opencord/feature/e2e-tests
+cd6e972210f4134ffb2f7a36fb3c4baf33f02bef refs/remotes/opencord/feature/exampleservice
+657d5b4b61663d3af789bb39ee329f4a1d8c5edf refs/remotes/opencord/feature/fabric-synchronizer
+0a450ee098fcc16e7e6f7d0617d341a04b3f5d79 refs/remotes/opencord/feature/lts
+d70636c62aefb4160b119490972fb8c6ebbd2664 refs/remotes/opencord/feature/new-cord-repo
+7015c4d2023bb72eb74afe7237fce6162f4617a8 refs/remotes/opencord/feature/onboard
+8a686e269c5f422b5f59476c9951009f23a5f39a refs/remotes/opencord/feature/roles-setup
+a13ce0452539c4f09fb5675fdfc817c5021d66f6 refs/remotes/opencord/feature/syndicate
+55b7522d7b950ec6e2d3bce573e90a188f647641 refs/remotes/opencord/feature/volt
+0b8583566f847333d674d3f07e5f177490ab5b5b refs/remotes/opencord/feature/volt-autoconfig
+5b7fba0d259bc39c265584e56ada0a052e477a19 refs/remotes/opencord/master
+e7a0e1ce3e47b42682b42cc41fe0048f0b32d335 refs/remotes/opencord/null
+3d31472b48496a9871dc9944be90894ca7cdda96 refs/tags/2.0.0
+^76fbf5d4d33a2d95ce80da8d8331de675f83abe2
+3875a8f8924475c93d3980e1f9a5f37a25c9113c refs/tags/2.1.0
+^0856f816666a86189cec91f7796271a502d7a959
+3568b974f12df49b754a31e869a20a3a4e9ebd50 refs/tags/2.1.10
+^1aa1f4f5a172c1b0faaf7abba2131d7b9368967b
+d03533fd434ceeb2f019f8d75bf5ca19b4e517bb refs/tags/2.1.11
+^be41013e82c6eb7909c99bdf4a3696237b6032e6
+4a07604ad6de9ae3e919e7ec57bcb0abef26b0c9 refs/tags/2.1.12
+^e9f3bbce66c75bc8f78c3b9b4798f31921729835
+68e3eca3d790cb41573436eb7cf6e2a668db85bb refs/tags/2.1.13
+^cf3478846e82d81557fd2cd8e5db970be709e270
+0e6b6db8c73d74dc4a1358bd1d47ed26ee27f2bb refs/tags/2.1.14
+^c237f887e1185191e1436d0e82d270d1f409acff
+c1f0fe107cc115db1f5dcd796038cc5f2ecc4d4c refs/tags/2.1.15
+^391f5d85e893eb186c32f24904a3c790c704c1b1
+6afa469532bb25f4318af53b3d18d35c2401b2b9 refs/tags/2.1.16
+^34dc67e8a04093c130669342296ced91ec28bda2
+02a4930e7164f3d0e1a25477eed11cdfa6651a17 refs/tags/2.1.17
+^a1b089a6c727c511896d014329914a7a89c9eeac
+b0370c65bfc9557261c9f22f6d303054e5c5afdd refs/tags/2.1.18
+^1f7791dae3d36bd5d5c916e643ed4620159a34d5
+c3a5521a409ce2deff41a537610fa38ee948fcb9 refs/tags/2.1.19
+^1d01b694ce5221298a50e267775408b124c3946e
+b0359cda6d4cf007c0a63f7fa26808312609deab refs/tags/2.1.2
+^73a1285dc3cdf827a079b0c942bdb5c1cab876d4
+119ade9348de2a85eb189e8dadfcd83c10c594af refs/tags/2.1.20
+^5b7fba0d259bc39c265584e56ada0a052e477a19
+6b1d11ae7d6761f899ed1c1826abf66176ed35d5 refs/tags/2.1.3
+^9beab8d83faf8418beb4c56e848decc3f8d430bb
+f0e70525c9ffcb46b056a0d1bf1a6dad59adb17e refs/tags/2.1.4
+^e48bf8f21e6503f9d4c39b57c76e65a538126430
+ec7443801780e26122ddf6a687839c8fa7a83351 refs/tags/2.1.5
+^c928c47d286d86e5bf9dc38ec58132b2c29dd4ae
+b00ecc0e9317d1dad139830f4e26aaf7271f466e refs/tags/2.1.6
+^33d81332a61d8101b234716ca4ffaf0447874c6c
+6f51183a79678bb469fe9520b8da78d8129f93d4 refs/tags/2.1.7
+^e1607b888e332cef89eabb86a253a330aec099b6
+04455bd97268d18632db70b7c599952b6e424cb8 refs/tags/2.1.8
+^c2b87bf8c4f9197481ec5165695be432252a36c2
+61d550b51f573d6afb7bb8e35d2826f6f824cda7 refs/tags/2.1.9
+^a98c23eb1e8c94e5dd7c05362790907cbc5bca33
+eb3e48afde4a947c223246675669ba75a1d08ab3 refs/tags/cord-1.0-rc1
+5bf4a50cdbf1e73584f5eb2b30291c11b898bfbc refs/tags/cord-1.0-rc2
+5bf4a50cdbf1e73584f5eb2b30291c11b898bfbc refs/tags/cord-1.0-rc3
+709912ccef5c03e5418796a6e608f1048a8f7203 refs/tags/cord-1.0-rc4

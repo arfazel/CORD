@@ -1,0 +1,75 @@
+
+tosca_definitions_version: tosca_simple_yaml_1_0
+
+imports:
+   - custom_types/onosapp.yaml
+   - custom_types/onosservice.yaml
+   - custom_types/serviceinstanceattribute.yaml
+   - custom_types/serviceinstancelink.yaml
+   - custom_types/vtnservice.yaml
+
+description: Configures the VTN ONOS service
+
+topology_template:
+  node_templates:
+
+    service#ONOS_CORD:
+      type: tosca.nodes.ONOSService
+      properties:
+          name: ONOS_CORD
+          kind: platform
+          no_container: true
+          rest_hostname: onos-cord.cord.lab
+          rest_port: 8182
+
+    service#vtn:
+      type: tosca.nodes.VTNService
+      properties:
+          name: vtn
+          kind: platform
+          view_url: /admin/vtn/vtnservice/$id$/
+          privateGatewayMac: 00:00:00:00:00:01
+          localManagementIp: 172.27.0.1/24
+          ovsdbPort: 6641
+          sshUser: root
+          sshKeyFile: /root/node_key
+          sshPort: 22
+          xosEndpoint: xos-chameleon.cord.lab:9101
+          xosUser: xosadmin@opencord.org
+          xosPassword: Ayg53z9Uk4wac1wc1p4j
+          vtnAPIVersion: 2
+          controllerPort: onos-cord.cord.lab:6654
+          resync: false
+
+    VTN_ONOS_app:
+      type: tosca.nodes.ONOSApp
+      requirements:
+          - owner:
+              node: service#ONOS_CORD
+              relationship: tosca.relationships.BelongsToOne
+      properties:
+          name: VTN_ONOS_app
+          install_dependencies: http://mavenrepo.cord.lab:8080/repository/org/opencord/cord-config/1.3.1/cord-config-1.3.1.oar, http://mavenrepo.cord.lab:8080/repository/org/opencord/vtn/1.5.0/vtn-1.5.0.oar
+          dependencies: org.onosproject.drivers, org.onosproject.drivers.ovsdb, org.onosproject.openflow-base, org.onosproject.ovsdb-base, org.onosproject.dhcp
+          # autogenerate: vtn-network-cfg
+
+    VTN_ONOS_app_autogenerate:
+        type: tosca.nodes.ServiceInstanceAttribute
+        requirements:
+          - service_instance:
+              node: VTN_ONOS_app
+              relationship: tosca.relationships.BelongsToOne
+        properties:
+            name: autogenerate
+            value: vtn-network-cfg
+
+    VTN_ONOS_app_VTN_Service:
+        type: tosca.nodes.ServiceInstanceLink
+        requirements:
+          - provider_service_instance:
+              node: VTN_ONOS_app
+              relationship: tosca.relationships.BelongsToOne
+          - subscriber_service:
+              node: service#vtn
+              relationship: tosca.relationships.BelongsToOne
+

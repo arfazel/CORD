@@ -1,0 +1,18 @@
+652c4285acd42e56a74e21809fc15199088cf49e		branch 'cord-1.0' of https://gerrit.opencord.org/fabric
+1c8803c1ff13755036a05f5267eb374704600ea3		branch 'cord-2.0' of https://gerrit.opencord.org/fabric
+af8b4342ce68f7fc1a15e8659b979f6bc22da1a3		branch 'cord-3.0' of https://gerrit.opencord.org/fabric
+2d0912af70016d72074d8659deed69e392d9ea3d		branch 'cord-4.0' of https://gerrit.opencord.org/fabric
+367eefc5df908b5bcfdb0f161368a8f8d53dd41f		branch 'cord-4.1' of https://gerrit.opencord.org/fabric
+2ca6e4b8fe462d4bbd0b7e1a1807791ebaa9657e		branch 'cord-5.0' of https://gerrit.opencord.org/fabric
+283abdfdb739e19c348c54bdbc35204f4eb8aaf5		branch 'master' of https://gerrit.opencord.org/fabric
+474f7112f4046a4b1813d81ccbf5d3ed7eedb0a8		branch 'null' of https://gerrit.opencord.org/fabric
+652c4285acd42e56a74e21809fc15199088cf49e	not-for-merge	tag '1.0.0' of https://gerrit.opencord.org/fabric
+762b223a0010365da8de36820189e3baa202e441	not-for-merge	tag '2.0.0' of https://gerrit.opencord.org/fabric
+0e9f560dd50f326fc8d0fb51d4ab2118acfd4a8c	not-for-merge	tag '2.1.0' of https://gerrit.opencord.org/fabric
+c9410cafd87a9fabee1c6508b5ae0a10828c637a	not-for-merge	tag '2.1.1' of https://gerrit.opencord.org/fabric
+88344ff2899159b6a37028ec57af701264bbb301	not-for-merge	tag '2.1.2' of https://gerrit.opencord.org/fabric
+d581a952d694e8fbc57d3ca3d21abb916aa694b7	not-for-merge	tag '2.1.3' of https://gerrit.opencord.org/fabric
+c173186d91da7bf89fae2c29b88e14ba9c7f7ea7	not-for-merge	tag 'cord-1.0-rc1' of https://gerrit.opencord.org/fabric
+652c4285acd42e56a74e21809fc15199088cf49e	not-for-merge	tag 'cord-1.0-rc2' of https://gerrit.opencord.org/fabric
+652c4285acd42e56a74e21809fc15199088cf49e	not-for-merge	tag 'cord-1.0-rc3' of https://gerrit.opencord.org/fabric
+d1c30fd85071b4ea0059c944c24b383a086f1774	not-for-merge	tag 'cord-1.0-rc4' of https://gerrit.opencord.org/fabric

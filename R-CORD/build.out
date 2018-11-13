@@ -1,0 +1,2676 @@
+ansible-playbook --skip-tags "set_compute_node_password,switch_support,reboot,interface_config" -i ./genconfig/inventory.ini --extra-vars @./genconfig/config.yml ./platform-install/prereqs-check-playbook.yml 2>&1 | tee -a /home/cord/cord/build/logs/20181030T093839Z_prereqs-check
+ansible-playbook --skip-tags "set_compute_node_password,switch_support,reboot,interface_config" -i ./genconfig/inventory.ini --extra-vars @./genconfig/config.yml ./ansible/ciab-ovs.yml 2>&1 | tee -a /home/cord/cord/build/logs/20181030T093839Z_ciab-ovs
+
+PLAY [Check Prereqs] ***************************************************************************************************
+
+PLAY [localhost] ***************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************
+Tuesday 30 October 2018  09:38:40 -0500 (0:00:00.032)       0:00:00.032 ******* 
+
+TASK [Gathering Facts] *********************************************************
+Tuesday 30 October 2018  09:38:40 -0500 (0:00:00.032)       0:00:00.032 ******* 
+ok: [localhost]
+
+TASK [prereqs-common : Check here on failure: 'https://guide.opencord.org/troubleshooting.html#prereqs-common-failures'] ***
+Tuesday 30 October 2018  09:38:40 -0500 (0:00:00.725)       0:00:00.757 ******* 
+Pausing for 10 seconds
+(ctrl+C then 'C' = continue early, ctrl+C then 'A' = abort)
+ok: [localhost]
+
+TASK [ciab-ovs : Remove old OVS] ***********************************************
+Tuesday 30 October 2018  09:38:41 -0500 (0:00:01.366)       0:00:01.399 ******* 
+skipping: [localhost] => (item=[]) 
+
+TASK [ciab-ovs : Install default OVS] ******************************************
+Tuesday 30 October 2018  09:38:41 -0500 (0:00:00.030)       0:00:01.429 ******* 
+ok: [localhost] => (item=[u'openvswitch-switch', u'openvswitch-common'])
+
+TASK [ciab-ovs : (fabric) Download OVS 2.5.3 packages] *************************
+Tuesday 30 October 2018  09:38:42 -0500 (0:00:00.720)       0:00:02.149 ******* 
+skipping: [localhost] => (item={u'url': u'http://www.vicci.org/openvswitch-2.5.3/openvswitch-common_2.5.3-1_amd64.deb', u'checksum': u'sha256:30c159c4a13d4eab75acdb04dca7acc0beee5dd0465b1b5b2e31a3a625e4c248', u'name': u'openvswitch-common_2.5.3-1_amd64.deb'}) 
+skipping: [localhost] => (item={u'url': u'http://www.vicci.org/openvswitch-2.5.3/openvswitch-switch_2.5.3-1_amd64.deb', u'checksum': u'sha256:b68e63f6408e1392bb0457760c77189c9b3380e1b354fdaec17e119e09ab5db6', u'name': u'openvswitch-switch_2.5.3-1_amd64.deb'}) 
+
+TASK [ciab-ovs : (fabric) Install OVS 2.5.3] ***********************************
+Tuesday 30 October 2018  09:38:42 -0500 (0:00:00.027)       0:00:02.177 ******* 
+skipping: [localhost] => (item={u'url': u'http://www.vicci.org/openvswitch-2.5.3/openvswitch-common_2.5.3-1_amd64.deb', u'checksum': u'sha256:30c159c4a13d4eab75acdb04dca7acc0beee5dd0465b1b5b2e31a3a625e4c248', u'name': u'openvswitch-common_2.5.3-1_amd64.deb'}) 
+skipping: [localhost] => (item={u'url': u'http://www.vicci.org/openvswitch-2.5.3/openvswitch-switch_2.5.3-1_amd64.deb', u'checksum': u'sha256:b68e63f6408e1392bb0457760c77189c9b3380e1b354fdaec17e119e09ab5db6', u'name': u'openvswitch-switch_2.5.3-1_amd64.deb'}) 
+
+TASK [ciab-ovs : Create OVS bridges for CiaB] **********************************
+Tuesday 30 October 2018  09:38:42 -0500 (0:00:00.027)       0:00:02.204 ******* 
+ok: [localhost] => (item=leaf1)
+ok: [localhost] => (item=spine1)
+
+TASK [ciab-ovs : Create patch ports] *******************************************
+Tuesday 30 October 2018  09:38:42 -0500 (0:00:00.387)       0:00:02.592 ******* 
+ok: [localhost] => (item={u'peer': u'spine1-leaf1', u'bridge': u'leaf1', u'port': u'leaf1-spine1'})
+ok: [localhost] => (item={u'peer': u'leaf1-spine1', u'bridge': u'spine1', u'port': u'spine1-leaf1'})
+
+TASK [ciab-ovs : Create peers] *************************************************
+Tuesday 30 October 2018  09:38:43 -0500 (0:00:00.379)       0:00:02.971 ******* 
+ok: [localhost] => (item={u'peer': u'spine1-leaf1', u'bridge': u'leaf1', u'port': u'leaf1-spine1'})
+ok: [localhost] => (item={u'peer': u'leaf1-spine1', u'bridge': u'spine1', u'port': u'spine1-leaf1'})
+
+TASK [ciab-ovs : Set bridges to OpenFlow 1.3] **********************************
+Tuesday 30 October 2018  09:38:43 -0500 (0:00:00.264)       0:00:03.236 ******* 
+skipping: [localhost] => (item=leaf1) 
+skipping: [localhost] => (item=spine1) 
+
+TASK [ciab-ovs : Add ONOS fabric controller] ***********************************
+Tuesday 30 October 2018  09:38:43 -0500 (0:00:00.028)       0:00:03.265 ******* 
+skipping: [localhost] => (item=leaf1) 
+skipping: [localhost] => (item=spine1) 
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=5    changed=0    unreachable=0    failed=0   
+
+Tuesday 30 October 2018  09:38:43 -0500 (0:00:00.016)       0:00:03.282 ******* 
+=============================================================================== 
+Gathering Facts --------------------------------------------------------- 1.37s
+ciab-ovs : Install default OVS ------------------------------------------ 0.72s
+ciab-ovs : Create OVS bridges for CiaB ---------------------------------- 0.39s
+ciab-ovs : Create patch ports ------------------------------------------- 0.38s
+ciab-ovs : Create peers ------------------------------------------------- 0.26s
+ciab-ovs : Remove old OVS ----------------------------------------------- 0.03s
+ciab-ovs : Set bridges to OpenFlow 1.3 ---------------------------------- 0.03s
+ciab-ovs : (fabric) Download OVS 2.5.3 packages ------------------------- 0.03s
+ciab-ovs : (fabric) Install OVS 2.5.3 ----------------------------------- 0.03s
+ciab-ovs : Add ONOS fabric controller ----------------------------------- 0.02s
+touch milestones/ciab-ovs
+ok: [localhost]
+
+TASK [prereqs-common : Memory size Check] ******************************************************************************
+Tuesday 30 October 2018  09:38:50 -0500 (0:00:10.029)       0:00:10.786 ******* 
+ok: [localhost] => {
+    "changed": false, 
+    "msg": "All assertions passed"
+}
+
+TASK [prereqs-common : CPU quantity Check] *****************************************************************************
+Tuesday 30 October 2018  09:38:50 -0500 (0:00:00.040)       0:00:10.827 ******* 
+ok: [localhost] => {
+    "changed": false, 
+    "msg": "All assertions passed"
+}
+
+TASK [prereqs-common : CPU KVM Check] **********************************************************************************
+Tuesday 30 October 2018  09:38:50 -0500 (0:00:00.044)       0:00:10.872 ******* 
+changed: [localhost]
+
+TASK [prereqs-common : DNS Lookup Check] *******************************************************************************
+Tuesday 30 October 2018  09:38:51 -0500 (0:00:00.263)       0:00:11.135 ******* 
+changed: [localhost]
+
+TASK [prereqs-common : DNS Global Root Connectivity Check] *************************************************************
+Tuesday 30 October 2018  09:38:51 -0500 (0:00:00.173)       0:00:11.309 ******* 
+changed: [localhost] => (item=192.5.5.241)
+changed: [localhost] => (item=198.41.0.4)
+changed: [localhost] => (item=199.7.91.13)
+
+TASK [prereqs-common : HTTP Download Check] ****************************************************************************
+Tuesday 30 October 2018  09:39:03 -0500 (0:00:11.879)       0:00:23.189 ******* 
+ok: [localhost]
+
+TASK [prereqs-common : HTTPS Download Check] ***************************************************************************
+Tuesday 30 October 2018  09:39:03 -0500 (0:00:00.363)       0:00:23.553 ******* 
+ok: [localhost]
+
+PLAY RECAP *************************************************************************************************************
+localhost                  : ok=9    changed=3    unreachable=0    failed=0   
+
+Tuesday 30 October 2018  09:39:03 -0500 (0:00:00.176)       0:00:23.729 ******* 
+=============================================================================== 
+prereqs-common : DNS Global Root Connectivity Check ------------------------------------------------------------ 11.88s
+prereqs-common : Check here on failure: 'https://guide.opencord.org/troubleshooting.html#prereqs-common-failures' -- 10.03s
+Gathering Facts ------------------------------------------------------------------------------------------------- 0.73s
+prereqs-common : HTTP Download Check ---------------------------------------------------------------------------- 0.36s
+prereqs-common : CPU KVM Check ---------------------------------------------------------------------------------- 0.26s
+prereqs-common : HTTPS Download Check --------------------------------------------------------------------------- 0.18s
+prereqs-common : DNS Lookup Check ------------------------------------------------------------------------------- 0.17s
+prereqs-common : CPU quantity Check ----------------------------------------------------------------------------- 0.04s
+prereqs-common : Memory size Check ------------------------------------------------------------------------------ 0.04s
+touch milestones/prereqs-check
+VAGRANT_CWD=./scenarios/cord/ vagrant up corddev head1 --provider libvirt 2>&1 | tee -a /home/cord/cord/build/logs/20181030T093839Z_vagrant-up
+Bringing machine 'corddev' up with 'libvirt' provider...
+Bringing machine 'head1' up with 'libvirt' provider...
+/home/cord/.vagrant.d/gems/2.4.4/gems/nokogiri-1.6.8.1/lib/nokogiri/xml/document.rb:44: warning: constant ::Fixnum is deprecated
+/home/cord/.vagrant.d/gems/2.4.4/gems/nokogiri-1.6.8.1/lib/nokogiri/xml/document.rb:44: warning: constant ::Fixnum is deprecated
+==> corddev: Creating image (snapshot of base box volume).
+==> head1: Creating image (snapshot of base box volume).
+==> corddev: Creating domain with the following settings...
+==> corddev:  -- Name:              cord_corddev
+==> head1: Creating domain with the following settings...
+==> corddev:  -- Domain type:       kvm
+==> head1:  -- Name:              cord_head1
+==> corddev:  -- Cpus:              1
+==> head1:  -- Domain type:       kvm
+==> corddev:  -- Memory:            2048M
+==> head1:  -- Cpus:              8
+==> corddev:  -- Management MAC:    
+==> head1:  -- Memory:            16384M
+==> corddev:  -- Loader:            
+==> head1:  -- Management MAC:    
+==> corddev:  -- Base box:          ubuntu/trusty64
+==> head1:  -- Loader:            
+==> corddev:  -- Storage pool:      default
+==> head1:  -- Base box:          ubuntu/trusty64
+==> corddev:  -- Image:             /var/lib/libvirt/images/cord_corddev.img (40G)
+==> head1:  -- Storage pool:      default
+==> corddev:  -- Volume Cache:      default
+==> head1:  -- Image:             /var/lib/libvirt/images/cord_head1.img (40G)
+==> corddev:  -- Kernel:            
+==> head1:  -- Volume Cache:      default
+==> corddev:  -- Initrd:            
+==> head1:  -- Kernel:            
+==> corddev:  -- Graphics Type:     vnc
+==> head1:  -- Initrd:            
+==> corddev:  -- Graphics Port:     5900
+==> head1:  -- Graphics Type:     vnc
+==> corddev:  -- Graphics IP:       127.0.0.1
+==> head1:  -- Graphics Port:     5900
+==> corddev:  -- Graphics Password: Not defined
+==> head1:  -- Graphics IP:       127.0.0.1
+==> corddev:  -- Video Type:        cirrus
+==> head1:  -- Graphics Password: Not defined
+==> corddev:  -- Video VRAM:        9216
+==> head1:  -- Video Type:        cirrus
+==> corddev:  -- Keymap:            en-us
+==> head1:  -- Video VRAM:        9216
+==> corddev:  -- TPM Path:          
+==> head1:  -- Keymap:            en-us
+==> corddev:  -- INPUT:             type=mouse, bus=ps2
+==> head1:  -- TPM Path:          
+==> corddev:  -- Command line : 
+==> head1:  -- Disks:         vdb(qcow2,100G)
+==> head1:  -- Disk(vdb):     /var/lib/libvirt/images/cord_head1-vdb.qcow2
+==> head1:  -- INPUT:             type=mouse, bus=ps2
+==> head1:  -- Command line : 
+==> corddev: Pruning invalid NFS exports. Administrator privileges will be required...
+/home/cord/.vagrant.d/gems/2.4.4/gems/nokogiri-1.6.8.1/lib/nokogiri/xml/document.rb:44: warning: constant ::Fixnum is deprecated
+==> head1: Pruning invalid NFS exports. Administrator privileges will be required...
+==> corddev: Creating shared folders metadata...
+/home/cord/.vagrant.d/gems/2.4.4/gems/nokogiri-1.6.8.1/lib/nokogiri/xml/document.rb:44: warning: constant ::Fixnum is deprecated
+==> head1: Creating shared folders metadata...
+==> corddev: Starting domain.
+==> head1: Starting domain.
+==> head1: Waiting for domain to get an IP address...
+==> corddev: Waiting for domain to get an IP address...
+==> corddev: Waiting for SSH to become available...
+/home/cord/.vagrant.d/gems/2.4.4/gems/nokogiri-1.6.8.1/lib/nokogiri/xml/document.rb:44: warning: constant ::Fixnum is deprecated
+==> head1: Waiting for SSH to become available...
+/home/cord/.vagrant.d/gems/2.4.4/gems/nokogiri-1.6.8.1/lib/nokogiri/xml/document.rb:44: warning: constant ::Fixnum is deprecated
+    head1: 
+    head1: Vagrant insecure key detected. Vagrant will automatically replace
+    head1: this with a newly generated keypair for better security.
+    head1: 
+    head1: Inserting generated public key within guest...
+    head1: Removing insecure key from the guest if it's present...
+    head1: Key inserted! Disconnecting and reconnecting using new SSH key...
+/home/cord/.vagrant.d/gems/2.4.4/gems/nokogiri-1.6.8.1/lib/nokogiri/xml/document.rb:44: warning: constant ::Fixnum is deprecated
+==> head1: Setting hostname...
+==> head1: Configuring and enabling network interfaces...
+/home/cord/.vagrant.d/gems/2.4.4/gems/nokogiri-1.6.8.1/lib/nokogiri/xml/document.rb:44: warning: constant ::Fixnum is deprecated
+/home/cord/.vagrant.d/gems/2.4.4/gems/nokogiri-1.6.8.1/lib/nokogiri/xml/document.rb:44: warning: constant ::Fixnum is deprecated
+    corddev: 
+    corddev: Vagrant insecure key detected. Vagrant will automatically replace
+    corddev: this with a newly generated keypair for better security.
+==> head1: Exporting NFS shared folders...
+==> head1: Preparing to edit /etc/exports. Administrator privileges will be required...
+==> head1: Mounting NFS shared folders...
+    corddev: 
+    corddev: Inserting generated public key within guest...
+==> head1: Running provisioner: shell...
+    head1: Running: inline script
+    corddev: Removing insecure key from the guest if it's present...
+==> head1: Running provisioner: ansible...
+    corddev: Key inserted! Disconnecting and reconnecting using new SSH key...
+Vagrant has automatically selected the compatibility mode '2.0'
+according to the Ansible version installed (2.4.2.0).
+
+Alternatively, the compatibility mode can be specified in your Vagrantfile:
+https://www.vagrantup.com/docs/provisioning/ansible_common.html#compatibility_mode
+/home/cord/.vagrant.d/gems/2.4.4/gems/nokogiri-1.6.8.1/lib/nokogiri/xml/document.rb:44: warning: constant ::Fixnum is deprecated
+    head1: Running ansible-playbook...
+==> corddev: Setting hostname...
+==> corddev: Configuring and enabling network interfaces...
+
+PLAY [Set up extra drive in the Vagrant VM] ************************************
+
+TASK [Gathering Facts] *********************************************************
+==> corddev: Exporting NFS shared folders...
+==> corddev: Preparing to edit /etc/exports. Administrator privileges will be required...
+==> corddev: Mounting NFS shared folders...
+ok: [head1]
+
+TASK [extra-drive : Check if the disk is partitioned] **************************
+==> corddev: Running provisioner: shell...
+ok: [head1]
+
+TASK [extra-drive : Set disk label] ********************************************
+    corddev: Running: inline script
+==> corddev: Running provisioner: hosts...
+changed: [head1]
+
+TASK [extra-drive : Create primary partition] **********************************
+changed: [head1]
+
+TASK [extra-drive : Make filesystem] *******************************************
+changed: [head1]
+
+TASK [extra-drive : Mount extra disk] ******************************************
+changed: [head1]
+
+TASK [extra-drive : Create directories] ****************************************
+changed: [head1] => (item={u'dest': u'/var/lib/lxd', u'src': u'/mnt/lxd'})
+changed: [head1] => (item={u'dest': u'/docker-registry', u'src': u'/mnt/docker-registry'})
+changed: [head1] => (item={u'dest': u'/var/lib/lxcfs', u'src': u'/mnt/lxcfs'})
+
+TASK [extra-drive : Set up links] **********************************************
+changed: [head1] => (item={u'dest': u'/var/lib/lxd', u'src': u'/mnt/lxd'})
+changed: [head1] => (item={u'dest': u'/docker-registry', u'src': u'/mnt/docker-registry'})
+changed: [head1] => (item={u'dest': u'/var/lib/lxcfs', u'src': u'/mnt/lxcfs'})
+
+PLAY RECAP *********************************************************************
+head1                      : ok=8    changed=6    unreachable=0    failed=0   
+
+touch milestones/vagrant-up
+VAGRANT_CWD=./scenarios/cord/ vagrant ssh-config corddev head1 > /tmp/vagrant_ssh_config
+/home/cord/.vagrant.d/gems/2.4.4/gems/nokogiri-1.6.8.1/lib/nokogiri/xml/document.rb:44: warning: constant ::Fixnum is deprecated
+/home/cord/.vagrant.d/gems/2.4.4/gems/nokogiri-1.6.8.1/lib/nokogiri/xml/document.rb:44: warning: constant ::Fixnum is deprecated
+ansible-playbook --skip-tags "set_compute_node_password,switch_support,reboot,interface_config" -i ./genconfig/inventory.ini --extra-vars @./genconfig/config.yml ./ansible/vagrant-ssh-install.yml 2>&1 | tee -a /home/cord/cord/build/logs/20181030T093839Z_vagrant-ssh-install
+
+PLAY [localhost] *******************************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************
+Tuesday 30 October 2018  09:39:51 -0500 (0:00:00.030)       0:00:00.030 ******* 
+ok: [localhost]
+
+TASK [vagrant-ssh-install : Check for .ssh directory] ******************************************************************
+Tuesday 30 October 2018  09:39:52 -0500 (0:00:00.941)       0:00:00.972 ******* 
+ok: [localhost]
+
+TASK [vagrant-ssh-install : Create .ssh directory if it doesn't exist] *************************************************
+Tuesday 30 October 2018  09:39:52 -0500 (0:00:00.217)       0:00:01.189 ******* 
+skipping: [localhost]
+
+TASK [vagrant-ssh-install : Ensure SSH config file exists] *************************************************************
+Tuesday 30 October 2018  09:39:52 -0500 (0:00:00.017)       0:00:01.207 ******* 
+changed: [localhost]
+
+TASK [vagrant-ssh-install : Add SSH config block to config file] *******************************************************
+Tuesday 30 October 2018  09:39:53 -0500 (0:00:00.198)       0:00:01.406 ******* 
+changed: [localhost]
+
+PLAY RECAP *************************************************************************************************************
+localhost                  : ok=4    changed=2    unreachable=0    failed=0   
+
+Tuesday 30 October 2018  09:39:53 -0500 (0:00:00.244)       0:00:01.650 ******* 
+=============================================================================== 
+Gathering Facts ------------------------------------------------------------------------------------------------- 0.94s
+vagrant-ssh-install : Add SSH config block to config file ------------------------------------------------------- 0.24s
+vagrant-ssh-install : Check for .ssh directory ------------------------------------------------------------------ 0.22s
+vagrant-ssh-install : Ensure SSH config file exists ------------------------------------------------------------- 0.20s
+vagrant-ssh-install : Create .ssh directory if it doesn't exist ------------------------------------------------- 0.02s
+touch milestones/vagrant-ssh-install
+ansible-playbook --skip-tags "set_compute_node_password,switch_support,reboot,interface_config" -i ./genconfig/inventory.ini --extra-vars @./genconfig/config.yml ./platform-install/copy-cord-playbook.yml 2>&1 | tee -a /home/cord/cord/build/logs/20181030T093839Z_copy-cord
+
+PLAY [Copy cord directory structure to head node] **********************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************
+Tuesday 30 October 2018  09:39:53 -0500 (0:00:00.030)       0:00:00.030 ******* 
+ok: [head1]
+
+TASK [copy-cord : Copy (sync) the cord directory to head node] *********************************************************
+Tuesday 30 October 2018  09:39:57 -0500 (0:00:03.743)       0:00:03.774 ******* 
+changed: [head1]
+
+TASK [copy-cord : Set ownership on CORD dir on head node] **************************************************************
+Tuesday 30 October 2018  09:40:05 -0500 (0:00:08.027)       0:00:11.802 ******* 
+changed: [head1]
+
+PLAY RECAP *************************************************************************************************************
+head1                      : ok=3    changed=2    unreachable=0    failed=0   
+
+Tuesday 30 October 2018  09:40:06 -0500 (0:00:00.816)       0:00:12.619 ******* 
+=============================================================================== 
+copy-cord : Copy (sync) the cord directory to head node --------------------------------------------------------- 8.03s
+Gathering Facts ------------------------------------------------------------------------------------------------- 3.74s
+copy-cord : Set ownership on CORD dir on head node -------------------------------------------------------------- 0.82s
+touch milestones/copy-cord
+ansible-playbook --skip-tags "set_compute_node_password,switch_support,reboot,interface_config" -i ./genconfig/inventory.ini --extra-vars @./genconfig/config.yml ./platform-install/cord-config-playbook.yml 2>&1 | tee -a /home/cord/cord/build/logs/20181030T093839Z_cord-config
+
+PLAY [Create SSL Root CA, Intermediate CA, Server certs, SSH CA and keypairs] ******************************************
+
+TASK [Gathering Facts] *************************************************************************************************
+Tuesday 30 October 2018  09:40:07 -0500 (0:00:00.036)       0:00:00.036 ******* 
+ok: [localhost]
+
+TASK [create-configdirs-become : Create cord_profile directory, privileged] ********************************************
+Tuesday 30 October 2018  09:40:07 -0500 (0:00:00.858)       0:00:00.895 ******* 
+ok: [localhost]
+
+TASK [create-configdirs-become : Create PKI and credentials directories, privileged] ***********************************
+Tuesday 30 October 2018  09:40:08 -0500 (0:00:00.262)       0:00:01.158 ******* 
+ok: [localhost] => (item=/home/cord/cord/build/platform-install/credentials)
+changed: [localhost] => (item=/home/cord/cord/build/platform-install/pki)
+
+TASK [create-configdirs-become : Create root CA directory, privileged] *************************************************
+Tuesday 30 October 2018  09:40:08 -0500 (0:00:00.260)       0:00:01.418 ******* 
+ok: [localhost]
+
+TASK [create-configdirs-become : Create intermediate CA directory, privileged] *****************************************
+Tuesday 30 October 2018  09:40:08 -0500 (0:00:00.119)       0:00:01.538 ******* 
+ok: [localhost]
+
+TASK [create-configdirs-become : Create SSH CA Directory] **************************************************************
+Tuesday 30 October 2018  09:40:08 -0500 (0:00:00.120)       0:00:01.658 ******* 
+ok: [localhost] => (item=/home/cord/cord/build/platform-install/ssh_pki)
+ok: [localhost] => (item=/home/cord/cord/build/platform-install/ssh_pki/ca)
+ok: [localhost] => (item=/home/cord/cord/build/platform-install/ssh_pki/client_certs)
+ok: [localhost] => (item=/home/cord/cord/build/platform-install/ssh_pki/host_certs)
+
+TASK [pki-root-ca : Create PKI and credentials directories] ************************************************************
+Tuesday 30 October 2018  09:40:09 -0500 (0:00:00.460)       0:00:02.119 ******* 
+ok: [localhost] => (item=/home/cord/cord/build/platform-install/credentials)
+ok: [localhost] => (item=/home/cord/cord/build/platform-install/pki)
+
+TASK [pki-root-ca : Create root CA directory] **************************************************************************
+Tuesday 30 October 2018  09:40:09 -0500 (0:00:00.212)       0:00:02.332 ******* 
+ok: [localhost]
+
+TASK [pki-root-ca : Create root CA openssl.cnf from template] **********************************************************
+Tuesday 30 October 2018  09:40:09 -0500 (0:00:00.109)       0:00:02.441 ******* 
+ok: [localhost]
+
+TASK [pki-root-ca : Create subdirs for root CA] ************************************************************************
+Tuesday 30 October 2018  09:40:09 -0500 (0:00:00.232)       0:00:02.673 ******* 
+ok: [localhost] => (item=certs)
+ok: [localhost] => (item=crl)
+ok: [localhost] => (item=newcerts)
+
+TASK [pki-root-ca : Create private CA directory] ***********************************************************************
+Tuesday 30 October 2018  09:40:10 -0500 (0:00:00.344)       0:00:03.018 ******* 
+ok: [localhost]
+
+TASK [pki-root-ca : Create serial file] ********************************************************************************
+Tuesday 30 October 2018  09:40:10 -0500 (0:00:00.103)       0:00:03.121 ******* 
+ok: [localhost]
+
+TASK [pki-root-ca : Create empty index file if it doesn't exist] *******************************************************
+Tuesday 30 October 2018  09:40:10 -0500 (0:00:00.119)       0:00:03.241 ******* 
+ok: [localhost]
+
+TASK [pki-root-ca : Save root passphrase to root_ca/private/ca_root_phrase] ********************************************
+Tuesday 30 October 2018  09:40:10 -0500 (0:00:00.163)       0:00:03.405 ******* 
+ok: [localhost]
+
+TASK [pki-root-ca : Generate root key] *********************************************************************************
+Tuesday 30 October 2018  09:40:10 -0500 (0:00:00.267)       0:00:03.672 ******* 
+ok: [localhost]
+
+TASK [pki-root-ca : Set permissions on root key] ***********************************************************************
+Tuesday 30 October 2018  09:40:10 -0500 (0:00:00.265)       0:00:03.938 ******* 
+ok: [localhost]
+
+TASK [pki-root-ca : Create root certificate] ***************************************************************************
+Tuesday 30 October 2018  09:40:11 -0500 (0:00:00.125)       0:00:04.063 ******* 
+ok: [localhost]
+
+TASK [pki-intermediate-ca : Create PKI directory] **********************************************************************
+Tuesday 30 October 2018  09:40:11 -0500 (0:00:00.144)       0:00:04.208 ******* 
+changed: [localhost]
+
+TASK [pki-intermediate-ca : Create intermediate CA directory] **********************************************************
+Tuesday 30 October 2018  09:40:11 -0500 (0:00:00.115)       0:00:04.324 ******* 
+ok: [localhost]
+
+TASK [pki-intermediate-ca : Create intermediate CA openssl.cnf from template] ******************************************
+Tuesday 30 October 2018  09:40:11 -0500 (0:00:00.132)       0:00:04.456 ******* 
+ok: [localhost]
+
+TASK [pki-intermediate-ca : Create subdirs for intermediate CA] ********************************************************
+Tuesday 30 October 2018  09:40:11 -0500 (0:00:00.137)       0:00:04.594 ******* 
+ok: [localhost] => (item=certs)
+ok: [localhost] => (item=client_cnfs)
+ok: [localhost] => (item=crl)
+ok: [localhost] => (item=csr)
+ok: [localhost] => (item=newcerts)
+ok: [localhost] => (item=server_cnfs)
+
+TASK [pki-intermediate-ca : Create private CA directory] ***************************************************************
+Tuesday 30 October 2018  09:40:12 -0500 (0:00:00.678)       0:00:05.272 ******* 
+ok: [localhost]
+
+TASK [pki-intermediate-ca : Create serial file] ************************************************************************
+Tuesday 30 October 2018  09:40:12 -0500 (0:00:00.157)       0:00:05.430 ******* 
+ok: [localhost]
+
+TASK [pki-intermediate-ca : Create empty index file if it doesn't exist] ***********************************************
+Tuesday 30 October 2018  09:40:12 -0500 (0:00:00.136)       0:00:05.566 ******* 
+ok: [localhost]
+
+TASK [pki-intermediate-ca : Save intermediate passphrase to sitename_im_ca/private/ca_im_phrase] ***********************
+Tuesday 30 October 2018  09:40:12 -0500 (0:00:00.129)       0:00:05.695 ******* 
+ok: [localhost]
+
+TASK [pki-intermediate-ca : Generate intermediate key] *****************************************************************
+Tuesday 30 October 2018  09:40:12 -0500 (0:00:00.210)       0:00:05.906 ******* 
+ok: [localhost]
+
+TASK [pki-intermediate-ca : Set permissions on intermediate key] *******************************************************
+Tuesday 30 October 2018  09:40:13 -0500 (0:00:00.113)       0:00:06.019 ******* 
+ok: [localhost]
+
+TASK [pki-intermediate-ca : Create intermediate CSR] *******************************************************************
+Tuesday 30 October 2018  09:40:13 -0500 (0:00:00.126)       0:00:06.145 ******* 
+changed: [localhost]
+
+TASK [pki-intermediate-ca : Create intermediate cert from CSR with root CA] ********************************************
+Tuesday 30 October 2018  09:40:13 -0500 (0:00:00.137)       0:00:06.283 ******* 
+ok: [localhost]
+
+TASK [pki-intermediate-ca : Verify intemediate cert] *******************************************************************
+Tuesday 30 October 2018  09:40:13 -0500 (0:00:00.112)       0:00:06.395 ******* 
+changed: [localhost]
+
+TASK [pki-intermediate-ca : Assert that verify of intermediate cert succeeded] *****************************************
+Tuesday 30 October 2018  09:40:13 -0500 (0:00:00.131)       0:00:06.526 ******* 
+ok: [localhost] => {
+    "changed": false, 
+    "msg": "All assertions passed"
+}
+
+TASK [pki-intermediate-ca : Get the root cert into ca_cert var] ********************************************************
+Tuesday 30 October 2018  09:40:13 -0500 (0:00:00.029)       0:00:06.556 ******* 
+changed: [localhost]
+
+TASK [pki-intermediate-ca : Get the intermediate cert into im_cert var] ************************************************
+Tuesday 30 October 2018  09:40:13 -0500 (0:00:00.115)       0:00:06.672 ******* 
+changed: [localhost]
+
+TASK [pki-intermediate-ca : Create intermediate cert chain] ************************************************************
+Tuesday 30 October 2018  09:40:13 -0500 (0:00:00.119)       0:00:06.791 ******* 
+ok: [localhost]
+
+TASK [pki-cert : Generate server private key (no pw)] ******************************************************************
+Tuesday 30 October 2018  09:40:14 -0500 (0:00:00.195)       0:00:06.987 ******* 
+ok: [localhost] => (item={u'altnames': [u'DNS:keystone.cord.lab', u'DNS:keystone'], u'subj': u'/C=US/ST=California/L=Menlo Park/O=ON.Lab/OU=MySite Deployment/CN=keystone.cord.lab', u'cn': u'keystone.cord.lab'})
+ok: [localhost] => (item={u'altnames': [u'DNS:xos-core.cord.lab', u'DNS:xos-core'], u'subj': u'/C=US/ST=California/L=Menlo Park/O=ON.Lab/OU=MySite Deployment/CN=xos-core.cord.lab', u'cn': u'xos-core.cord.lab'})
+
+TASK [pki-cert : Generate server-specific openssl config] **************************************************************
+Tuesday 30 October 2018  09:40:14 -0500 (0:00:00.235)       0:00:07.222 ******* 
+ok: [localhost] => (item={u'altnames': [u'DNS:keystone.cord.lab', u'DNS:keystone'], u'subj': u'/C=US/ST=California/L=Menlo Park/O=ON.Lab/OU=MySite Deployment/CN=keystone.cord.lab', u'cn': u'keystone.cord.lab'})
+ok: [localhost] => (item={u'altnames': [u'DNS:xos-core.cord.lab', u'DNS:xos-core'], u'subj': u'/C=US/ST=California/L=Menlo Park/O=ON.Lab/OU=MySite Deployment/CN=xos-core.cord.lab', u'cn': u'xos-core.cord.lab'})
+
+TASK [pki-cert : Generate server CSR] **********************************************************************************
+Tuesday 30 October 2018  09:40:14 -0500 (0:00:00.465)       0:00:07.688 ******* 
+ok: [localhost] => (item={u'altnames': [u'DNS:keystone.cord.lab', u'DNS:keystone'], u'subj': u'/C=US/ST=California/L=Menlo Park/O=ON.Lab/OU=MySite Deployment/CN=keystone.cord.lab', u'cn': u'keystone.cord.lab'})
+ok: [localhost] => (item={u'altnames': [u'DNS:xos-core.cord.lab', u'DNS:xos-core'], u'subj': u'/C=US/ST=California/L=Menlo Park/O=ON.Lab/OU=MySite Deployment/CN=xos-core.cord.lab', u'cn': u'xos-core.cord.lab'})
+
+TASK [pki-cert : Sign server cert] *************************************************************************************
+Tuesday 30 October 2018  09:40:15 -0500 (0:00:00.282)       0:00:07.970 ******* 
+ok: [localhost] => (item={u'altnames': [u'DNS:keystone.cord.lab', u'DNS:keystone'], u'subj': u'/C=US/ST=California/L=Menlo Park/O=ON.Lab/OU=MySite Deployment/CN=keystone.cord.lab', u'cn': u'keystone.cord.lab'})
+ok: [localhost] => (item={u'altnames': [u'DNS:xos-core.cord.lab', u'DNS:xos-core'], u'subj': u'/C=US/ST=California/L=Menlo Park/O=ON.Lab/OU=MySite Deployment/CN=xos-core.cord.lab', u'cn': u'xos-core.cord.lab'})
+
+TASK [pki-cert : Verify cert against root + im chain] ******************************************************************
+Tuesday 30 October 2018  09:40:15 -0500 (0:00:00.245)       0:00:08.216 ******* 
+changed: [localhost] => (item={u'altnames': [u'DNS:keystone.cord.lab', u'DNS:keystone'], u'subj': u'/C=US/ST=California/L=Menlo Park/O=ON.Lab/OU=MySite Deployment/CN=keystone.cord.lab', u'cn': u'keystone.cord.lab'})
+changed: [localhost] => (item={u'altnames': [u'DNS:xos-core.cord.lab', u'DNS:xos-core'], u'subj': u'/C=US/ST=California/L=Menlo Park/O=ON.Lab/OU=MySite Deployment/CN=xos-core.cord.lab', u'cn': u'xos-core.cord.lab'})
+
+TASK [pki-cert : Assert that verify of cert succeeded] *****************************************************************
+Tuesday 30 October 2018  09:40:15 -0500 (0:00:00.248)       0:00:08.464 ******* 
+ok: [localhost] => (item={'_ansible_parsed': True, 'stderr_lines': [], '_ansible_item_result': True, u'end': u'2018-10-30 09:40:15.367102', '_ansible_no_log': False, u'stdout': u'/home/cord/cord/build/platform-install/pki/mysite_im_ca/certs/keystone.cord.lab_cert.pem: OK', u'cmd': [u'openssl', u'verify', u'-purpose', u'sslserver', u'-CAfile', u'/home/cord/cord/build/platform-install/pki/mysite_im_ca/certs/im_cert_chain.pem', u'/home/cord/cord/build/platform-install/pki/mysite_im_ca/certs/keystone.cord.lab_cert.pem'], u'rc': 0, 'item': {u'altnames': [u'DNS:keystone.cord.lab', u'DNS:keystone'], u'subj': u'/C=US/ST=California/L=Menlo Park/O=ON.Lab/OU=MySite Deployment/CN=keystone.cord.lab', u'cn': u'keystone.cord.lab'}, u'delta': u'0:00:00.005794', u'stderr': u'', u'changed': True, u'invocation': {u'module_args': {u'creates': None, u'executable': None, u'_uses_shell': False, u'_raw_params': u'openssl verify -purpose sslserver\n -CAfile /home/cord/cord/build/platform-install/pki/mysite_im_ca/certs/im_cert_chain.pem\n /home/cord/cord/build/platform-install/pki/mysite_im_ca/certs/keystone.cord.lab_cert.pem', u'removes': None, u'warn': True, u'chdir': None, u'stdin': None}}, 'stdout_lines': [u'/home/cord/cord/build/platform-install/pki/mysite_im_ca/certs/keystone.cord.lab_cert.pem: OK'], u'start': u'2018-10-30 09:40:15.361308', '_ansible_ignore_errors': None, 'failed': False}) => {
+    "changed": false, 
+    "item": {
+        "changed": true, 
+        "cmd": [
+            "openssl", 
+            "verify", 
+            "-purpose", 
+            "sslserver", 
+            "-CAfile", 
+            "/home/cord/cord/build/platform-install/pki/mysite_im_ca/certs/im_cert_chain.pem", 
+            "/home/cord/cord/build/platform-install/pki/mysite_im_ca/certs/keystone.cord.lab_cert.pem"
+        ], 
+        "delta": "0:00:00.005794", 
+        "end": "2018-10-30 09:40:15.367102", 
+        "failed": false, 
+        "invocation": {
+            "module_args": {
+                "_raw_params": "openssl verify -purpose sslserver\n -CAfile /home/cord/cord/build/platform-install/pki/mysite_im_ca/certs/im_cert_chain.pem\n /home/cord/cord/build/platform-install/pki/mysite_im_ca/certs/keystone.cord.lab_cert.pem", 
+                "_uses_shell": false, 
+                "chdir": null, 
+                "creates": null, 
+                "executable": null, 
+                "removes": null, 
+                "stdin": null, 
+                "warn": true
+            }
+        }, 
+        "item": {
+            "altnames": [
+                "DNS:keystone.cord.lab", 
+                "DNS:keystone"
+            ], 
+            "cn": "keystone.cord.lab", 
+            "subj": "/C=US/ST=California/L=Menlo Park/O=ON.Lab/OU=MySite Deployment/CN=keystone.cord.lab"
+        }, 
+        "rc": 0, 
+        "start": "2018-10-30 09:40:15.361308", 
+        "stderr": "", 
+        "stderr_lines": [], 
+        "stdout": "/home/cord/cord/build/platform-install/pki/mysite_im_ca/certs/keystone.cord.lab_cert.pem: OK", 
+        "stdout_lines": [
+            "/home/cord/cord/build/platform-install/pki/mysite_im_ca/certs/keystone.cord.lab_cert.pem: OK"
+        ]
+    }, 
+    "msg": "All assertions passed"
+}
+ok: [localhost] => (item={'_ansible_parsed': True, 'stderr_lines': [], '_ansible_item_result': True, u'end': u'2018-10-30 09:40:15.484799', '_ansible_no_log': False, u'stdout': u'/home/cord/cord/build/platform-install/pki/mysite_im_ca/certs/xos-core.cord.lab_cert.pem: OK', u'cmd': [u'openssl', u'verify', u'-purpose', u'sslserver', u'-CAfile', u'/home/cord/cord/build/platform-install/pki/mysite_im_ca/certs/im_cert_chain.pem', u'/home/cord/cord/build/platform-install/pki/mysite_im_ca/certs/xos-core.cord.lab_cert.pem'], u'rc': 0, 'item': {u'altnames': [u'DNS:xos-core.cord.lab', u'DNS:xos-core'], u'subj': u'/C=US/ST=California/L=Menlo Park/O=ON.Lab/OU=MySite Deployment/CN=xos-core.cord.lab', u'cn': u'xos-core.cord.lab'}, u'delta': u'0:00:00.003578', u'stderr': u'', u'changed': True, u'invocation': {u'module_args': {u'creates': None, u'executable': None, u'_uses_shell': False, u'_raw_params': u'openssl verify -purpose sslserver\n -CAfile /home/cord/cord/build/platform-install/pki/mysite_im_ca/certs/im_cert_chain.pem\n /home/cord/cord/build/platform-install/pki/mysite_im_ca/certs/xos-core.cord.lab_cert.pem', u'removes': None, u'warn': True, u'chdir': None, u'stdin': None}}, 'stdout_lines': [u'/home/cord/cord/build/platform-install/pki/mysite_im_ca/certs/xos-core.cord.lab_cert.pem: OK'], u'start': u'2018-10-30 09:40:15.481221', '_ansible_ignore_errors': None, 'failed': False}) => {
+    "changed": false, 
+    "item": {
+        "changed": true, 
+        "cmd": [
+            "openssl", 
+            "verify", 
+            "-purpose", 
+            "sslserver", 
+            "-CAfile", 
+            "/home/cord/cord/build/platform-install/pki/mysite_im_ca/certs/im_cert_chain.pem", 
+            "/home/cord/cord/build/platform-install/pki/mysite_im_ca/certs/xos-core.cord.lab_cert.pem"
+        ], 
+        "delta": "0:00:00.003578", 
+        "end": "2018-10-30 09:40:15.484799", 
+        "failed": false, 
+        "invocation": {
+            "module_args": {
+                "_raw_params": "openssl verify -purpose sslserver\n -CAfile /home/cord/cord/build/platform-install/pki/mysite_im_ca/certs/im_cert_chain.pem\n /home/cord/cord/build/platform-install/pki/mysite_im_ca/certs/xos-core.cord.lab_cert.pem", 
+                "_uses_shell": false, 
+                "chdir": null, 
+                "creates": null, 
+                "executable": null, 
+                "removes": null, 
+                "stdin": null, 
+                "warn": true
+            }
+        }, 
+        "item": {
+            "altnames": [
+                "DNS:xos-core.cord.lab", 
+                "DNS:xos-core"
+            ], 
+            "cn": "xos-core.cord.lab", 
+            "subj": "/C=US/ST=California/L=Menlo Park/O=ON.Lab/OU=MySite Deployment/CN=xos-core.cord.lab"
+        }, 
+        "rc": 0, 
+        "start": "2018-10-30 09:40:15.481221", 
+        "stderr": "", 
+        "stderr_lines": [], 
+        "stdout": "/home/cord/cord/build/platform-install/pki/mysite_im_ca/certs/xos-core.cord.lab_cert.pem: OK", 
+        "stdout_lines": [
+            "/home/cord/cord/build/platform-install/pki/mysite_im_ca/certs/xos-core.cord.lab_cert.pem: OK"
+        ]
+    }, 
+    "msg": "All assertions passed"
+}
+
+TASK [pki-cert : Get the intermediate cert into im_cert var] ***********************************************************
+Tuesday 30 October 2018  09:40:15 -0500 (0:00:00.050)       0:00:08.515 ******* 
+changed: [localhost]
+
+TASK [pki-cert : Get the certs into server_certs var] ******************************************************************
+Tuesday 30 October 2018  09:40:15 -0500 (0:00:00.130)       0:00:08.645 ******* 
+changed: [localhost] => (item={u'altnames': [u'DNS:keystone.cord.lab', u'DNS:keystone'], u'subj': u'/C=US/ST=California/L=Menlo Park/O=ON.Lab/OU=MySite Deployment/CN=keystone.cord.lab', u'cn': u'keystone.cord.lab'})
+changed: [localhost] => (item={u'altnames': [u'DNS:xos-core.cord.lab', u'DNS:xos-core'], u'subj': u'/C=US/ST=California/L=Menlo Park/O=ON.Lab/OU=MySite Deployment/CN=xos-core.cord.lab', u'cn': u'xos-core.cord.lab'})
+
+TASK [pki-cert : Create chained server certs] **************************************************************************
+Tuesday 30 October 2018  09:40:15 -0500 (0:00:00.306)       0:00:08.951 ******* 
+ok: [localhost] => (item={'_ansible_parsed': True, 'stderr_lines': [], '_ansible_item_result': True, u'end': u'2018-10-30 09:40:15.802882', '_ansible_no_log': False, u'stdout': u'-----BEGIN CERTIFICATE-----\nMIIFoTCCA4mgAwIBAgIBATANBgkqhkiG9w0BAQsFADBuMQswCQYDVQQGEwJVUzET\nMBEGA1UECAwKQ2FsaWZvcm5pYTEPMA0GA1UECgwGT04uTGFiMRgwFgYDVQQLDA9U\nZXN0IERlcGxveW1lbnQxHzAdBgNVBAMMFk15U2l0ZSBJbnRlcm1lZGlhdGUgQ0Ew\nHhcNMTgxMDMwMTQyNTM1WhcNMTkxMDMwMTQyNTM1WjCBgDELMAkGA1UEBhMCVVMx\nEzARBgNVBAgMCkNhbGlmb3JuaWExEzARBgNVBAcMCk1lbmxvIFBhcmsxDzANBgNV\nBAoMBk9OLkxhYjEaMBgGA1UECwwRTXlTaXRlIERlcGxveW1lbnQxGjAYBgNVBAMM\nEWtleXN0b25lLmNvcmQubGFiMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC\nAQEAnP4so6o6AdLUvM4aY3ibLG0N5t8Me6S/RaIPVu0EBQ8RPf1gc8OTMNNeiMbG\ncuzOPvItnX6R3xoMof3aoUbZYUmxNW5A+iiryvoNsihMln0v3JAKGibHNgrzV5N2\n8m9fbBh6OftQqhfJt3zl3eLbx77IvFgsdQKhQT1C9smlXUqIe/CJVbFJuXWKmOx4\n1O92dzoUdZ4mvwKseH7GAFDL31bb9QL4vf1qWu387y6moCDfBBrTxL9VrpNzl7sa\nVGe0fZixM/xJDEpuYXPRWWjSHZyr8tT19N/yme+hLKQnR8mI9auY1TBzRfFw4jF/\nXxQQ9ybYqHvDsy+Ln7XS0S65EQIDAQABo4IBNTCCATEwHQYDVR0OBBYEFEQ4PQ6E\nn+rxaMRL0aM0q+QkT3x2MIG3BgNVHSMEga8wgayAFJwhiFMW/bPWVsdLXyGgYLVP\ngmVZoYGPpIGMMIGJMQswCQYDVQQGEwJVUzETMBEGA1UECAwKQ2FsaWZvcm5pYTET\nMBEGA1UEBwwKTWVubG8gUGFyazEPMA0GA1UECgwGT04uTGFiMRgwFgYDVQQLDA9U\nZXN0IERlcGxveW1lbnQxJTAjBgNVBAMMHENPUkQgVGVzdCBEZXBsb3ltZW50IFJv\nb3QgQ0GCAhAAMAkGA1UdEwQCMAAwDgYDVR0PAQH/BAQDAgWgMBMGA1UdJQQMMAoG\nCCsGAQUFBwMBMCYGA1UdEQQfMB2CEWtleXN0b25lLmNvcmQubGFigghrZXlzdG9u\nZTANBgkqhkiG9w0BAQsFAAOCAgEAZYJzoUYmMne2w7GFqT76THks5daVfYNB6f+I\n3oP970mq4HFgAnShxvRrynwalqVIVusozUw7wJ7oaXCHXHKr2lHb1jWoEJsYKkn9\nggfHFyb0td68wfzd0LBYdUF51Krv6uuJuygSeG9+VxiNg+rsSnPdMJssDDuIipW5\ndi08nh8rjQhuzUzIjDTjzZRuUB9Ga22G/awVTg9IMCWAKWZHpB5QLclfBascZ9iJ\nvIeibB2iXB+yAUXVQBA20HJ4QKWmd4KDdKrO4uGjtr4BBkpLC1PwvE4FvQpLt2Tm\n9CIt/uici8opuK+rQ/+5b/opnh59gFWdqR0P2cgqVLFZvGx7byExtjB0xkcmf5jo\nggX8aNTnhZ7TrTajnl5nIkTnPXrnE/bO8PPIyliDdvTQTA3bebOma/TOZWTkaSpE\nYpV8pX6fnxnb5oJ5k0UqknPX41uSyoGCaupTl/j63UXbwOfkub/PsxWKfmUnlnYO\nGID3BVd+J5SEu29yVLQf/KiHdkyo+SuwbVzeN9BfLk8Oztw2gwsU0xwIOcd7hdP0\nnQ5TZ0e6rrWm4S41chi108g4hGSg3gwRZgxHZRFvNe7huAvLST3OpclbwbiUDKeS\nP+2ETooPzCae0IhtfnnkLUCXWj4JTyBhvKBqsgh3I2XHr5EhMgnVwZU12zRHI2Pd\nd81rb+k=\n-----END CERTIFICATE-----', u'cmd': [u'openssl', u'x509', u'-in', u'/home/cord/cord/build/platform-install/pki/mysite_im_ca/certs/keystone.cord.lab_cert.pem'], u'rc': 0, 'item': {u'altnames': [u'DNS:keystone.cord.lab', u'DNS:keystone'], u'subj': u'/C=US/ST=California/L=Menlo Park/O=ON.Lab/OU=MySite Deployment/CN=keystone.cord.lab', u'cn': u'keystone.cord.lab'}, u'delta': u'0:00:00.002996', u'stderr': u'', u'changed': True, u'invocation': {u'module_args': {u'creates': None, u'executable': None, u'_uses_shell': False, u'_raw_params': u'openssl x509 -in /home/cord/cord/build/platform-install/pki/mysite_im_ca/certs/keystone.cord.lab_cert.pem', u'removes': None, u'warn': True, u'chdir': None, u'stdin': None}}, 'stdout_lines': [u'-----BEGIN CERTIFICATE-----', u'MIIFoTCCA4mgAwIBAgIBATANBgkqhkiG9w0BAQsFADBuMQswCQYDVQQGEwJVUzET', u'MBEGA1UECAwKQ2FsaWZvcm5pYTEPMA0GA1UECgwGT04uTGFiMRgwFgYDVQQLDA9U', u'ZXN0IERlcGxveW1lbnQxHzAdBgNVBAMMFk15U2l0ZSBJbnRlcm1lZGlhdGUgQ0Ew', u'HhcNMTgxMDMwMTQyNTM1WhcNMTkxMDMwMTQyNTM1WjCBgDELMAkGA1UEBhMCVVMx', u'EzARBgNVBAgMCkNhbGlmb3JuaWExEzARBgNVBAcMCk1lbmxvIFBhcmsxDzANBgNV', u'BAoMBk9OLkxhYjEaMBgGA1UECwwRTXlTaXRlIERlcGxveW1lbnQxGjAYBgNVBAMM', u'EWtleXN0b25lLmNvcmQubGFiMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC', u'AQEAnP4so6o6AdLUvM4aY3ibLG0N5t8Me6S/RaIPVu0EBQ8RPf1gc8OTMNNeiMbG', u'cuzOPvItnX6R3xoMof3aoUbZYUmxNW5A+iiryvoNsihMln0v3JAKGibHNgrzV5N2', u'8m9fbBh6OftQqhfJt3zl3eLbx77IvFgsdQKhQT1C9smlXUqIe/CJVbFJuXWKmOx4', u'1O92dzoUdZ4mvwKseH7GAFDL31bb9QL4vf1qWu387y6moCDfBBrTxL9VrpNzl7sa', u'VGe0fZixM/xJDEpuYXPRWWjSHZyr8tT19N/yme+hLKQnR8mI9auY1TBzRfFw4jF/', u'XxQQ9ybYqHvDsy+Ln7XS0S65EQIDAQABo4IBNTCCATEwHQYDVR0OBBYEFEQ4PQ6E', u'n+rxaMRL0aM0q+QkT3x2MIG3BgNVHSMEga8wgayAFJwhiFMW/bPWVsdLXyGgYLVP', u'gmVZoYGPpIGMMIGJMQswCQYDVQQGEwJVUzETMBEGA1UECAwKQ2FsaWZvcm5pYTET', u'MBEGA1UEBwwKTWVubG8gUGFyazEPMA0GA1UECgwGT04uTGFiMRgwFgYDVQQLDA9U', u'ZXN0IERlcGxveW1lbnQxJTAjBgNVBAMMHENPUkQgVGVzdCBEZXBsb3ltZW50IFJv', u'b3QgQ0GCAhAAMAkGA1UdEwQCMAAwDgYDVR0PAQH/BAQDAgWgMBMGA1UdJQQMMAoG', u'CCsGAQUFBwMBMCYGA1UdEQQfMB2CEWtleXN0b25lLmNvcmQubGFigghrZXlzdG9u', u'ZTANBgkqhkiG9w0BAQsFAAOCAgEAZYJzoUYmMne2w7GFqT76THks5daVfYNB6f+I', u'3oP970mq4HFgAnShxvRrynwalqVIVusozUw7wJ7oaXCHXHKr2lHb1jWoEJsYKkn9', u'ggfHFyb0td68wfzd0LBYdUF51Krv6uuJuygSeG9+VxiNg+rsSnPdMJssDDuIipW5', u'di08nh8rjQhuzUzIjDTjzZRuUB9Ga22G/awVTg9IMCWAKWZHpB5QLclfBascZ9iJ', u'vIeibB2iXB+yAUXVQBA20HJ4QKWmd4KDdKrO4uGjtr4BBkpLC1PwvE4FvQpLt2Tm', u'9CIt/uici8opuK+rQ/+5b/opnh59gFWdqR0P2cgqVLFZvGx7byExtjB0xkcmf5jo', u'ggX8aNTnhZ7TrTajnl5nIkTnPXrnE/bO8PPIyliDdvTQTA3bebOma/TOZWTkaSpE', u'YpV8pX6fnxnb5oJ5k0UqknPX41uSyoGCaupTl/j63UXbwOfkub/PsxWKfmUnlnYO', u'GID3BVd+J5SEu29yVLQf/KiHdkyo+SuwbVzeN9BfLk8Oztw2gwsU0xwIOcd7hdP0', u'nQ5TZ0e6rrWm4S41chi108g4hGSg3gwRZgxHZRFvNe7huAvLST3OpclbwbiUDKeS', u'P+2ETooPzCae0IhtfnnkLUCXWj4JTyBhvKBqsgh3I2XHr5EhMgnVwZU12zRHI2Pd', u'd81rb+k=', u'-----END CERTIFICATE-----'], u'start': u'2018-10-30 09:40:15.799886', '_ansible_ignore_errors': None, 'failed': False})
+ok: [localhost] => (item={'_ansible_parsed': True, 'stderr_lines': [], '_ansible_item_result': True, u'end': u'2018-10-30 09:40:15.953884', '_ansible_no_log': False, u'stdout': u'-----BEGIN CERTIFICATE-----\nMIIFoTCCA4mgAwIBAgIBAjANBgkqhkiG9w0BAQsFADBuMQswCQYDVQQGEwJVUzET\nMBEGA1UECAwKQ2FsaWZvcm5pYTEPMA0GA1UECgwGT04uTGFiMRgwFgYDVQQLDA9U\nZXN0IERlcGxveW1lbnQxHzAdBgNVBAMMFk15U2l0ZSBJbnRlcm1lZGlhdGUgQ0Ew\nHhcNMTgxMDMwMTQyNTM1WhcNMTkxMDMwMTQyNTM1WjCBgDELMAkGA1UEBhMCVVMx\nEzARBgNVBAgMCkNhbGlmb3JuaWExEzARBgNVBAcMCk1lbmxvIFBhcmsxDzANBgNV\nBAoMBk9OLkxhYjEaMBgGA1UECwwRTXlTaXRlIERlcGxveW1lbnQxGjAYBgNVBAMM\nEXhvcy1jb3JlLmNvcmQubGFiMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC\nAQEA0FzOsuOt95VTLVShbEHyPbh8PHkH3uE87vZXky6XjMHHWz4G7jQYybpGZ4X2\nLtTF3kK0QIWfrMgPDuOv0fdfWxBcNT9Gz9CRw7ek/4P9huOmFkS0jFz19A0jMmKv\ns37vQikGbXTZ2PRGPEVK7SdLNuWG/uxHIAyFgZ+Oppjp67iL6C4ZxDd/LWx3tGNu\nQPO5NfFyUUmWFFLD8axQcSeCW7eGL9+moZVr6QDbYo4cwxgrL+ryZoltM3gUbkrt\nUWiUVW3E1sUYks/k+PuURVuaEASlQG5Gw1UwnurK0Du+FZ6FRVIzwQusnu0ySnnc\na3b5yXcg3u5T99tbCjghXJkUQQIDAQABo4IBNTCCATEwHQYDVR0OBBYEFOH34Xii\nxs22Id6g1rwbrlAcCNkPMIG3BgNVHSMEga8wgayAFJwhiFMW/bPWVsdLXyGgYLVP\ngmVZoYGPpIGMMIGJMQswCQYDVQQGEwJVUzETMBEGA1UECAwKQ2FsaWZvcm5pYTET\nMBEGA1UEBwwKTWVubG8gUGFyazEPMA0GA1UECgwGT04uTGFiMRgwFgYDVQQLDA9U\nZXN0IERlcGxveW1lbnQxJTAjBgNVBAMMHENPUkQgVGVzdCBEZXBsb3ltZW50IFJv\nb3QgQ0GCAhAAMAkGA1UdEwQCMAAwDgYDVR0PAQH/BAQDAgWgMBMGA1UdJQQMMAoG\nCCsGAQUFBwMBMCYGA1UdEQQfMB2CEXhvcy1jb3JlLmNvcmQubGFiggh4b3MtY29y\nZTANBgkqhkiG9w0BAQsFAAOCAgEAHGlQQe5MVNMjzVhTuMAObplzkU4cVbx7V2Gw\nuy6B+E2Dm4/7zPGBIPWNe/NBXQSD0W+nAclf4HQ4Ie5uRTlWMkI0L2de4Cl42tEa\nHJ0JWm0rGP2wpVqq9Zhciqykso+kXXiCgCGSROrrzUDkfjxuUIWV2OuOS+5sNw9v\nRoiVhTAuuxbgNRUrY8y6+KzRUg96XOcxkbKoem8iPOlrcynY6/dGh/f1pmBgYseL\nmOqzEUDgiZJo8bGXhv8T7yIgQISjM6Oc6mDjjUugbWTUt/Mj31a8BDvHG3Hnb1AW\nMYLBkLJhCKootgh9KdxWR0m+ttxRejMrvD5jAaCHPQJP+/pF1UEkWchi8Xkg3QJJ\ntnzJEF4Q22PzXbETyRPqai7oIr/JgSieUnu46sG0ELjZVG+dCDhi1ZKi+IbbSVbs\ngRtvckaH3f+CfPNbjVearSRzM1bc4wevA4gTJXWpbdi+eTVpK3AnMl5uk0Ibn34f\nMr7hkKQMIMYOsYgDxd7OGIzA/Fr6VP3dTWss32ZKV3mat8aS+yqHnVK9ktS9Q3NK\nws7KVOggPqitMdWfM3BCUt+f5hjht6JAilKJSoYoLnHMVWuO5w4tiziD4W7tFwNq\nfB78o/J8ieuuh0JDh4odPeXWMsKaYVDgAKee7EeLprbFKTgXlCymLUW7oI64wxtK\nnnAqI7U=\n-----END CERTIFICATE-----', u'cmd': [u'openssl', u'x509', u'-in', u'/home/cord/cord/build/platform-install/pki/mysite_im_ca/certs/xos-core.cord.lab_cert.pem'], u'rc': 0, 'item': {u'altnames': [u'DNS:xos-core.cord.lab', u'DNS:xos-core'], u'subj': u'/C=US/ST=California/L=Menlo Park/O=ON.Lab/OU=MySite Deployment/CN=xos-core.cord.lab', u'cn': u'xos-core.cord.lab'}, u'delta': u'0:00:00.003250', u'stderr': u'', u'changed': True, u'invocation': {u'module_args': {u'creates': None, u'executable': None, u'_uses_shell': False, u'_raw_params': u'openssl x509 -in /home/cord/cord/build/platform-install/pki/mysite_im_ca/certs/xos-core.cord.lab_cert.pem', u'removes': None, u'warn': True, u'chdir': None, u'stdin': None}}, 'stdout_lines': [u'-----BEGIN CERTIFICATE-----', u'MIIFoTCCA4mgAwIBAgIBAjANBgkqhkiG9w0BAQsFADBuMQswCQYDVQQGEwJVUzET', u'MBEGA1UECAwKQ2FsaWZvcm5pYTEPMA0GA1UECgwGT04uTGFiMRgwFgYDVQQLDA9U', u'ZXN0IERlcGxveW1lbnQxHzAdBgNVBAMMFk15U2l0ZSBJbnRlcm1lZGlhdGUgQ0Ew', u'HhcNMTgxMDMwMTQyNTM1WhcNMTkxMDMwMTQyNTM1WjCBgDELMAkGA1UEBhMCVVMx', u'EzARBgNVBAgMCkNhbGlmb3JuaWExEzARBgNVBAcMCk1lbmxvIFBhcmsxDzANBgNV', u'BAoMBk9OLkxhYjEaMBgGA1UECwwRTXlTaXRlIERlcGxveW1lbnQxGjAYBgNVBAMM', u'EXhvcy1jb3JlLmNvcmQubGFiMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC', u'AQEA0FzOsuOt95VTLVShbEHyPbh8PHkH3uE87vZXky6XjMHHWz4G7jQYybpGZ4X2', u'LtTF3kK0QIWfrMgPDuOv0fdfWxBcNT9Gz9CRw7ek/4P9huOmFkS0jFz19A0jMmKv', u's37vQikGbXTZ2PRGPEVK7SdLNuWG/uxHIAyFgZ+Oppjp67iL6C4ZxDd/LWx3tGNu', u'QPO5NfFyUUmWFFLD8axQcSeCW7eGL9+moZVr6QDbYo4cwxgrL+ryZoltM3gUbkrt', u'UWiUVW3E1sUYks/k+PuURVuaEASlQG5Gw1UwnurK0Du+FZ6FRVIzwQusnu0ySnnc', u'a3b5yXcg3u5T99tbCjghXJkUQQIDAQABo4IBNTCCATEwHQYDVR0OBBYEFOH34Xii', u'xs22Id6g1rwbrlAcCNkPMIG3BgNVHSMEga8wgayAFJwhiFMW/bPWVsdLXyGgYLVP', u'gmVZoYGPpIGMMIGJMQswCQYDVQQGEwJVUzETMBEGA1UECAwKQ2FsaWZvcm5pYTET', u'MBEGA1UEBwwKTWVubG8gUGFyazEPMA0GA1UECgwGT04uTGFiMRgwFgYDVQQLDA9U', u'ZXN0IERlcGxveW1lbnQxJTAjBgNVBAMMHENPUkQgVGVzdCBEZXBsb3ltZW50IFJv', u'b3QgQ0GCAhAAMAkGA1UdEwQCMAAwDgYDVR0PAQH/BAQDAgWgMBMGA1UdJQQMMAoG', u'CCsGAQUFBwMBMCYGA1UdEQQfMB2CEXhvcy1jb3JlLmNvcmQubGFiggh4b3MtY29y', u'ZTANBgkqhkiG9w0BAQsFAAOCAgEAHGlQQe5MVNMjzVhTuMAObplzkU4cVbx7V2Gw', u'uy6B+E2Dm4/7zPGBIPWNe/NBXQSD0W+nAclf4HQ4Ie5uRTlWMkI0L2de4Cl42tEa', u'HJ0JWm0rGP2wpVqq9Zhciqykso+kXXiCgCGSROrrzUDkfjxuUIWV2OuOS+5sNw9v', u'RoiVhTAuuxbgNRUrY8y6+KzRUg96XOcxkbKoem8iPOlrcynY6/dGh/f1pmBgYseL', u'mOqzEUDgiZJo8bGXhv8T7yIgQISjM6Oc6mDjjUugbWTUt/Mj31a8BDvHG3Hnb1AW', u'MYLBkLJhCKootgh9KdxWR0m+ttxRejMrvD5jAaCHPQJP+/pF1UEkWchi8Xkg3QJJ', u'tnzJEF4Q22PzXbETyRPqai7oIr/JgSieUnu46sG0ELjZVG+dCDhi1ZKi+IbbSVbs', u'gRtvckaH3f+CfPNbjVearSRzM1bc4wevA4gTJXWpbdi+eTVpK3AnMl5uk0Ibn34f', u'Mr7hkKQMIMYOsYgDxd7OGIzA/Fr6VP3dTWss32ZKV3mat8aS+yqHnVK9ktS9Q3NK', u'ws7KVOggPqitMdWfM3BCUt+f5hjht6JAilKJSoYoLnHMVWuO5w4tiziD4W7tFwNq', u'fB78o/J8ieuuh0JDh4odPeXWMsKaYVDgAKee7EeLprbFKTgXlCymLUW7oI64wxtK', u'nnAqI7U=', u'-----END CERTIFICATE-----'], u'start': u'2018-10-30 09:40:15.950634', '_ansible_ignore_errors': None, 'failed': False})
+
+TASK [pki-cert : Generate client private key (no pw)] ******************************************************************
+Tuesday 30 October 2018  09:40:16 -0500 (0:00:00.394)       0:00:09.346 ******* 
+
+TASK [pki-cert : Generate client-specific openssl config] **************************************************************
+Tuesday 30 October 2018  09:40:16 -0500 (0:00:00.019)       0:00:09.365 ******* 
+
+TASK [pki-cert : Generate client CSR] **********************************************************************************
+Tuesday 30 October 2018  09:40:16 -0500 (0:00:00.019)       0:00:09.385 ******* 
+
+TASK [pki-cert : Sign client cert] *************************************************************************************
+Tuesday 30 October 2018  09:40:16 -0500 (0:00:00.026)       0:00:09.411 ******* 
+
+TASK [pki-cert : Verify cert against root + im chain] ******************************************************************
+Tuesday 30 October 2018  09:40:16 -0500 (0:00:00.023)       0:00:09.435 ******* 
+
+TASK [pki-cert : Assert that verify of cert succeeded] *****************************************************************
+Tuesday 30 October 2018  09:40:16 -0500 (0:00:00.022)       0:00:09.457 ******* 
+
+TASK [pki-cert : Get the certs into client_certs var] ******************************************************************
+Tuesday 30 October 2018  09:40:16 -0500 (0:00:00.019)       0:00:09.477 ******* 
+
+TASK [pki-cert : Create chained client cert] ***************************************************************************
+Tuesday 30 October 2018  09:40:16 -0500 (0:00:00.018)       0:00:09.495 ******* 
+
+TASK [ssh-pki : Create SSH CA Directory] *******************************************************************************
+Tuesday 30 October 2018  09:40:16 -0500 (0:00:00.015)       0:00:09.510 ******* 
+ok: [localhost] => (item=/home/cord/cord/build/platform-install/ssh_pki)
+ok: [localhost] => (item=/home/cord/cord/build/platform-install/ssh_pki/ca)
+ok: [localhost] => (item=/home/cord/cord/build/platform-install/ssh_pki/client_certs)
+ok: [localhost] => (item=/home/cord/cord/build/platform-install/ssh_pki/host_certs)
+
+TASK [ssh-pki : Generate SSH CA Cert] **********************************************************************************
+Tuesday 30 October 2018  09:40:16 -0500 (0:00:00.450)       0:00:09.961 ******* 
+ok: [localhost]
+
+TASK [ssh-pki : Generate SSH Client Certs] *****************************************************************************
+Tuesday 30 October 2018  09:40:17 -0500 (0:00:00.113)       0:00:10.075 ******* 
+ok: [localhost] => (item={u'name': u'headnode'})
+
+TASK [ssh-pki : Sign SSH Client Certs with SSH CA] *********************************************************************
+Tuesday 30 October 2018  09:40:17 -0500 (0:00:00.172)       0:00:10.247 ******* 
+ok: [localhost] => (item={u'name': u'headnode'})
+
+TASK [ssh-pki : Generate SSH Host Certs] *******************************************************************************
+Tuesday 30 October 2018  09:40:17 -0500 (0:00:00.124)       0:00:10.371 ******* 
+
+TASK [ssh-pki : Generate SSH Host Certs] *******************************************************************************
+Tuesday 30 October 2018  09:40:17 -0500 (0:00:00.025)       0:00:10.397 ******* 
+
+PLAY [Create CORD profile] *********************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************
+Tuesday 30 October 2018  09:40:17 -0500 (0:00:00.031)       0:00:10.429 ******* 
+ok: [localhost]
+
+TASK [cord-profile : Create cord_profile directory] ********************************************************************
+Tuesday 30 October 2018  09:40:18 -0500 (0:00:00.634)       0:00:11.063 ******* 
+ok: [localhost]
+
+TASK [cord-profile : Create cord_profile/profile_name file containing profile name] ************************************
+Tuesday 30 October 2018  09:40:18 -0500 (0:00:00.185)       0:00:11.249 ******* 
+changed: [localhost]
+
+TASK [cord-profile : Create subdirectories inside cord_profile directory] **********************************************
+Tuesday 30 October 2018  09:40:18 -0500 (0:00:00.372)       0:00:11.622 ******* 
+changed: [localhost] => (item=key_import)
+changed: [localhost] => (item=images)
+
+TASK [cord-profile : Copy ssh private key to node_key file] ************************************************************
+Tuesday 30 October 2018  09:40:18 -0500 (0:00:00.281)       0:00:11.904 ******* 
+changed: [localhost]
+
+TASK [cord-profile : Copy ssh public key to node_key.pub file] *********************************************************
+Tuesday 30 October 2018  09:40:19 -0500 (0:00:00.145)       0:00:12.049 ******* 
+changed: [localhost]
+
+TASK [cord-profile : Copy ssh private key to key_import directory for services that require it] ************************
+Tuesday 30 October 2018  09:40:19 -0500 (0:00:00.133)       0:00:12.183 ******* 
+changed: [localhost] => (item={u'synchronizer': True, u'path': u'orchestration/xos_services/olt-service', u'keypair': u'volt_rsa', u'name': u'volt'})
+changed: [localhost] => (item={u'path': u'orchestration/xos_services/vtn-service', u'keypair': u'vsg_rsa', u'name': u'vtn'})
+changed: [localhost] => (item={u'path': u'orchestration/xos_services/onos-service', u'keypair': u'onos_rsa', u'name': u'onos'})
+ok: [localhost] => (item={u'path': u'orchestration/xos_services/vsg', u'keypair': u'vsg_rsa', u'name': u'vsg'})
+ok: [localhost] => (item={u'path': u'orchestration/xos_services/vtr', u'keypair': u'vsg_rsa', u'name': u'vtr'})
+
+TASK [cord-profile : Copy ssh private key to key_import directory for dynamic services that require it] ****************
+Tuesday 30 October 2018  09:40:19 -0500 (0:00:00.542)       0:00:12.726 ******* 
+changed: [localhost] => (item={u'path': u'orchestration/xos_services/exampleservice', u'keypair': u'exampleservice_rsa', u'name': u'exampleservice'})
+
+TASK [cord-profile : Copy ssh public key to key_import directory for services that require it] *************************
+Tuesday 30 October 2018  09:40:19 -0500 (0:00:00.149)       0:00:12.875 ******* 
+changed: [localhost] => (item={u'synchronizer': True, u'path': u'orchestration/xos_services/olt-service', u'keypair': u'volt_rsa', u'name': u'volt'})
+changed: [localhost] => (item={u'path': u'orchestration/xos_services/vtn-service', u'keypair': u'vsg_rsa', u'name': u'vtn'})
+changed: [localhost] => (item={u'path': u'orchestration/xos_services/onos-service', u'keypair': u'onos_rsa', u'name': u'onos'})
+ok: [localhost] => (item={u'path': u'orchestration/xos_services/vsg', u'keypair': u'vsg_rsa', u'name': u'vsg'})
+ok: [localhost] => (item={u'path': u'orchestration/xos_services/vtr', u'keypair': u'vsg_rsa', u'name': u'vtr'})
+
+TASK [cord-profile : Copy ssh public key to key_import directory for dynamic services that require it] *****************
+Tuesday 30 October 2018  09:40:20 -0500 (0:00:00.622)       0:00:13.498 ******* 
+changed: [localhost] => (item={u'path': u'orchestration/xos_services/exampleservice', u'keypair': u'exampleservice_rsa', u'name': u'exampleservice'})
+
+TASK [cord-profile : Copy cert chain and core api key and cert] ********************************************************
+Tuesday 30 October 2018  09:40:20 -0500 (0:00:00.138)       0:00:13.636 ******* 
+changed: [localhost] => (item={u'dest': u'core_api_key.pem', u'src': u'mysite_im_ca/private/xos-core.cord.lab_key.pem'})
+changed: [localhost] => (item={u'dest': u'core_api_cert.pem', u'src': u'mysite_im_ca/certs/xos-core.cord.lab_cert_chain.pem'})
+changed: [localhost] => (item={u'dest': u'im_cert_chain.pem', u'src': u'mysite_im_ca/certs/im_cert_chain.pem'})
+
+TASK [cord-profile : Copy over commonly used and utility TOSCA files] **************************************************
+Tuesday 30 October 2018  09:40:21 -0500 (0:00:00.551)       0:00:14.188 ******* 
+changed: [localhost] => (item=fixtures.yaml)
+
+TASK [cord-profile : Create templated XOS configuration files] *********************************************************
+Tuesday 30 October 2018  09:40:21 -0500 (0:00:00.201)       0:00:14.389 ******* 
+changed: [localhost] => (item=xos_config.yaml)
+changed: [localhost] => (item=xos_config_synchronizer.yaml)
+changed: [localhost] => (item=initial_data.yaml)
+changed: [localhost] => (item=deployment.yaml)
+changed: [localhost] => (item=gateway-config.yml)
+changed: [localhost] => (item=style.config.js)
+changed: [localhost] => (item=app.config.js)
+changed: [localhost] => (item=Dockerfile.xos)
+changed: [localhost] => (item=docker-compose.yml)
+changed: [localhost] => (item=xos-tosca.config.yaml)
+
+TASK [cord-profile : Set cord_profile_src_dir] *************************************************************************
+Tuesday 30 October 2018  09:40:23 -0500 (0:00:02.113)       0:00:16.503 ******* 
+ok: [localhost]
+
+TASK [cord-profile : debug] ********************************************************************************************
+Tuesday 30 October 2018  09:40:23 -0500 (0:00:00.027)       0:00:16.531 ******* 
+skipping: [localhost]
+
+TASK [cord-profile : Create profile specific templated TOSCA config files] *********************************************
+Tuesday 30 October 2018  09:40:23 -0500 (0:00:00.020)       0:00:16.551 ******* 
+changed: [localhost] => (item=vtn-service.yaml)
+changed: [localhost] => (item=fabric-service.yaml)
+changed: [localhost] => (item=management-net.yaml)
+changed: [localhost] => (item=cord-services.yaml)
+changed: [localhost] => (item=public-net.yaml)
+changed: [localhost] => (item=service-graph-constraints.yaml)
+changed: [localhost] => (item=xos-gui-extensions.yml)
+
+TASK [cord-profile : Create profile specific templated non-TOSCA files] ************************************************
+Tuesday 30 October 2018  09:40:25 -0500 (0:00:01.568)       0:00:18.120 ******* 
+
+TASK [cord-profile : Create OpenStack config and TOSCA onboarding] *****************************************************
+Tuesday 30 October 2018  09:40:25 -0500 (0:00:00.024)       0:00:18.144 ******* 
+changed: [localhost] => (item=openstack.yaml)
+changed: [localhost] => (item=admin-openrc.sh)
+
+PLAY [Generate config for dynamic services] ****************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************
+Tuesday 30 October 2018  09:40:25 -0500 (0:00:00.431)       0:00:18.576 ******* 
+ok: [localhost]
+
+TASK [xos-services-config : Create to host services docker-compose.yml] ************************************************
+Tuesday 30 October 2018  09:40:26 -0500 (0:00:00.576)       0:00:19.152 ******* 
+changed: [localhost]
+
+TASK [xos-services-config : Copy docker-compose.yaml from the service repo] ********************************************
+Tuesday 30 October 2018  09:40:26 -0500 (0:00:00.163)       0:00:19.315 ******* 
+changed: [localhost] => (item={u'path': u'orchestration/xos_services/exampleservice', u'keypair': u'exampleservice_rsa', u'name': u'exampleservice'})
+
+PLAY RECAP *************************************************************************************************************
+localhost                  : ok=66   changed=24   unreachable=0    failed=0   
+
+Tuesday 30 October 2018  09:40:26 -0500 (0:00:00.241)       0:00:19.557 ******* 
+=============================================================================== 
+cord-profile : Create templated XOS configuration files --------------------------------------------------------- 2.11s
+cord-profile : Create profile specific templated TOSCA config files --------------------------------------------- 1.57s
+Gathering Facts ------------------------------------------------------------------------------------------------- 0.86s
+pki-intermediate-ca : Create subdirs for intermediate CA -------------------------------------------------------- 0.68s
+Gathering Facts ------------------------------------------------------------------------------------------------- 0.63s
+cord-profile : Copy ssh public key to key_import directory for services that require it ------------------------- 0.62s
+Gathering Facts ------------------------------------------------------------------------------------------------- 0.58s
+cord-profile : Copy cert chain and core api key and cert -------------------------------------------------------- 0.55s
+cord-profile : Copy ssh private key to key_import directory for services that require it ------------------------ 0.54s
+pki-cert : Generate server-specific openssl config -------------------------------------------------------------- 0.47s
+create-configdirs-become : Create SSH CA Directory -------------------------------------------------------------- 0.46s
+ssh-pki : Create SSH CA Directory ------------------------------------------------------------------------------- 0.45s
+cord-profile : Create OpenStack config and TOSCA onboarding ----------------------------------------------------- 0.43s
+pki-cert : Create chained server certs -------------------------------------------------------------------------- 0.39s
+cord-profile : Create cord_profile/profile_name file containing profile name ------------------------------------ 0.37s
+pki-root-ca : Create subdirs for root CA ------------------------------------------------------------------------ 0.34s
+pki-cert : Get the certs into server_certs var ------------------------------------------------------------------ 0.31s
+pki-cert : Generate server CSR ---------------------------------------------------------------------------------- 0.28s
+cord-profile : Create subdirectories inside cord_profile directory ---------------------------------------------- 0.28s
+pki-root-ca : Save root passphrase to root_ca/private/ca_root_phrase -------------------------------------------- 0.27s
+rm -rf /home/cord/cord_profile/genconfig
+cp -r ./genconfig /home/cord/cord_profile/genconfig
+touch milestones/cord-config
+ansible-playbook --skip-tags "set_compute_node_password,switch_support,reboot,interface_config" -i ./genconfig/inventory.ini --extra-vars @./genconfig/config.yml ./platform-install/copy-profile-playbook.yml 2>&1 | tee -a /home/cord/cord/build/logs/20181030T093839Z_copy-config
+ansible-playbook --skip-tags "set_compute_node_password,switch_support,reboot,interface_config" -i ./genconfig/inventory.ini --extra-vars @./genconfig/config.yml ./platform-install/prep-buildnode-playbook.yml 2>&1 | tee -a /home/cord/cord/build/logs/20181030T093839Z_prep-buildnode
+
+PLAY [Install ansible on build node] *******************************************
+
+TASK [Gathering Facts] *********************************************************
+Tuesday 30 October 2018  09:40:27 -0500 (0:00:00.032)       0:00:00.032 ******* 
+
+PLAY [Copy cord_profile to head node from config node] *****************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************
+Tuesday 30 October 2018  09:40:27 -0500 (0:00:00.034)       0:00:00.034 ******* 
+ok: [corddev]
+
+TASK [ansible-install : Install prerequisites for using PPA repos] *************
+Tuesday 30 October 2018  09:40:30 -0500 (0:00:03.110)       0:00:03.142 ******* 
+ok: [head1]
+
+TASK [copy-profile : Copy (sync) the cord_profile directory structure to head node] ************************************
+Tuesday 30 October 2018  09:40:31 -0500 (0:00:03.872)       0:00:03.907 ******* 
+changed: [head1]
+
+TASK [copy-profile : Set ownership on cord_profile dir on head node] ***************************************************
+Tuesday 30 October 2018  09:40:31 -0500 (0:00:00.868)       0:00:04.775 ******* 
+changed: [head1]
+
+TASK [ssh-install : Create ~/.ssh directory] ***************************************************************************
+Tuesday 30 October 2018  09:40:32 -0500 (0:00:00.356)       0:00:05.131 ******* 
+ok: [head1]
+
+TASK [ssh-install : Install ssh private key] ***************************************************************************
+Tuesday 30 October 2018  09:40:32 -0500 (0:00:00.232)       0:00:05.364 ******* 
+changed: [head1]
+
+TASK [ssh-install : Install ssh public key] ****************************************************************************
+Tuesday 30 October 2018  09:40:33 -0500 (0:00:00.626)       0:00:05.990 ******* 
+changed: [head1]
+
+TASK [glance-images : Make images directory] ***************************************************************************
+Tuesday 30 October 2018  09:40:33 -0500 (0:00:00.428)       0:00:06.418 ******* 
+changed: [head1]
+
+TASK [glance-images : Download Glance VM images] ***********************************************************************
+Tuesday 30 October 2018  09:40:33 -0500 (0:00:00.251)       0:00:06.670 ******* 
+changed: [corddev] => (item=[u'python-pycurl', u'software-properties-common', u'python-netaddr'])
+
+TASK [ansible-install : Add Ansible PPA] ***************************************
+Tuesday 30 October 2018  09:40:40 -0500 (0:00:10.675)       0:00:13.818 ******* 
+changed: [corddev] => (item=ppa:ansible/ansible)
+
+TASK [ansible-install : Make sure Ansible is newest version] *******************
+Tuesday 30 October 2018  09:40:47 -0500 (0:00:06.200)       0:00:20.019 ******* 
+changed: [corddev]
+
+PLAY [Install docker on buildnode, configure] **********************************
+
+TASK [Gathering Facts] *********************************************************
+Tuesday 30 October 2018  09:41:04 -0500 (0:00:17.338)       0:00:37.357 ******* 
+ok: [corddev]
+
+TASK [docker-install : Prereqs and SSL support for apt for SSL] ****************
+Tuesday 30 October 2018  09:41:05 -0500 (0:00:01.394)       0:00:38.752 ******* 
+changed: [corddev] => (item=[u'apt-transport-https', u'ca-certificates', u'python-pip'])
+
+TASK [docker-install : Trust docker apt key] ***********************************
+Tuesday 30 October 2018  09:41:24 -0500 (0:00:18.494)       0:00:57.246 ******* 
+changed: [corddev]
+
+TASK [docker-install : Add docker apt repo] ************************************
+Tuesday 30 October 2018  09:41:24 -0500 (0:00:00.507)       0:00:57.753 ******* 
+changed: [corddev]
+
+TASK [docker-install : Install docker] *****************************************
+Tuesday 30 October 2018  09:41:32 -0500 (0:00:07.933)       0:01:05.687 ******* 
+changed: [corddev]
+
+TASK [docker-install : Configure Docker] ***************************************
+Tuesday 30 October 2018  09:41:45 -0500 (0:00:13.144)       0:01:18.831 ******* 
+changed: [corddev]
+
+TASK [docker-install : Install docker-compose, docker python module, imagebuilder deps via pip] ***
+Tuesday 30 October 2018  09:41:46 -0500 (0:00:00.590)       0:01:19.422 ******* 
+changed: [corddev] => (item=docker==2.6.1)
+changed: [corddev] => (item=docker-compose==1.15.0)
+changed: [corddev] => (item=gitpython)
+changed: [corddev] => (item=graphviz)
+
+TASK [docker-install : Make current user part of the Docker group] *************
+Tuesday 30 October 2018  09:41:53 -0500 (0:00:07.360)       0:01:26.783 ******* 
+changed: [corddev]
+
+RUNNING HANDLER [docker-install : restart docker] ******************************
+Tuesday 30 October 2018  09:41:54 -0500 (0:00:00.341)       0:01:27.125 ******* 
+changed: [corddev]
+
+PLAY RECAP *********************************************************************
+corddev                    : ok=13   changed=11   unreachable=0    failed=0   
+
+Tuesday 30 October 2018  09:41:55 -0500 (0:00:01.536)       0:01:28.661 ******* 
+=============================================================================== 
+docker-install : Prereqs and SSL support for apt for SSL --------------- 18.49s
+ansible-install : Make sure Ansible is newest version ------------------ 17.34s
+docker-install : Install docker ---------------------------------------- 13.14s
+ansible-install : Install prerequisites for using PPA repos ------------ 10.68s
+docker-install : Add docker apt repo ------------------------------------ 7.93s
+docker-install : Install docker-compose, docker python module, imagebuilder deps via pip --- 7.36s
+ansible-install : Add Ansible PPA --------------------------------------- 6.20s
+Gathering Facts --------------------------------------------------------- 3.11s
+docker-install : restart docker ----------------------------------------- 1.54s
+Gathering Facts --------------------------------------------------------- 1.39s
+docker-install : Configure Docker --------------------------------------- 0.59s
+docker-install : Trust docker apt key ----------------------------------- 0.51s
+docker-install : Make current user part of the Docker group ------------- 0.34s
+Waiting 20 seconds to timeout SSH ControlPersist, and so future ansible commands gain docker group membership
+sleep 20
+changed: [head1] => (item={u'url': u'https://github.com/opencord/platform-install/releases/download/vms/trusty-server-cloudimg-amd64-disk1.img.20170201', u'checksum': u'sha256:ebf007ba3ec1043b7cd011fc6668e2a1d1d4c69c41071e8513ab355df7a057cb', u'name': u'trusty-server-multi-nic'})
+touch milestones/prep-buildnode
+ssh corddev "cd /opt/cord/build; python ./scripts/imagebuilder.py -f ./genconfig/config.yml -l ./image_logs -g ./ib_graph.dot -a ./ib_actions.yml " 2>&1 | tee -a /home/cord/cord/build/logs/20181030T093839Z_docker-images
+ssh corddev "cd /opt/cord/build/maas; rm -f consul.image; make MAKE_CONFIG=.././genconfig/config.mk build" 2>&1 | tee -a /home/cord/cord/build/logs/20181030T093839Z_build-maas-images
+Using makefile configuration ".././genconfig/config.mk"
+make MAKE_CONFIG=/opt/cord/build/genconfig/config.mk CONFIG= -C automation build
+/bin/sh: 1: repo: not found
+/bin/sh: 1: repo: not found
+make[1]: Entering directory `/opt/cord/build/maas/automation'
+docker build  -f Dockerfile.automation \
+		-t opencord/maas-automation:candidate \
+		--label org.label-schema.build-date=2018-10-30T14:44:11Z \
+		--label org.label-schema.vcs-ref=8222fbcdb855cbaf3830afbb42e916424103a2f1 \
+		--label org.label-schema.vcs-ref-date=2018-03-30T19:30:24+0000 \
+		--label org.label-schema.version= .
+Sending build context to Docker daemon  1.484MB
+Step 1/12 : FROM golang:1.7-alpine as builder
+INFO:__main__:Master container list file: /opt/cord/build/docker_images.yml
+INFO:__main__:Filtering image list per 'docker_image_whitelist' in: /opt/cord/build/genconfig/config.yml
+INFO:__main__:Loading manifest file: /opt/cord/.repo/manifest.xml
+INFO:__main__:Manifest is on branch 'opencord/cord-5.0' with remote 'https://gerrit.opencord.org/'
+1.7-alpine: Pulling from library/golang
+90f4dba627d6: Pulling fs layer
+6ca70669e0c7: Pulling fs layer
+8afccc587e11: Pulling fs layer
+5d5d4c33684a: Pulling fs layer
+6865c91bf9e0: Pulling fs layer
+24ec77c4f34d: Pulling fs layer
+5d5d4c33684a: Waiting
+6865c91bf9e0: Waiting
+24ec77c4f34d: Waiting
+8afccc587e11: Verifying Checksum
+8afccc587e11: Download complete
+6ca70669e0c7: Verifying Checksum
+6ca70669e0c7: Download complete
+90f4dba627d6: Verifying Checksum
+90f4dba627d6: Download complete
+90f4dba627d6: Pull complete
+6865c91bf9e0: Verifying Checksum
+6865c91bf9e0: Download complete
+24ec77c4f34d: Verifying Checksum
+24ec77c4f34d: Download complete
+6ca70669e0c7: Pull complete
+8afccc587e11: Pull complete
+5d5d4c33684a: Verifying Checksum
+5d5d4c33684a: Download complete
+INFO:__main__:All parent images: xosproject/xos-client:candidate, xosproject/xos-synchronizer-base:candidate, node:7.9.0, ubuntu:14.04.5, nginx:candidate, alpine:latest, maven:3-jdk-8, nginx, xosproject/xos-gui-builder:candidate, xosproject/xos-base:candidate, xosproject/xos-libraries:candidate
+INFO:__main__:Saving DOT dependency graph to: /opt/cord/build/ib_graph.dot
+INFO:__main__:Preexisting and clean images: 
+INFO:__main__:Upstream images that must be fetched: gliderlabs/consul-server:0.6, gliderlabs/registrator:v7, nginx:1.13, onosproject/onos:1.12.0, redis:3.2, node:7.9.0, sebp/elk:564, maven:3-jdk-8, ubuntu:14.04.5, alpine:latest
+INFO:__main__:Clean, buildable images to attempt to fetch: opencord/mavenrepo:f0147873ff735ab00e63322ca284476f6b831475, xosproject/xos-base:d05de401d75eaf7db11b3636c17c27a718c5bbe3, xosproject/xos-postgres:d05de401d75eaf7db11b3636c17c27a718c5bbe3, xosproject/xos:d05de401d75eaf7db11b3636c17c27a718c5bbe3, xosproject/xos-libraries:d05de401d75eaf7db11b3636c17c27a718c5bbe3, xosproject/xos-corebuilder:d05de401d75eaf7db11b3636c17c27a718c5bbe3, xosproject/chameleon:d05de401d75eaf7db11b3636c17c27a718c5bbe3, xosproject/xos-client:d05de401d75eaf7db11b3636c17c27a718c5bbe3, xosproject/xos-synchronizer-base:d05de401d75eaf7db11b3636c17c27a718c5bbe3, xosproject/xos-tosca:08803a9e271343604486e5b1ef60f5a15999f929, xosproject/xos-ws:a263b67c0448ab9fd450424327cf70dadb4574d3, xosproject/xos-gui-builder:af2d1db0bd951c627897f31a19778731335151d2, xosproject/xos-gui:af2d1db0bd951c627897f31a19778731335151d2, xosproject/gui-extension-rcord:5aa2e4e1298d1e63817c4a6a3f757d7c442ab1cd, xosproject/gui-extension-vtr:e8b82be5e2aa43bc7d47b4d81e7927732d499755, xosproject/addressmanager-synchronizer:b441a77e77c7a4219a8882f5675223d5d7d99e9c, xosproject/openstack-synchronizer:6c0804cb8b53be2be4f574e74545e67619e5784a, xosproject/onos-synchronizer:a0f6aa8d9e73f3a0fe6e7424cceeaafd8a78a855, xosproject/volt-synchronizer:1bdcffa6b38ef492866bab5dd063a3bb6567513d, xosproject/vrouter-synchronizer:d9592c419aafc9d5db7a25bc45d40a2672fcc331, xosproject/vtn-synchronizer:4cc444173a3753c5c0e70937b3d6c9ff32c8ce9b, xosproject/vtr-synchronizer:e8b82be5e2aa43bc7d47b4d81e7927732d499755, xosproject/vsg-synchronizer:e96314ee6c7e51ef41d25e18c79dc93b597d7add, xosproject/fabric-synchronizer:2ca6e4b8fe462d4bbd0b7e1a1807791ebaa9657e, xosproject/exampleservice-synchronizer:84833a2e2509da488dc5e2ffd3857e358cb53f5e, xosproject/rcord-synchronizer:5aa2e4e1298d1e63817c4a6a3f757d7c442ab1cd
+INFO:__main__:Buildable images, due to unclean context or parents: 
+INFO:__main__:Attempting to fetch docker image: gliderlabs/consul-server:0.6
+INFO:__main__:Pulling from gliderlabs/consul-server
+5d5d4c33684a: Pull complete
+6865c91bf9e0: Pull complete
+24ec77c4f34d: Pull complete
+Digest: sha256:3f79ea057ef12518935ad981f62637d046a033eb10d28d5203c048837fedee58
+Status: Downloaded newer image for golang:1.7-alpine
+ ---> 974aa102bae2
+Step 2/12 : MAINTAINER Open Networking Laboratory <info@onlab.us>
+ ---> Running in fcea4e1e7572
+ ---> b1590d68b1dd
+Removing intermediate container fcea4e1e7572
+Step 3/12 : WORKDIR /go
+ ---> cf1edaf1250b
+Removing intermediate container c274c726784e
+Step 4/12 : ADD . /go/src/gerrit.opencord.org/maas/cord-maas-automation
+ ---> d121109fcea2
+Removing intermediate container 8eb485a68e09
+Step 5/12 : RUN go build -o /build/entry-point gerrit.opencord.org/maas/cord-maas-automation
+ ---> Running in 4b367d2a77c3
+INFO:__main__:Digest: sha256:f0604a3a9fef76102e0a094307ae795e5f14364a4c8e917261e9b938958c499b
+INFO:__main__:Status: Downloaded newer image for gliderlabs/consul-server:0.6
+INFO:__main__:Fetched image gliderlabs/consul-server:0.6, id: sha256:7cc356fb97a9aafb9edd096eb879d600f94fe602260623fe5666fbb3ca0ad67c
+INFO:__main__:Tagging id: 'sha256:7cc356fb97a9aafb9edd096eb879d600f94fe602260623fe5666fbb3ca0ad67c', repo: 'gliderlabs/consul-server', tag: '0.6'
+INFO:__main__:Tagging id: 'sha256:7cc356fb97a9aafb9edd096eb879d600f94fe602260623fe5666fbb3ca0ad67c', repo: 'gliderlabs/consul-server', tag: 'candidate'
+INFO:__main__:Attempting to fetch docker image: gliderlabs/registrator:v7
+INFO:__main__:Pulling from gliderlabs/registrator
+INFO:__main__:Digest: sha256:0caaf84db8d645993964a0225c0485e7853135bf368393ce5a3a2c854379d476
+INFO:__main__:Status: Downloaded newer image for gliderlabs/registrator:v7
+INFO:__main__:Fetched image gliderlabs/registrator:v7, id: sha256:0eb144a2bd9bf13d5ff770d4a5d1bfbb062ff88c3e0f99853c3271cb46590002
+INFO:__main__:Tagging id: 'sha256:0eb144a2bd9bf13d5ff770d4a5d1bfbb062ff88c3e0f99853c3271cb46590002', repo: 'gliderlabs/registrator', tag: 'v7'
+INFO:__main__:Tagging id: 'sha256:0eb144a2bd9bf13d5ff770d4a5d1bfbb062ff88c3e0f99853c3271cb46590002', repo: 'gliderlabs/registrator', tag: 'candidate'
+INFO:__main__:Attempting to fetch docker image: nginx:1.13
+INFO:__main__:Pulling from library/nginx
+ ---> a8d83005ab66
+Removing intermediate container 4b367d2a77c3
+Step 6/12 : FROM alpine:3.5
+3.5: Pulling from library/alpine
+24cc62de2ac9: Pulling fs layer
+24cc62de2ac9: Verifying Checksum
+24cc62de2ac9: Download complete
+24cc62de2ac9: Pull complete
+Digest: sha256:b9f282308e8a557a5d8941e6515bc8fa840586ec59dd6284ba1f1e6c81654020
+Status: Downloaded newer image for alpine:3.5
+ ---> dc496f71dbb5
+Step 7/12 : MAINTAINER Open Networking Laboratory <info@onlab.us>
+ ---> Running in bc605d1ac4dd
+INFO:__main__:Digest: sha256:b1d09e9718890e6ebbbd2bc319ef1611559e30ce1b6f56b2e3b479d9da51dc35
+INFO:__main__:Status: Downloaded newer image for nginx:1.13
+INFO:__main__:Fetched image nginx:1.13, id: sha256:ae513a47849c895a155ddfb868d6ba247f60240ec8495482eca74c4a2c13a881
+INFO:__main__:Tagging id: 'sha256:ae513a47849c895a155ddfb868d6ba247f60240ec8495482eca74c4a2c13a881', repo: 'nginx', tag: '1.13'
+INFO:__main__:Tagging id: 'sha256:ae513a47849c895a155ddfb868d6ba247f60240ec8495482eca74c4a2c13a881', repo: 'nginx', tag: 'candidate'
+INFO:__main__:Attempting to fetch docker image: onosproject/onos:1.12.0
+ ---> 58cd54eaabc9
+Removing intermediate container bc605d1ac4dd
+Step 8/12 : COPY --from=builder /build/entry-point /service/entry-point
+ ---> 37dfa78fef8a
+Removing intermediate container e10ec0484397
+Step 9/12 : LABEL org.label-schema.name "automation" org.label-schema.description "Provides automation of the compute node deployment and provisioning process" org.label-schema.vcs-url "https://gerrit.opencord.org/maas" org.label-schema.vendor "Open Networking Laboratory" org.label-schema.schema-version "1.0"
+ ---> Running in d4f335af72cf
+ ---> 94f95c4de679
+Removing intermediate container d4f335af72cf
+Step 10/12 : WORKDIR /service
+ ---> 2ec9c744cde5
+Removing intermediate container c0e07314659d
+Step 11/12 : ENTRYPOINT /service/entry-point
+ ---> Running in ff03650e5d24
+ ---> 2efbe22bbd5f
+Removing intermediate container ff03650e5d24
+Step 12/12 : LABEL org.label-schema.build-date '2018-10-30T14:44:11Z' org.label-schema.vcs-ref '8222fbcdb855cbaf3830afbb42e916424103a2f1' org.label-schema.vcs-ref-date '2018-03-30T19:30:24+0000' org.label-schema.version ''
+ ---> Running in 4e57958034c1
+ ---> 37a8a819518b
+Removing intermediate container 4e57958034c1
+Successfully built 37a8a819518b
+Successfully tagged opencord/maas-automation:candidate
+make[1]: Leaving directory `/opt/cord/build/maas/automation'
+make MAKE_CONFIG=/opt/cord/build/genconfig/config.mk CONFIG= -C config-generator build
+/bin/sh: 1: repo: not found
+/bin/sh: 1: repo: not found
+make[1]: Entering directory `/opt/cord/build/maas/config-generator'
+docker build  -f Dockerfile.generator \
+		-t opencord/maas-generator:candidate \
+		--label org.label-schema.build-date=2018-10-30T14:44:37Z \
+		--label org.label-schema.vcs-ref=8222fbcdb855cbaf3830afbb42e916424103a2f1 \
+		--label org.label-schema.vcs-ref-date=2018-03-30T19:30:24+0000 \
+		--label org.label-schema.version= .
+Sending build context to Docker daemon  201.2kB
+Step 1/14 : FROM golang:1.7-alpine as builder
+ ---> 974aa102bae2
+Step 2/14 : MAINTAINER Open Networking Laboratory <info@onlab.us>
+ ---> Using cache
+ ---> b1590d68b1dd
+Step 3/14 : WORKDIR /go
+ ---> Using cache
+ ---> cf1edaf1250b
+Step 4/14 : ADD . /go/src/gerrit.opencord.org/maas/config-generator
+INFO:__main__:Pulling from onosproject/onos
+ ---> 54e4e6aed8e0
+Removing intermediate container c2458898a39d
+Step 5/14 : RUN go build -o /build/entry-point gerrit.opencord.org/maas/config-generator
+ ---> Running in 1effedf6cd1b
+ ---> d17caddbb95b
+Removing intermediate container 1effedf6cd1b
+Step 6/14 : FROM alpine:3.5
+ ---> dc496f71dbb5
+Step 7/14 : MAINTAINER Open Networking Laboratory <info@onlab.us>
+ ---> Using cache
+ ---> 58cd54eaabc9
+Step 8/14 : COPY --from=builder /build/entry-point /service/entry-point
+ ---> 5016edd8c1a8
+Removing intermediate container 81ab4a44ffad
+Step 9/14 : COPY netconfig.tpl /service
+ ---> 3d8e65483313
+Removing intermediate container 9b8e6802f922
+Step 10/14 : EXPOSE 1337
+ ---> Running in 57fdcd3a372c
+ ---> c5d3799e9ab3
+Removing intermediate container 57fdcd3a372c
+Step 11/14 : LABEL org.label-schema.name "generator" org.label-schema.description "Provides generation of the fabric configuration" org.label-schema.vcs-url "https://gerrit.opencord.org/maas" org.label-schema.vendor "Open Networking Laboratory" org.label-schema.schema-version "1.0"
+ ---> Running in 71d9e43edbd2
+ ---> 55b237ff8634
+Removing intermediate container 71d9e43edbd2
+Step 12/14 : WORKDIR /service
+ ---> 2bfd11976f7f
+Removing intermediate container 214f30e71a2c
+Step 13/14 : ENTRYPOINT /service/entry-point
+ ---> Running in df4caff4e172
+ ---> b94afa2ea4b6
+Removing intermediate container df4caff4e172
+Step 14/14 : LABEL org.label-schema.build-date '2018-10-30T14:44:37Z' org.label-schema.vcs-ref '8222fbcdb855cbaf3830afbb42e916424103a2f1' org.label-schema.vcs-ref-date '2018-03-30T19:30:24+0000' org.label-schema.version ''
+ ---> Running in 673182f79588
+ ---> 68caca824116
+Removing intermediate container 673182f79588
+Successfully built 68caca824116
+Successfully tagged opencord/maas-generator:candidate
+make[1]: Leaving directory `/opt/cord/build/maas/config-generator'
+make MAKE_CONFIG=/opt/cord/build/genconfig/config.mk CONFIG= -C harvester build
+/bin/sh: 1: repo: not found
+/bin/sh: 1: repo: not found
+make[1]: Entering directory `/opt/cord/build/maas/harvester'
+docker build  -f Dockerfile.harvester \
+		-t opencord/maas-harvester:candidate \
+		--label org.label-schema.build-date=2018-10-30T14:44:50Z \
+		--label org.label-schema.vcs-ref=8222fbcdb855cbaf3830afbb42e916424103a2f1 \
+		--label org.label-schema.vcs-ref-date=2018-03-30T19:30:24+0000 \
+		--label org.label-schema.version= .
+Sending build context to Docker daemon  802.8kB
+Step 1/13 : FROM golang:1.7-alpine as builder
+ ---> 974aa102bae2
+Step 2/13 : MAINTAINER Open Networking Laboratory <info@onlab.us>
+ ---> Using cache
+ ---> b1590d68b1dd
+Step 3/13 : WORKDIR /go
+ ---> Using cache
+ ---> cf1edaf1250b
+Step 4/13 : ADD . /go/src/gerrit.opencord.org/maas/harvester
+ ---> 6af7ae80e168
+Removing intermediate container 89bc6f2ef710
+Step 5/13 : RUN go build -o /build/entry-point gerrit.opencord.org/maas/harvester
+ ---> Running in 5270b5bc9d59
+INFO:__main__:Digest: sha256:6e27a0ddc5c27206ee3ba4a9442f1d42f57ff5cb1a3bc0d0d24f8aafbab8d92e
+INFO:__main__:Status: Downloaded newer image for onosproject/onos:1.12.0
+INFO:__main__:Fetched image onosproject/onos:1.12.0, id: sha256:55bef17c55dd2f7d09e832fd31730801a5efee1c703afc1efcd9d25f03e490e4
+INFO:__main__:Tagging id: 'sha256:55bef17c55dd2f7d09e832fd31730801a5efee1c703afc1efcd9d25f03e490e4', repo: 'onosproject/onos', tag: '1.12.0'
+INFO:__main__:Tagging id: 'sha256:55bef17c55dd2f7d09e832fd31730801a5efee1c703afc1efcd9d25f03e490e4', repo: 'onosproject/onos', tag: 'candidate'
+INFO:__main__:Attempting to fetch docker image: redis:3.2
+INFO:__main__:Pulling from library/redis
+ ---> 9e172d111272
+Removing intermediate container 5270b5bc9d59
+Step 6/13 : FROM alpine:3.5
+ ---> dc496f71dbb5
+Step 7/13 : MAINTAINER "Open Networking Laboratory <info@onlab.us>"
+ ---> Running in 8bb1800e426a
+ ---> a7de6659d98d
+Removing intermediate container 8bb1800e426a
+Step 8/13 : RUN apk --update add bind
+ ---> Running in c270f98531e7
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.5/main/x86_64/APKINDEX.tar.gz
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.5/community/x86_64/APKINDEX.tar.gz
+(1/5) Installing libgcc (6.2.1-r1)
+(2/5) Installing libxml2 (2.9.8-r1)
+(3/5) Installing bind-libs (9.10.8_p1-r0)
+(4/5) Installing libcap (2.25-r1)
+(5/5) Installing bind (9.10.8_p1-r0)
+Executing bind-9.10.8_p1-r0.pre-install
+Executing busybox-1.25.1-r2.trigger
+OK: 9 MiB in 16 packages
+ ---> 5cb3cc8e2c2a
+Removing intermediate container c270f98531e7
+Step 9/13 : COPY --from=builder /build/entry-point /service/entry-point
+ ---> 5a5ab2227dd0
+Removing intermediate container f27dc23cdb50
+Step 10/13 : LABEL org.label-schema.name "harvester" org.label-schema.description "Provides DHCP harvesting and insertion into DNS" org.label-schema.vcs-url "https://gerrit.opencord.org/maas" org.label-schema.vendor "Open Networking Laboratory" org.label-schema.schema-version "1.0"
+ ---> Running in 039aad1fbea4
+ ---> ab1112bcd672
+Removing intermediate container 039aad1fbea4
+Step 11/13 : WORKDIR /service
+INFO:__main__:Digest: sha256:7b0a40301bc1567205e6461c5bf94c38e1e1ad0169709e49132cafc47f6b51f3
+INFO:__main__:Status: Downloaded newer image for redis:3.2
+INFO:__main__:Fetched image redis:3.2, id: sha256:87856cc39862cec77541d68382e4867d7ccb29a85a17221446c857ddaebca916
+INFO:__main__:Tagging id: 'sha256:87856cc39862cec77541d68382e4867d7ccb29a85a17221446c857ddaebca916', repo: 'redis', tag: '3.2'
+INFO:__main__:Tagging id: 'sha256:87856cc39862cec77541d68382e4867d7ccb29a85a17221446c857ddaebca916', repo: 'redis', tag: 'candidate'
+INFO:__main__:Attempting to fetch docker image: node:7.9.0
+ ---> 14b6f8515452
+Removing intermediate container 707d459c6261
+Step 12/13 : ENTRYPOINT /service/entry-point
+ ---> Running in edf2a23a589a
+ ---> b8e7c558c9e3
+Removing intermediate container edf2a23a589a
+Step 13/13 : LABEL org.label-schema.build-date '2018-10-30T14:44:50Z' org.label-schema.vcs-ref '8222fbcdb855cbaf3830afbb42e916424103a2f1' org.label-schema.vcs-ref-date '2018-03-30T19:30:24+0000' org.label-schema.version ''
+ ---> Running in a83b4a59fdbf
+ ---> b3b1dae4c906
+Removing intermediate container a83b4a59fdbf
+Successfully built b3b1dae4c906
+Successfully tagged opencord/maas-harvester:candidate
+make[1]: Leaving directory `/opt/cord/build/maas/harvester'
+make MAKE_CONFIG=/opt/cord/build/genconfig/config.mk CONFIG= -C ip-allocator build
+/bin/sh: 1: repo: not found
+/bin/sh: 1: repo: not found
+make[1]: Entering directory `/opt/cord/build/maas/ip-allocator'
+docker build  -f Dockerfile.allocator \
+		-t opencord/maas-allocator:candidate \
+		--label org.label-schema.build-date=2018-10-30T14:45:02Z \
+		--label org.label-schema.vcs-ref=8222fbcdb855cbaf3830afbb42e916424103a2f1 \
+		--label org.label-schema.vcs-ref-date=2018-03-30T19:30:24+0000 \
+		--label org.label-schema.version= .
+Sending build context to Docker daemon  195.6kB
+Step 1/12 : FROM golang:1.7-alpine as builder
+ ---> 974aa102bae2
+Step 2/12 : MAINTAINER Open Networking Laboratory <info@onlab.us>
+ ---> Using cache
+ ---> b1590d68b1dd
+Step 3/12 : WORKDIR /go
+ ---> Using cache
+ ---> cf1edaf1250b
+Step 4/12 : ADD . /go/src/gerrit.opencord.org/maas/cord-ip-allocator
+ ---> f4b1bbb74a2f
+Removing intermediate container 3f755e43c724
+Step 5/12 : RUN go build -o /build/entry-point gerrit.opencord.org/maas/cord-ip-allocator
+ ---> Running in 66a863add41d
+INFO:__main__:Pulling from library/node
+ ---> c7ce9a851a52
+Removing intermediate container 66a863add41d
+Step 6/12 : FROM alpine:3.5
+ ---> dc496f71dbb5
+Step 7/12 : MAINTAINER Open Networking Laboratory <info@onlab.us>
+ ---> Using cache
+ ---> 58cd54eaabc9
+Step 8/12 : COPY --from=builder /build/entry-point /service/entry-point
+ ---> addbe8fd4897
+Removing intermediate container 1c64d61ac176
+Step 9/12 : LABEL org.label-schema.name "allocator" org.label-schema.description "Provides IP address allocation for fabric interfaces" org.label-schema.vcs-url "https://gerrit.opencord.org/maas" org.label-schema.vendor "Open Networking Laboratory" org.label-schema.schema-version "1.0"
+ ---> Running in 22d70ea0ec84
+ ---> 01ad7742ae2d
+Removing intermediate container 22d70ea0ec84
+Step 10/12 : WORKDIR /service
+ ---> 3bfb2e7373b2
+Removing intermediate container bc830d08a83e
+Step 11/12 : ENTRYPOINT /service/entry-point
+ ---> Running in 23a1cf9c5def
+ ---> 2edacc5a188b
+Removing intermediate container 23a1cf9c5def
+Step 12/12 : LABEL org.label-schema.build-date '2018-10-30T14:45:02Z' org.label-schema.vcs-ref '8222fbcdb855cbaf3830afbb42e916424103a2f1' org.label-schema.vcs-ref-date '2018-03-30T19:30:24+0000' org.label-schema.version ''
+ ---> Running in d218aa13a065
+ ---> 0014565ff523
+Removing intermediate container d218aa13a065
+Successfully built 0014565ff523
+Successfully tagged opencord/maas-allocator:candidate
+make[1]: Leaving directory `/opt/cord/build/maas/ip-allocator'
+make MAKE_CONFIG=/opt/cord/build/genconfig/config.mk CONFIG= -C provisioner build
+/bin/sh: 1: repo: not found
+/bin/sh: 1: repo: not found
+make[1]: Entering directory `/opt/cord/build/maas/provisioner'
+docker build  -f Dockerfile.provisioner \
+		-t opencord/maas-provisioner:candidate \
+		--label org.label-schema.build-date=2018-10-30T14:45:14Z \
+		--label org.label-schema.vcs-ref=8222fbcdb855cbaf3830afbb42e916424103a2f1 \
+		--label org.label-schema.vcs-ref-date=2018-03-30T19:30:24+0000 \
+		--label org.label-schema.version= .
+Sending build context to Docker daemon    405kB
+Step 1/16 : FROM golang:1.7-alpine as builder
+ ---> 974aa102bae2
+Step 2/16 : MAINTAINER Open Networking Laboratory <info@onlab.us>
+ ---> Using cache
+ ---> b1590d68b1dd
+Step 3/16 : WORKDIR /go
+ ---> Using cache
+ ---> cf1edaf1250b
+Step 4/16 : ADD . /go/src/gerrit.opencord.org/maas/cord-provisioner
+ ---> 3d01ea9c78e3
+Removing intermediate container 3baf8149fc6b
+Step 5/16 : RUN go build -o /build/entry-point gerrit.opencord.org/maas/cord-provisioner
+ ---> Running in 5f5c9d597026
+ ---> e1c47ef5f2b4
+Removing intermediate container 5f5c9d597026
+Step 6/16 : FROM alpine:3.6
+INFO:__main__:Digest: sha256:e64b0d7eeb44034d3f2c301d3050b72c1639e683d5a0fd3b8aae3d6ac4789c7a
+INFO:__main__:Status: Downloaded newer image for node:7.9.0
+INFO:__main__:Fetched image node:7.9.0, id: sha256:90223b3d894eded1bda3df07ebacc7d9b8c8efb9bf464c9862e3a5584c3398da
+INFO:__main__:Tagging id: 'sha256:90223b3d894eded1bda3df07ebacc7d9b8c8efb9bf464c9862e3a5584c3398da', repo: 'node', tag: '7.9.0'
+INFO:__main__:Tagging id: 'sha256:90223b3d894eded1bda3df07ebacc7d9b8c8efb9bf464c9862e3a5584c3398da', repo: 'node', tag: 'candidate'
+INFO:__main__:Attempting to fetch docker image: sebp/elk:564
+3.6: Pulling from library/alpine
+3489d1c4660e: Pulling fs layer
+3489d1c4660e: Verifying Checksum
+3489d1c4660e: Download complete
+INFO:__main__:Pulling from sebp/elk
+3489d1c4660e: Pull complete
+Digest: sha256:cc24af836d1377e092ecb4e8f0a4324c3b1aa2b5295c2239edcc7bbc86a9cbc6
+Status: Downloaded newer image for alpine:3.6
+ ---> 94627dfbdf19
+Step 7/16 : MAINTAINER Open Networking Laboratory <info@onlab.us>
+ ---> Running in a9ba77c8282d
+ ---> 1bf69fe5922b
+Removing intermediate container a9ba77c8282d
+Step 8/16 : RUN apk --update add ansible openssh-client sshpass curl py2-netaddr rsync
+ ---> Running in 2a8091ca5929
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.6/main/x86_64/APKINDEX.tar.gz
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.6/community/x86_64/APKINDEX.tar.gz
+(1/42) Installing libbz2 (1.0.6-r5)
+(2/42) Installing expat (2.2.0-r1)
+(3/42) Installing libffi (3.2.1-r3)
+(4/42) Installing gdbm (1.12-r0)
+(5/42) Installing ncurses-terminfo-base (6.0_p20171125-r1)
+(6/42) Installing ncurses-terminfo (6.0_p20171125-r1)
+(7/42) Installing ncurses-libs (6.0_p20171125-r1)
+(8/42) Installing readline (6.3.008-r5)
+(9/42) Installing sqlite-libs (3.20.1-r2)
+(10/42) Installing python2 (2.7.15-r0)
+(11/42) Installing yaml (0.1.7-r0)
+(12/42) Installing py2-yaml (3.12-r1)
+(13/42) Installing py2-asn1 (0.2.3-r0)
+(14/42) Installing py2-cparser (2.17-r1)
+(15/42) Installing py2-cffi (1.10.0-r0)
+(16/42) Installing py2-idna (2.5-r0)
+(17/42) Installing py2-asn1crypto (0.22.0-r0)
+(18/42) Installing py2-parsing (2.2.0-r0)
+(19/42) Installing py2-six (1.10.0-r6)
+(20/42) Installing py2-packaging (16.8-r2)
+(21/42) Installing py2-ipaddress (1.0.18-r1)
+(22/42) Installing py-enum34 (1.1.6-r2)
+(23/42) Installing py-setuptools (33.1.1-r1)
+(24/42) Installing py2-cryptography (1.8.1-r2)
+(25/42) Installing py2-paramiko (2.1.2-r0)
+(26/42) Installing py2-markupsafe (0.23-r4)
+(27/42) Installing py2-jinja2 (2.9.6-r0)
+(28/42) Installing gmp (6.1.2-r0)
+(29/42) Installing py2-crypto (2.6.1-r2)
+(30/42) Installing ansible (2.3.0.0-r1)
+(31/42) Installing ca-certificates (20161130-r2)
+(32/42) Installing libssh2 (1.8.0-r1)
+(33/42) Installing libcurl (7.61.1-r0)
+(34/42) Installing curl (7.61.1-r0)
+(35/42) Installing openssh-keygen (7.5_p1-r3)
+(36/42) Installing openssh-client (7.5_p1-r3)
+(37/42) Installing py2-netaddr (0.7.19-r1)
+(38/42) Installing libattr (2.4.47-r6)
+(39/42) Installing libacl (2.2.52-r3)
+(40/42) Installing popt (1.16-r6)
+(41/42) Installing rsync (3.1.3-r0)
+(42/42) Installing sshpass (1.06-r0)
+Executing busybox-1.26.2-r11.trigger
+Executing ca-certificates-20161130-r2.trigger
+OK: 116 MiB in 55 packages
+ ---> 44f6557681f3
+Removing intermediate container 2a8091ca5929
+Step 9/16 : COPY ssh-config /root/.ssh/config
+ ---> 2a3ba9fa2ffc
+Removing intermediate container 7634c35daeb8
+Step 10/16 : RUN chmod 700 /root/.ssh && chmod 600 /root/.ssh/config
+ ---> Running in bc1203136974
+ ---> 8948a7405e44
+Removing intermediate container bc1203136974
+Step 11/16 : COPY ansible.cfg /etc/ansible/ansible.cfg
+ ---> ec8b544802c8
+Removing intermediate container bdb4ee45788a
+Step 12/16 : COPY --from=builder /build/entry-point /service/entry-point
+ ---> 9faa77cb06c7
+Removing intermediate container feff1ad08194
+Step 13/16 : LABEL org.label-schema.name "provisioner" org.label-schema.description "Provides provisioning of compute and switch nodes for CORD" org.label-schema.vcs-url "https://gerrit.opencord.org/maas" org.label-schema.vendor "Open Networking Laboratory" org.label-schema.schema-version "1.0"
+ ---> Running in 803dc4956958
+ ---> ac30a86d1317
+Removing intermediate container 803dc4956958
+Step 14/16 : WORKDIR /service
+ ---> c7a7de41fa45
+Removing intermediate container 743ece814a30
+Step 15/16 : ENTRYPOINT /service/entry-point
+ ---> Running in 438c0edf247c
+ ---> 1b612d84586d
+Removing intermediate container 438c0edf247c
+Step 16/16 : LABEL org.label-schema.build-date '2018-10-30T14:45:14Z' org.label-schema.vcs-ref '8222fbcdb855cbaf3830afbb42e916424103a2f1' org.label-schema.vcs-ref-date '2018-03-30T19:30:24+0000' org.label-schema.version ''
+ ---> Running in bfbf7c1a18c0
+ ---> a669e2a33cbb
+Removing intermediate container bfbf7c1a18c0
+Successfully built a669e2a33cbb
+Successfully tagged opencord/maas-provisioner:candidate
+make[1]: Leaving directory `/opt/cord/build/maas/provisioner'
+make MAKE_CONFIG=/opt/cord/build/genconfig/config.mk CONFIG= -C switchq build
+/bin/sh: 1: repo: not found
+/bin/sh: 1: repo: not found
+make[1]: Entering directory `/opt/cord/build/maas/switchq'
+docker build  -f Dockerfile.switchq \
+		-t opencord/maas-switchq:candidate \
+		--label org.label-schema.build-date=2018-10-30T14:46:06Z \
+		--label org.label-schema.vcs-ref=8222fbcdb855cbaf3830afbb42e916424103a2f1 \
+		--label org.label-schema.vcs-ref-date=2018-03-30T19:30:24+0000 \
+		--label org.label-schema.version= .
+Sending build context to Docker daemon  1.453MB
+Step 1/13 : FROM golang:1.7-alpine as builder
+ ---> 974aa102bae2
+Step 2/13 : MAINTAINER Open Networking Laboratory <info@onlab.us>
+ ---> Using cache
+ ---> b1590d68b1dd
+Step 3/13 : WORKDIR /go
+ ---> Using cache
+ ---> cf1edaf1250b
+Step 4/13 : ADD . /go/src/gerrit.opencord.org/maas/switchq
+ ---> e4ee7bab85ac
+Removing intermediate container bc399aadc39a
+Step 5/13 : RUN go build -o /build/entry-point gerrit.opencord.org/maas/switchq
+ ---> Running in 7c16294d890d
+ ---> ed168a6aecdc
+Removing intermediate container 7c16294d890d
+Step 6/13 : FROM alpine:3.5
+ ---> dc496f71dbb5
+Step 7/13 : MAINTAINER Open Networking Laboratory <info@onlab.us>
+ ---> Using cache
+ ---> 58cd54eaabc9
+Step 8/13 : COPY vendors.json /switchq/vendors.json
+ ---> ed7232e733a2
+Removing intermediate container f50e37ca3a51
+Step 9/13 : COPY --from=builder /build/entry-point /service/entry-point
+ ---> 55fee956a6c8
+Removing intermediate container 2d3feeea50eb
+Step 10/13 : LABEL org.label-schema.name "switchq" org.label-schema.description "Provides fabric switch discovery and provisioning" org.label-schema.vcs-url "https://gerrit.opencord.org/maas" org.label-schema.vendor "Open Networking Laboratory" org.label-schema.schema-version "1.0"
+ ---> Running in 455fef90d7bf
+ ---> 03938e781b42
+Removing intermediate container 455fef90d7bf
+Step 11/13 : WORKDIR /service
+ ---> b7cd94fec3db
+Removing intermediate container a4eece7dda9c
+Step 12/13 : ENTRYPOINT /service/entry-point
+ ---> Running in 3f0de1c4ead2
+ ---> 86a03060d560
+Removing intermediate container 3f0de1c4ead2
+Step 13/13 : LABEL org.label-schema.build-date '2018-10-30T14:46:06Z' org.label-schema.vcs-ref '8222fbcdb855cbaf3830afbb42e916424103a2f1' org.label-schema.vcs-ref-date '2018-03-30T19:30:24+0000' org.label-schema.version ''
+ ---> Running in e66a4d031c72
+ ---> 6e96095e1914
+Removing intermediate container e66a4d031c72
+Successfully built 6e96095e1914
+Successfully tagged opencord/maas-switchq:candidate
+make[1]: Leaving directory `/opt/cord/build/maas/switchq'
+touch milestones/build-maas-images
+INFO:__main__:Digest: sha256:ee5abd0f70436eef46679d4cba28b75e7b1425c7fe19c71760ddfdce6bad68f1
+INFO:__main__:Status: Downloaded newer image for sebp/elk:564
+INFO:__main__:Fetched image sebp/elk:564, id: sha256:0e5d862a6674a1019e463976bf002acdb453b0d90488b337daaff2c886a21cc2
+INFO:__main__:Tagging id: 'sha256:0e5d862a6674a1019e463976bf002acdb453b0d90488b337daaff2c886a21cc2', repo: 'sebp/elk', tag: '564'
+INFO:__main__:Tagging id: 'sha256:0e5d862a6674a1019e463976bf002acdb453b0d90488b337daaff2c886a21cc2', repo: 'sebp/elk', tag: 'candidate'
+INFO:__main__:Attempting to fetch docker image: maven:3-jdk-8
+INFO:__main__:Pulling from library/maven
+INFO:__main__:Digest: sha256:d659984a15d47c4a1fd863e05f3b3cfb467f49ee5c96a351bd760bc3275eb14b
+INFO:__main__:Status: Downloaded newer image for maven:3-jdk-8
+INFO:__main__:Fetched image maven:3-jdk-8, id: sha256:985f3637ded401ec2ce4c63d39255e8c0797f68ce24cc123065eabf87f7f3da2
+INFO:__main__:Tagging id: 'sha256:985f3637ded401ec2ce4c63d39255e8c0797f68ce24cc123065eabf87f7f3da2', repo: 'maven', tag: '3-jdk-8'
+INFO:__main__:Tagging id: 'sha256:985f3637ded401ec2ce4c63d39255e8c0797f68ce24cc123065eabf87f7f3da2', repo: 'maven', tag: 'candidate'
+INFO:__main__:Attempting to fetch docker image: ubuntu:14.04.5
+INFO:__main__:Pulling from library/ubuntu
+INFO:__main__:Digest: sha256:30204139c6ab96ebd75d72f34db390f28c4decd5e563488b4e485bf979397b67
+INFO:__main__:Status: Downloaded newer image for ubuntu:14.04.5
+INFO:__main__:Fetched image ubuntu:14.04.5, id: sha256:132b7427a3b40f958aaeae8716e0cbb2177658d2410554ed142e583ef522309f
+INFO:__main__:Tagging id: 'sha256:132b7427a3b40f958aaeae8716e0cbb2177658d2410554ed142e583ef522309f', repo: 'ubuntu', tag: '14.04.5'
+INFO:__main__:Tagging id: 'sha256:132b7427a3b40f958aaeae8716e0cbb2177658d2410554ed142e583ef522309f', repo: 'ubuntu', tag: 'candidate'
+INFO:__main__:Attempting to fetch docker image: alpine:latest
+INFO:__main__:Pulling from library/alpine
+INFO:__main__:Digest: sha256:621c2f39f8133acb8e64023a94dbdf0d5ca81896102b9e57c0dc184cadaf5528
+INFO:__main__:Status: Downloaded newer image for alpine:latest
+INFO:__main__:Fetched image alpine:latest, id: sha256:196d12cf6ab19273823e700516e98eb1910b03b17840f9d5509f03858484d321
+INFO:__main__:Tagging id: 'sha256:196d12cf6ab19273823e700516e98eb1910b03b17840f9d5509f03858484d321', repo: 'alpine', tag: 'latest'
+INFO:__main__:Tagging id: 'sha256:196d12cf6ab19273823e700516e98eb1910b03b17840f9d5509f03858484d321', repo: 'alpine', tag: 'candidate'
+INFO:__main__:Attempting to fetch docker image: xosproject/xos-synchronizer-base:d05de401d75eaf7db11b3636c17c27a718c5bbe3
+INFO:__main__:Pulling from xosproject/xos-synchronizer-base
+INFO:__main__:Digest: sha256:15d667903643ef269857334c712b0c992ebe9c4fcbdc3d2faf57bbaffb92763e
+INFO:__main__:Status: Downloaded newer image for xosproject/xos-synchronizer-base:d05de401d75eaf7db11b3636c17c27a718c5bbe3
+INFO:__main__:Fetched image xosproject/xos-synchronizer-base:d05de401d75eaf7db11b3636c17c27a718c5bbe3, id: sha256:706404740fa5194fb7aef5e7599b6af174c5fe523c8aeac2f031c75b132bf86b
+INFO:__main__:Tagging id: 'sha256:706404740fa5194fb7aef5e7599b6af174c5fe523c8aeac2f031c75b132bf86b', repo: 'xosproject/xos-synchronizer-base', tag: 'candidate'
+INFO:__main__:Tagging id: 'sha256:706404740fa5194fb7aef5e7599b6af174c5fe523c8aeac2f031c75b132bf86b', repo: 'xosproject/xos-synchronizer-base', tag: 'd05de401d75eaf7db11b3636c17c27a718c5bbe3'
+INFO:__main__:Attempting to fetch docker image: xosproject/xos-libraries:d05de401d75eaf7db11b3636c17c27a718c5bbe3
+INFO:__main__:Pulling from xosproject/xos-libraries
+INFO:__main__:Digest: sha256:cd3e1b03ba45467d3cc6e3a51dad38fd05b3da8498511036a446a026af71f33d
+INFO:__main__:Status: Downloaded newer image for xosproject/xos-libraries:d05de401d75eaf7db11b3636c17c27a718c5bbe3
+INFO:__main__:Fetched image xosproject/xos-libraries:d05de401d75eaf7db11b3636c17c27a718c5bbe3, id: sha256:a8f53faa33ceecb5ef67e3c61db84e1fe4ef24ca557536ada77a2fd96da24f14
+INFO:__main__:Tagging id: 'sha256:a8f53faa33ceecb5ef67e3c61db84e1fe4ef24ca557536ada77a2fd96da24f14', repo: 'xosproject/xos-libraries', tag: 'candidate'
+INFO:__main__:Tagging id: 'sha256:a8f53faa33ceecb5ef67e3c61db84e1fe4ef24ca557536ada77a2fd96da24f14', repo: 'xosproject/xos-libraries', tag: 'd05de401d75eaf7db11b3636c17c27a718c5bbe3'
+INFO:__main__:Attempting to fetch docker image: xosproject/xos-gui-builder:af2d1db0bd951c627897f31a19778731335151d2
+INFO:__main__:Pulling from xosproject/xos-gui-builder
+changed: [head1] => (item={u'url': u'https://github.com/opencord/vsg/releases/download/vms/vsg-1.1.img', u'checksum': u'sha256:16b0beb6778aed0f5feecb05f8d5750e6c262f98e6011e99ddadf7d46a177b6f', u'name': u'vsg-1.1'})
+
+TASK [glance-images : Copy Glance VM images to profile directory] ******************************************************
+Tuesday 30 October 2018  09:46:25 -0500 (0:05:51.433)       0:05:58.103 ******* 
+changed: [head1] => (item={u'url': u'https://github.com/opencord/platform-install/releases/download/vms/trusty-server-cloudimg-amd64-disk1.img.20170201', u'checksum': u'sha256:ebf007ba3ec1043b7cd011fc6668e2a1d1d4c69c41071e8513ab355df7a057cb', u'name': u'trusty-server-multi-nic'})
+changed: [head1] => (item={u'url': u'https://github.com/opencord/vsg/releases/download/vms/vsg-1.1.img', u'checksum': u'sha256:16b0beb6778aed0f5feecb05f8d5750e6c262f98e6011e99ddadf7d46a177b6f', u'name': u'vsg-1.1'})
+
+TASK [copy-credentials : Copy (sync) the credentials directory to head node, for MaaS provisioner] *********************
+Tuesday 30 October 2018  09:46:30 -0500 (0:00:04.836)       0:06:02.939 ******* 
+changed: [head1]
+
+TASK [copy-credentials : Set ownership on credentials dir on head node, for MaaS provisioner] **************************
+Tuesday 30 October 2018  09:46:30 -0500 (0:00:00.748)       0:06:03.688 ******* 
+changed: [head1]
+
+PLAY [Install ssh keys when using MaaS] ********************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************
+Tuesday 30 October 2018  09:46:31 -0500 (0:00:00.201)       0:06:03.890 ******* 
+ok: [corddev]
+
+TASK [ssh-install-maas : Create ssh key directory for MaaS] ************************************************************
+Tuesday 30 October 2018  09:46:44 -0500 (0:00:13.540)       0:06:17.430 ******* 
+INFO:__main__:Digest: sha256:cdf50961d91d2419811123c7ea67f83c1006998e25b53a95e16201ec2c8cd656
+INFO:__main__:Status: Downloaded newer image for xosproject/xos-gui-builder:af2d1db0bd951c627897f31a19778731335151d2
+INFO:__main__:Fetched image xosproject/xos-gui-builder:af2d1db0bd951c627897f31a19778731335151d2, id: sha256:84762b3f7f9730d797631d13a00ca80297af27e072dfcfd94dc814ec12014b9a
+INFO:__main__:Tagging id: 'sha256:84762b3f7f9730d797631d13a00ca80297af27e072dfcfd94dc814ec12014b9a', repo: 'xosproject/xos-gui-builder', tag: 'candidate'
+INFO:__main__:Tagging id: 'sha256:84762b3f7f9730d797631d13a00ca80297af27e072dfcfd94dc814ec12014b9a', repo: 'xosproject/xos-gui-builder', tag: 'af2d1db0bd951c627897f31a19778731335151d2'
+INFO:__main__:Attempting to fetch docker image: xosproject/xos-base:d05de401d75eaf7db11b3636c17c27a718c5bbe3
+changed: [corddev]
+
+TASK [ssh-install-maas : Copy ssh private key for MaaS] ****************************************************************
+Tuesday 30 October 2018  09:46:44 -0500 (0:00:00.361)       0:06:17.792 ******* 
+changed: [corddev]
+
+TASK [ssh-install-maas : Copy ssh public key for MaaS] *****************************************************************
+Tuesday 30 October 2018  09:46:45 -0500 (0:00:00.346)       0:06:18.138 ******* 
+changed: [corddev]
+
+PLAY RECAP *************************************************************************************************************
+corddev                    : ok=4    changed=3    unreachable=0    failed=0   
+head1                      : ok=11   changed=9    unreachable=0    failed=0   
+
+Tuesday 30 October 2018  09:46:45 -0500 (0:00:00.355)       0:06:18.493 ******* 
+=============================================================================== 
+glance-images : Download Glance VM images --------------------------------------------------------------------- 351.43s
+Gathering Facts ------------------------------------------------------------------------------------------------ 13.54s
+glance-images : Copy Glance VM images to profile directory ------------------------------------------------------ 4.84s
+Gathering Facts ------------------------------------------------------------------------------------------------- 3.87s
+copy-profile : Copy (sync) the cord_profile directory structure to head node ------------------------------------ 0.87s
+copy-credentials : Copy (sync) the credentials directory to head node, for MaaS provisioner --------------------- 0.75s
+ssh-install : Install ssh private key --------------------------------------------------------------------------- 0.63s
+ssh-install : Install ssh public key ---------------------------------------------------------------------------- 0.43s
+ssh-install-maas : Create ssh key directory for MaaS ------------------------------------------------------------ 0.36s
+copy-profile : Set ownership on cord_profile dir on head node --------------------------------------------------- 0.36s
+ssh-install-maas : Copy ssh public key for MaaS ----------------------------------------------------------------- 0.36s
+ssh-install-maas : Copy ssh private key for MaaS ---------------------------------------------------------------- 0.35s
+glance-images : Make images directory --------------------------------------------------------------------------- 0.25s
+ssh-install : Create ~/.ssh directory --------------------------------------------------------------------------- 0.23s
+copy-credentials : Set ownership on credentials dir on head node, for MaaS provisioner -------------------------- 0.20s
+touch milestones/copy-config
+ansible-playbook --skip-tags "set_compute_node_password,switch_support,reboot,interface_config" -i ./genconfig/inventory.ini --extra-vars @./genconfig/config.yml ./platform-install/prep-headnode-playbook.yml 2>&1 | tee -a /home/cord/cord/build/logs/20181030T093839Z_prep-headnode
+INFO:__main__:Pulling from xosproject/xos-base
+
+PLAY [Prep head node] **************************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************
+Tuesday 30 October 2018  09:46:46 -0500 (0:00:00.031)       0:00:00.031 ******* 
+INFO:__main__:Digest: sha256:b5fc846c388495f46551701b53e0c6bd062e2b52d5b5d48919cf8d0288c70c44
+INFO:__main__:Status: Downloaded newer image for xosproject/xos-base:d05de401d75eaf7db11b3636c17c27a718c5bbe3
+INFO:__main__:Fetched image xosproject/xos-base:d05de401d75eaf7db11b3636c17c27a718c5bbe3, id: sha256:7d3e146e6dcaec104ceb001eded9336bfbd284eff98e6897c45f1714fd5a8fc9
+INFO:__main__:Tagging id: 'sha256:7d3e146e6dcaec104ceb001eded9336bfbd284eff98e6897c45f1714fd5a8fc9', repo: 'xosproject/xos-base', tag: 'candidate'
+INFO:__main__:Tagging id: 'sha256:7d3e146e6dcaec104ceb001eded9336bfbd284eff98e6897c45f1714fd5a8fc9', repo: 'xosproject/xos-base', tag: 'd05de401d75eaf7db11b3636c17c27a718c5bbe3'
+INFO:__main__:Attempting to fetch docker image: xosproject/xos-client:d05de401d75eaf7db11b3636c17c27a718c5bbe3
+INFO:__main__:Pulling from xosproject/xos-client
+INFO:__main__:Digest: sha256:1cfd3f75be32203025ff6534eacbca14272be7212afe34bae59daccc7fa9adb1
+INFO:__main__:Status: Downloaded newer image for xosproject/xos-client:d05de401d75eaf7db11b3636c17c27a718c5bbe3
+INFO:__main__:Fetched image xosproject/xos-client:d05de401d75eaf7db11b3636c17c27a718c5bbe3, id: sha256:9996afd217288e86980cb8b4d4e523b9db3a5491f9ac443da353e1e76727c8a7
+INFO:__main__:Tagging id: 'sha256:9996afd217288e86980cb8b4d4e523b9db3a5491f9ac443da353e1e76727c8a7', repo: 'xosproject/xos-client', tag: 'candidate'
+INFO:__main__:Tagging id: 'sha256:9996afd217288e86980cb8b4d4e523b9db3a5491f9ac443da353e1e76727c8a7', repo: 'xosproject/xos-client', tag: 'd05de401d75eaf7db11b3636c17c27a718c5bbe3'
+INFO:__main__:Attempting to fetch docker image: opencord/mavenrepo:f0147873ff735ab00e63322ca284476f6b831475
+ok: [head1]
+
+TASK [head-prep : Install prerequisites for using PPA repos] ***********************************************************
+Tuesday 30 October 2018  09:46:50 -0500 (0:00:03.748)       0:00:03.779 ******* 
+INFO:__main__:Pulling from opencord/mavenrepo
+ok: [head1] => (item=[u'python-pycurl', u'software-properties-common'])
+
+TASK [head-prep : Add Ansible PPA] *************************************************************************************
+Tuesday 30 October 2018  09:46:59 -0500 (0:00:09.755)       0:00:13.535 ******* 
+INFO:__main__:Digest: sha256:772774b8b6c807365b38da2b4ecf5d10fba1f83642aeaf4d04cee061732d809c
+INFO:__main__:Status: Downloaded newer image for opencord/mavenrepo:f0147873ff735ab00e63322ca284476f6b831475
+INFO:__main__:Fetched image opencord/mavenrepo:f0147873ff735ab00e63322ca284476f6b831475, id: sha256:636717cb8523d2bb4d0298b21845f75c2966e9c93a71979c7aec71580ff0b282
+INFO:__main__:Tagging id: 'sha256:636717cb8523d2bb4d0298b21845f75c2966e9c93a71979c7aec71580ff0b282', repo: 'opencord/mavenrepo', tag: 'candidate'
+INFO:__main__:Tagging id: 'sha256:636717cb8523d2bb4d0298b21845f75c2966e9c93a71979c7aec71580ff0b282', repo: 'opencord/mavenrepo', tag: 'f0147873ff735ab00e63322ca284476f6b831475'
+INFO:__main__:Attempting to fetch docker image: xosproject/xos-postgres:d05de401d75eaf7db11b3636c17c27a718c5bbe3
+changed: [head1] => (item=ppa:ansible/ansible)
+
+TASK [head-prep : Install packages] ************************************************************************************
+Tuesday 30 October 2018  09:47:05 -0500 (0:00:05.750)       0:00:19.285 ******* 
+INFO:__main__:Pulling from xosproject/xos-postgres
+INFO:__main__:Digest: sha256:624379dfc6fc974d532c83aa57ae216f62014961ae229d67d527a89d3cf6e994
+INFO:__main__:Status: Downloaded newer image for xosproject/xos-postgres:d05de401d75eaf7db11b3636c17c27a718c5bbe3
+INFO:__main__:Fetched image xosproject/xos-postgres:d05de401d75eaf7db11b3636c17c27a718c5bbe3, id: sha256:3726c832a01ebc218db7a898ffd7e550263e92e1a04106f8787d5a141c954cd3
+INFO:__main__:Tagging id: 'sha256:3726c832a01ebc218db7a898ffd7e550263e92e1a04106f8787d5a141c954cd3', repo: 'xosproject/xos-postgres', tag: 'candidate'
+INFO:__main__:Tagging id: 'sha256:3726c832a01ebc218db7a898ffd7e550263e92e1a04106f8787d5a141c954cd3', repo: 'xosproject/xos-postgres', tag: 'd05de401d75eaf7db11b3636c17c27a718c5bbe3'
+INFO:__main__:Attempting to fetch docker image: xosproject/xos:d05de401d75eaf7db11b3636c17c27a718c5bbe3
+INFO:__main__:Pulling from xosproject/xos
+INFO:__main__:Digest: sha256:74e831448d9676331cb76877ef6e480737ba48b9be15985df014b71440223599
+INFO:__main__:Status: Downloaded newer image for xosproject/xos:d05de401d75eaf7db11b3636c17c27a718c5bbe3
+INFO:__main__:Fetched image xosproject/xos:d05de401d75eaf7db11b3636c17c27a718c5bbe3, id: sha256:33bc1e6694034fd9820c0ddfd9213a6a7c7bbc3d09e37aea6fe813e8c5b5ae3d
+INFO:__main__:Tagging id: 'sha256:33bc1e6694034fd9820c0ddfd9213a6a7c7bbc3d09e37aea6fe813e8c5b5ae3d', repo: 'xosproject/xos', tag: 'candidate'
+INFO:__main__:Tagging id: 'sha256:33bc1e6694034fd9820c0ddfd9213a6a7c7bbc3d09e37aea6fe813e8c5b5ae3d', repo: 'xosproject/xos', tag: 'd05de401d75eaf7db11b3636c17c27a718c5bbe3'
+INFO:__main__:Attempting to fetch docker image: xosproject/xos-corebuilder:d05de401d75eaf7db11b3636c17c27a718c5bbe3
+INFO:__main__:Pulling from xosproject/xos-corebuilder
+INFO:__main__:Digest: sha256:dc3e61beddf69db09be737db910fc3de1b9753d5fd33d267795f47718c58bc3f
+INFO:__main__:Status: Downloaded newer image for xosproject/xos-corebuilder:d05de401d75eaf7db11b3636c17c27a718c5bbe3
+INFO:__main__:Fetched image xosproject/xos-corebuilder:d05de401d75eaf7db11b3636c17c27a718c5bbe3, id: sha256:557de293d3dd221545d86daffc24e80cec8f6552a19d0a4285419c9e7da716b6
+INFO:__main__:Tagging id: 'sha256:557de293d3dd221545d86daffc24e80cec8f6552a19d0a4285419c9e7da716b6', repo: 'xosproject/xos-corebuilder', tag: 'candidate'
+INFO:__main__:Tagging id: 'sha256:557de293d3dd221545d86daffc24e80cec8f6552a19d0a4285419c9e7da716b6', repo: 'xosproject/xos-corebuilder', tag: 'd05de401d75eaf7db11b3636c17c27a718c5bbe3'
+INFO:__main__:Attempting to fetch docker image: xosproject/chameleon:d05de401d75eaf7db11b3636c17c27a718c5bbe3
+INFO:__main__:Pulling from xosproject/chameleon
+INFO:__main__:Digest: sha256:af35ba4c5a7aa33489b18776b6be09b232fc17e7ef8ce12658657f8c69d0b4dc
+INFO:__main__:Status: Downloaded newer image for xosproject/chameleon:d05de401d75eaf7db11b3636c17c27a718c5bbe3
+INFO:__main__:Fetched image xosproject/chameleon:d05de401d75eaf7db11b3636c17c27a718c5bbe3, id: sha256:cbfcd5ff760da5ae50ad189b61efe69c0765ec4d4f65c7e1ed4fa3fdc6279a87
+INFO:__main__:Tagging id: 'sha256:cbfcd5ff760da5ae50ad189b61efe69c0765ec4d4f65c7e1ed4fa3fdc6279a87', repo: 'xosproject/chameleon', tag: 'candidate'
+INFO:__main__:Tagging id: 'sha256:cbfcd5ff760da5ae50ad189b61efe69c0765ec4d4f65c7e1ed4fa3fdc6279a87', repo: 'xosproject/chameleon', tag: 'd05de401d75eaf7db11b3636c17c27a718c5bbe3'
+INFO:__main__:Attempting to fetch docker image: xosproject/xos-tosca:08803a9e271343604486e5b1ef60f5a15999f929
+INFO:__main__:Pulling from xosproject/xos-tosca
+INFO:__main__:Digest: sha256:0e770c52df50821b4d44f7763e3b3e7877585788a40259219081a452853bb050
+INFO:__main__:Status: Downloaded newer image for xosproject/xos-tosca:08803a9e271343604486e5b1ef60f5a15999f929
+INFO:__main__:Fetched image xosproject/xos-tosca:08803a9e271343604486e5b1ef60f5a15999f929, id: sha256:ccd5f310f13e32d104384a489740ad270c496387cf6f4779b3328be4b3f2f623
+INFO:__main__:Tagging id: 'sha256:ccd5f310f13e32d104384a489740ad270c496387cf6f4779b3328be4b3f2f623', repo: 'xosproject/xos-tosca', tag: 'candidate'
+INFO:__main__:Tagging id: 'sha256:ccd5f310f13e32d104384a489740ad270c496387cf6f4779b3328be4b3f2f623', repo: 'xosproject/xos-tosca', tag: '08803a9e271343604486e5b1ef60f5a15999f929'
+INFO:__main__:Attempting to fetch docker image: xosproject/xos-ws:a263b67c0448ab9fd450424327cf70dadb4574d3
+INFO:__main__:Pulling from xosproject/xos-ws
+INFO:__main__:Digest: sha256:e0035b8200e6279db39e81a76f6cd9375d5890dfdee89f590e215a4f5d4da975
+INFO:__main__:Status: Downloaded newer image for xosproject/xos-ws:a263b67c0448ab9fd450424327cf70dadb4574d3
+INFO:__main__:Fetched image xosproject/xos-ws:a263b67c0448ab9fd450424327cf70dadb4574d3, id: sha256:576b672210ef15a48f82d3b564a6cb307e4ab0c3b30af4fb8fd3d253817d8160
+INFO:__main__:Tagging id: 'sha256:576b672210ef15a48f82d3b564a6cb307e4ab0c3b30af4fb8fd3d253817d8160', repo: 'xosproject/xos-ws', tag: 'candidate'
+INFO:__main__:Tagging id: 'sha256:576b672210ef15a48f82d3b564a6cb307e4ab0c3b30af4fb8fd3d253817d8160', repo: 'xosproject/xos-ws', tag: 'a263b67c0448ab9fd450424327cf70dadb4574d3'
+INFO:__main__:Attempting to fetch docker image: xosproject/xos-gui:af2d1db0bd951c627897f31a19778731335151d2
+INFO:__main__:Pulling from xosproject/xos-gui
+INFO:__main__:Digest: sha256:107e315fe813077ed9c695a3cd0bbfa970344e28e09e88886881cafd2f92bfca
+INFO:__main__:Status: Downloaded newer image for xosproject/xos-gui:af2d1db0bd951c627897f31a19778731335151d2
+INFO:__main__:Fetched image xosproject/xos-gui:af2d1db0bd951c627897f31a19778731335151d2, id: sha256:62bba4e58842ed22ea1aaccd30f39f4fd0c5bdc7b411f7212da41a76ad62ce5f
+INFO:__main__:Tagging id: 'sha256:62bba4e58842ed22ea1aaccd30f39f4fd0c5bdc7b411f7212da41a76ad62ce5f', repo: 'xosproject/xos-gui', tag: 'candidate'
+INFO:__main__:Tagging id: 'sha256:62bba4e58842ed22ea1aaccd30f39f4fd0c5bdc7b411f7212da41a76ad62ce5f', repo: 'xosproject/xos-gui', tag: 'af2d1db0bd951c627897f31a19778731335151d2'
+INFO:__main__:Attempting to fetch docker image: xosproject/gui-extension-rcord:5aa2e4e1298d1e63817c4a6a3f757d7c442ab1cd
+changed: [head1] => (item=[u'bridge-utils', u'dnsutils', u'git', u'libssl-dev', u'python-dev', u'python-dnspython', u'python-lxml', u'python-netaddr', u'python-pip', u'sshpass'])
+
+TASK [head-prep : Install juju and openstack related packages] *********************************************************
+Tuesday 30 October 2018  09:47:40 -0500 (0:00:34.882)       0:00:54.168 ******* 
+INFO:__main__:Pulling from xosproject/gui-extension-rcord
+INFO:__main__:Digest: sha256:f6eea2e2698368cc9a7cdce438b4fa0a268005898e889cc1197140d063c5cd00
+INFO:__main__:Status: Downloaded newer image for xosproject/gui-extension-rcord:5aa2e4e1298d1e63817c4a6a3f757d7c442ab1cd
+INFO:__main__:Fetched image xosproject/gui-extension-rcord:5aa2e4e1298d1e63817c4a6a3f757d7c442ab1cd, id: sha256:c6e79dbf675a93a6c1450c597a86cdc8e5f7ee0ed06d4fcc0376492976be14c2
+INFO:__main__:Tagging id: 'sha256:c6e79dbf675a93a6c1450c597a86cdc8e5f7ee0ed06d4fcc0376492976be14c2', repo: 'xosproject/gui-extension-rcord', tag: 'candidate'
+INFO:__main__:Tagging id: 'sha256:c6e79dbf675a93a6c1450c597a86cdc8e5f7ee0ed06d4fcc0376492976be14c2', repo: 'xosproject/gui-extension-rcord', tag: '5aa2e4e1298d1e63817c4a6a3f757d7c442ab1cd'
+INFO:__main__:Attempting to fetch docker image: xosproject/gui-extension-vtr:e8b82be5e2aa43bc7d47b4d81e7927732d499755
+INFO:__main__:Pulling from xosproject/gui-extension-vtr
+INFO:__main__:Digest: sha256:4b077d2cfc2f5bf7b22ac30d4a342f34f86b3fa99ec8737fb24aebec6cbce086
+INFO:__main__:Status: Downloaded newer image for xosproject/gui-extension-vtr:e8b82be5e2aa43bc7d47b4d81e7927732d499755
+INFO:__main__:Fetched image xosproject/gui-extension-vtr:e8b82be5e2aa43bc7d47b4d81e7927732d499755, id: sha256:729a6e500a1a86d8ddaa5a84031481c0cb1cc5ea28b3c7612d8d89d06e63ee5f
+INFO:__main__:Tagging id: 'sha256:729a6e500a1a86d8ddaa5a84031481c0cb1cc5ea28b3c7612d8d89d06e63ee5f', repo: 'xosproject/gui-extension-vtr', tag: 'candidate'
+INFO:__main__:Tagging id: 'sha256:729a6e500a1a86d8ddaa5a84031481c0cb1cc5ea28b3c7612d8d89d06e63ee5f', repo: 'xosproject/gui-extension-vtr', tag: 'e8b82be5e2aa43bc7d47b4d81e7927732d499755'
+INFO:__main__:Attempting to fetch docker image: xosproject/addressmanager-synchronizer:b441a77e77c7a4219a8882f5675223d5d7d99e9c
+INFO:__main__:Pulling from xosproject/addressmanager-synchronizer
+INFO:__main__:Digest: sha256:f502992166e68b1e7fa224af3e0329bc4a1d125de2f354f13c1f4c8de6332de1
+INFO:__main__:Status: Downloaded newer image for xosproject/addressmanager-synchronizer:b441a77e77c7a4219a8882f5675223d5d7d99e9c
+INFO:__main__:Fetched image xosproject/addressmanager-synchronizer:b441a77e77c7a4219a8882f5675223d5d7d99e9c, id: sha256:f75e3b93810e0e583944463799310fad2976ad0e48f9b515cba620fe01f25577
+INFO:__main__:Tagging id: 'sha256:f75e3b93810e0e583944463799310fad2976ad0e48f9b515cba620fe01f25577', repo: 'xosproject/addressmanager-synchronizer', tag: 'candidate'
+INFO:__main__:Tagging id: 'sha256:f75e3b93810e0e583944463799310fad2976ad0e48f9b515cba620fe01f25577', repo: 'xosproject/addressmanager-synchronizer', tag: 'b441a77e77c7a4219a8882f5675223d5d7d99e9c'
+INFO:__main__:Attempting to fetch docker image: xosproject/openstack-synchronizer:6c0804cb8b53be2be4f574e74545e67619e5784a
+INFO:__main__:Pulling from xosproject/openstack-synchronizer
+INFO:__main__:Digest: sha256:731a57b81a24ef43ab9164d645e8f7c9284d0883982c8114c8eb439346d290cd
+INFO:__main__:Status: Downloaded newer image for xosproject/openstack-synchronizer:6c0804cb8b53be2be4f574e74545e67619e5784a
+INFO:__main__:Fetched image xosproject/openstack-synchronizer:6c0804cb8b53be2be4f574e74545e67619e5784a, id: sha256:337635492dfc865854073be3ce458c151320c46daf27a05891e4645da576be1a
+INFO:__main__:Tagging id: 'sha256:337635492dfc865854073be3ce458c151320c46daf27a05891e4645da576be1a', repo: 'xosproject/openstack-synchronizer', tag: 'candidate'
+INFO:__main__:Tagging id: 'sha256:337635492dfc865854073be3ce458c151320c46daf27a05891e4645da576be1a', repo: 'xosproject/openstack-synchronizer', tag: '6c0804cb8b53be2be4f574e74545e67619e5784a'
+INFO:__main__:Attempting to fetch docker image: xosproject/onos-synchronizer:a0f6aa8d9e73f3a0fe6e7424cceeaafd8a78a855
+INFO:__main__:Pulling from xosproject/onos-synchronizer
+INFO:__main__:Digest: sha256:e076017f37d0ea8f338e62e2a2b285bc2e808ef9708531513e30672d0a1fc58a
+INFO:__main__:Status: Downloaded newer image for xosproject/onos-synchronizer:a0f6aa8d9e73f3a0fe6e7424cceeaafd8a78a855
+INFO:__main__:Fetched image xosproject/onos-synchronizer:a0f6aa8d9e73f3a0fe6e7424cceeaafd8a78a855, id: sha256:deaa81ff263e2a3031bc289e893461f14797a9862f0fd6346e0d8914a26da8e5
+INFO:__main__:Tagging id: 'sha256:deaa81ff263e2a3031bc289e893461f14797a9862f0fd6346e0d8914a26da8e5', repo: 'xosproject/onos-synchronizer', tag: 'candidate'
+INFO:__main__:Tagging id: 'sha256:deaa81ff263e2a3031bc289e893461f14797a9862f0fd6346e0d8914a26da8e5', repo: 'xosproject/onos-synchronizer', tag: 'a0f6aa8d9e73f3a0fe6e7424cceeaafd8a78a855'
+INFO:__main__:Attempting to fetch docker image: xosproject/volt-synchronizer:1bdcffa6b38ef492866bab5dd063a3bb6567513d
+INFO:__main__:Pulling from xosproject/volt-synchronizer
+INFO:__main__:Digest: sha256:329aff780c1aaa4b2b891dbb4d13b7816bf9514b88bbb54ee6ffb7728ce2be1f
+INFO:__main__:Status: Downloaded newer image for xosproject/volt-synchronizer:1bdcffa6b38ef492866bab5dd063a3bb6567513d
+INFO:__main__:Fetched image xosproject/volt-synchronizer:1bdcffa6b38ef492866bab5dd063a3bb6567513d, id: sha256:95a85426f8a51902bd0931bedc6a18159430c45dd311bb5fc883ef0798e85628
+INFO:__main__:Tagging id: 'sha256:95a85426f8a51902bd0931bedc6a18159430c45dd311bb5fc883ef0798e85628', repo: 'xosproject/volt-synchronizer', tag: 'candidate'
+INFO:__main__:Tagging id: 'sha256:95a85426f8a51902bd0931bedc6a18159430c45dd311bb5fc883ef0798e85628', repo: 'xosproject/volt-synchronizer', tag: '1bdcffa6b38ef492866bab5dd063a3bb6567513d'
+INFO:__main__:Attempting to fetch docker image: xosproject/vrouter-synchronizer:d9592c419aafc9d5db7a25bc45d40a2672fcc331
+INFO:__main__:Pulling from xosproject/vrouter-synchronizer
+INFO:__main__:Digest: sha256:efa76e0ac0aa2e102a1dface749c4cf03c9cf4d4be0689f2494f2a41b969ae89
+INFO:__main__:Status: Downloaded newer image for xosproject/vrouter-synchronizer:d9592c419aafc9d5db7a25bc45d40a2672fcc331
+INFO:__main__:Fetched image xosproject/vrouter-synchronizer:d9592c419aafc9d5db7a25bc45d40a2672fcc331, id: sha256:036cd5100a16eb9a0112c5f66aff37decc4b294fb29857845c8bd50779115b1c
+INFO:__main__:Tagging id: 'sha256:036cd5100a16eb9a0112c5f66aff37decc4b294fb29857845c8bd50779115b1c', repo: 'xosproject/vrouter-synchronizer', tag: 'candidate'
+INFO:__main__:Tagging id: 'sha256:036cd5100a16eb9a0112c5f66aff37decc4b294fb29857845c8bd50779115b1c', repo: 'xosproject/vrouter-synchronizer', tag: 'd9592c419aafc9d5db7a25bc45d40a2672fcc331'
+INFO:__main__:Attempting to fetch docker image: xosproject/vtn-synchronizer:4cc444173a3753c5c0e70937b3d6c9ff32c8ce9b
+INFO:__main__:Pulling from xosproject/vtn-synchronizer
+INFO:__main__:Digest: sha256:ee17fa1ac5841e5184e38dcbf2a5d663a7702146c136095c2664406700568f45
+INFO:__main__:Status: Downloaded newer image for xosproject/vtn-synchronizer:4cc444173a3753c5c0e70937b3d6c9ff32c8ce9b
+INFO:__main__:Fetched image xosproject/vtn-synchronizer:4cc444173a3753c5c0e70937b3d6c9ff32c8ce9b, id: sha256:4fd02ed674642ec785409187fabefd428a977e1a63e55e1c4a28c8accf2678bc
+INFO:__main__:Tagging id: 'sha256:4fd02ed674642ec785409187fabefd428a977e1a63e55e1c4a28c8accf2678bc', repo: 'xosproject/vtn-synchronizer', tag: 'candidate'
+INFO:__main__:Tagging id: 'sha256:4fd02ed674642ec785409187fabefd428a977e1a63e55e1c4a28c8accf2678bc', repo: 'xosproject/vtn-synchronizer', tag: '4cc444173a3753c5c0e70937b3d6c9ff32c8ce9b'
+INFO:__main__:Attempting to fetch docker image: xosproject/vtr-synchronizer:e8b82be5e2aa43bc7d47b4d81e7927732d499755
+INFO:__main__:Pulling from xosproject/vtr-synchronizer
+INFO:__main__:Digest: sha256:ca006acd5641d6eaea476344c55c52e890975a3e0acb8290a34b9a844cb7ace3
+INFO:__main__:Status: Downloaded newer image for xosproject/vtr-synchronizer:e8b82be5e2aa43bc7d47b4d81e7927732d499755
+INFO:__main__:Fetched image xosproject/vtr-synchronizer:e8b82be5e2aa43bc7d47b4d81e7927732d499755, id: sha256:32709da8fc407c660c392509929c213cb360dae3d050021acd7ee66b8b944569
+INFO:__main__:Tagging id: 'sha256:32709da8fc407c660c392509929c213cb360dae3d050021acd7ee66b8b944569', repo: 'xosproject/vtr-synchronizer', tag: 'candidate'
+INFO:__main__:Tagging id: 'sha256:32709da8fc407c660c392509929c213cb360dae3d050021acd7ee66b8b944569', repo: 'xosproject/vtr-synchronizer', tag: 'e8b82be5e2aa43bc7d47b4d81e7927732d499755'
+INFO:__main__:Attempting to fetch docker image: xosproject/vsg-synchronizer:e96314ee6c7e51ef41d25e18c79dc93b597d7add
+INFO:__main__:Pulling from xosproject/vsg-synchronizer
+changed: [head1] => (item=[u'juju-core', u'libvirt-bin', u'python-glanceclient', u'python-keystoneclient', u'python-neutronclient', u'python-novaclient', u'virt-top'])
+
+TASK [head-prep : Make sure Ansible is newest version] *****************************************************************
+Tuesday 30 October 2018  09:48:02 -0500 (0:00:22.090)       0:01:16.259 ******* 
+INFO:__main__:Digest: sha256:3a847680deb94cc90b62daa59765fbaf24823aacf1333e0a176ff9caca4b46c4
+INFO:__main__:Status: Downloaded newer image for xosproject/vsg-synchronizer:e96314ee6c7e51ef41d25e18c79dc93b597d7add
+INFO:__main__:Fetched image xosproject/vsg-synchronizer:e96314ee6c7e51ef41d25e18c79dc93b597d7add, id: sha256:ee6db90a3a826f2cf8e63f4a4697b9379c32dff1909ce81b23f6765342cc70fe
+INFO:__main__:Tagging id: 'sha256:ee6db90a3a826f2cf8e63f4a4697b9379c32dff1909ce81b23f6765342cc70fe', repo: 'xosproject/vsg-synchronizer', tag: 'candidate'
+INFO:__main__:Tagging id: 'sha256:ee6db90a3a826f2cf8e63f4a4697b9379c32dff1909ce81b23f6765342cc70fe', repo: 'xosproject/vsg-synchronizer', tag: 'e96314ee6c7e51ef41d25e18c79dc93b597d7add'
+INFO:__main__:Attempting to fetch docker image: xosproject/fabric-synchronizer:2ca6e4b8fe462d4bbd0b7e1a1807791ebaa9657e
+INFO:__main__:Pulling from xosproject/fabric-synchronizer
+INFO:__main__:Digest: sha256:89587eca731b309a26daecd7cc689dc3df9547169ac593219587fa5f750b1c8a
+INFO:__main__:Status: Downloaded newer image for xosproject/fabric-synchronizer:2ca6e4b8fe462d4bbd0b7e1a1807791ebaa9657e
+INFO:__main__:Fetched image xosproject/fabric-synchronizer:2ca6e4b8fe462d4bbd0b7e1a1807791ebaa9657e, id: sha256:d2378b56b47d5c1493681f5d29074ae3483a24e396be7186dda07f85f866cde3
+INFO:__main__:Tagging id: 'sha256:d2378b56b47d5c1493681f5d29074ae3483a24e396be7186dda07f85f866cde3', repo: 'xosproject/fabric-synchronizer', tag: 'candidate'
+INFO:__main__:Tagging id: 'sha256:d2378b56b47d5c1493681f5d29074ae3483a24e396be7186dda07f85f866cde3', repo: 'xosproject/fabric-synchronizer', tag: '2ca6e4b8fe462d4bbd0b7e1a1807791ebaa9657e'
+INFO:__main__:Attempting to fetch docker image: xosproject/exampleservice-synchronizer:84833a2e2509da488dc5e2ffd3857e358cb53f5e
+INFO:__main__:Pulling from xosproject/exampleservice-synchronizer
+INFO:__main__:Digest: sha256:b8d1c656e20f6a2bd2f5c5cce3de53d3aa4e18a722c1442016ae417aa03e5c1a
+INFO:__main__:Status: Downloaded newer image for xosproject/exampleservice-synchronizer:84833a2e2509da488dc5e2ffd3857e358cb53f5e
+INFO:__main__:Fetched image xosproject/exampleservice-synchronizer:84833a2e2509da488dc5e2ffd3857e358cb53f5e, id: sha256:4213117a1f4636887b4bcdef2bf3b50e192bee434ec3c556e072c2a5891b8ff3
+INFO:__main__:Tagging id: 'sha256:4213117a1f4636887b4bcdef2bf3b50e192bee434ec3c556e072c2a5891b8ff3', repo: 'xosproject/exampleservice-synchronizer', tag: 'candidate'
+INFO:__main__:Tagging id: 'sha256:4213117a1f4636887b4bcdef2bf3b50e192bee434ec3c556e072c2a5891b8ff3', repo: 'xosproject/exampleservice-synchronizer', tag: '84833a2e2509da488dc5e2ffd3857e358cb53f5e'
+INFO:__main__:Attempting to fetch docker image: xosproject/rcord-synchronizer:5aa2e4e1298d1e63817c4a6a3f757d7c442ab1cd
+INFO:__main__:Pulling from xosproject/rcord-synchronizer
+INFO:__main__:Digest: sha256:36279e4134a282841924693fcca0e01888bc1ea4e0f9374cb0f14967bde06d4b
+INFO:__main__:Status: Downloaded newer image for xosproject/rcord-synchronizer:5aa2e4e1298d1e63817c4a6a3f757d7c442ab1cd
+INFO:__main__:Fetched image xosproject/rcord-synchronizer:5aa2e4e1298d1e63817c4a6a3f757d7c442ab1cd, id: sha256:0dccc785364ee51252eedef8833a9cbf13cf3fae359cacb11ab1327cf46724af
+INFO:__main__:Tagging id: 'sha256:0dccc785364ee51252eedef8833a9cbf13cf3fae359cacb11ab1327cf46724af', repo: 'xosproject/rcord-synchronizer', tag: 'candidate'
+INFO:__main__:Tagging id: 'sha256:0dccc785364ee51252eedef8833a9cbf13cf3fae359cacb11ab1327cf46724af', repo: 'xosproject/rcord-synchronizer', tag: '5aa2e4e1298d1e63817c4a6a3f757d7c442ab1cd'
+INFO:__main__:Saving actions as YAML to: /opt/cord/build/ib_actions.yml
+touch milestones/docker-images
+ansible-playbook --skip-tags "set_compute_node_password,switch_support,reboot,interface_config" -i ./genconfig/inventory.ini --extra-vars @./genconfig/config.yml ./platform-install/build-core-image-playbook.yml 2>&1 | tee -a /home/cord/cord/build/logs/20181030T093839Z_core-image
+
+PLAY [Build the XOS core image] ************************************************
+
+TASK [Gathering Facts] *********************************************************
+Tuesday 30 October 2018  09:48:12 -0500 (0:00:00.034)       0:00:00.034 ******* 
+changed: [head1]
+
+TASK [head-prep : Install Python packages] *****************************************************************************
+Tuesday 30 October 2018  09:48:15 -0500 (0:00:12.591)       0:01:28.851 ******* 
+ok: [corddev]
+
+TASK [xos-core-build : Intialize recipe list] **********************************
+Tuesday 30 October 2018  09:48:15 -0500 (0:00:03.171)       0:00:03.205 ******* 
+ok: [corddev]
+
+TASK [xos-core-build : Generate list of recipes] *******************************
+Tuesday 30 October 2018  09:48:15 -0500 (0:00:00.045)       0:00:03.251 ******* 
+ok: [corddev] => (item={u'path': u'orchestration/profiles/rcord', u'name': u'rcord'})
+ok: [corddev] => (item={u'synchronizer': True, u'path': u'orchestration/xos_services/olt-service', u'keypair': u'volt_rsa', u'name': u'volt'})
+ok: [corddev] => (item={u'path': u'orchestration/xos_services/vtn-service', u'keypair': u'vsg_rsa', u'name': u'vtn'})
+ok: [corddev] => (item={u'path': u'orchestration/xos_services/openstack', u'name': u'openstack'})
+ok: [corddev] => (item={u'path': u'orchestration/xos_services/onos-service', u'keypair': u'onos_rsa', u'name': u'onos'})
+ok: [corddev] => (item={u'path': u'orchestration/xos_services/vrouter', u'name': u'vrouter'})
+ok: [corddev] => (item={u'path': u'orchestration/xos_services/addressmanager', u'name': u'addressmanager'})
+ok: [corddev] => (item={u'path': u'orchestration/xos_services/vsg', u'keypair': u'vsg_rsa', u'name': u'vsg'})
+ok: [corddev] => (item={u'path': u'orchestration/xos_services/vtr', u'keypair': u'vsg_rsa', u'name': u'vtr'})
+ok: [corddev] => (item={u'path': u'orchestration/xos_services/fabric', u'name': u'fabric'})
+
+TASK [xos-core-build : Add in the profile library] *****************************
+Tuesday 30 October 2018  09:48:15 -0500 (0:00:00.200)       0:00:03.452 ******* 
+skipping: [corddev]
+
+TASK [xos-core-build : Join the list of recipes] *******************************
+Tuesday 30 October 2018  09:48:15 -0500 (0:00:00.023)       0:00:03.475 ******* 
+ok: [corddev]
+
+TASK [xos-core-build : debug] **************************************************
+Tuesday 30 October 2018  09:48:15 -0500 (0:00:00.050)       0:00:03.525 ******* 
+ok: [corddev] => {
+    "msg": [
+        "/opt/cord/orchestration/xos/xos/core/core-onboard.yaml", 
+        "/opt/cord/orchestration/profiles/rcord/xos/rcord-onboard.yaml", 
+        "/opt/cord/orchestration/xos_services/olt-service/xos/volt-onboard.yaml", 
+        "/opt/cord/orchestration/xos_services/vtn-service/xos/vtn-onboard.yaml", 
+        "/opt/cord/orchestration/xos_services/openstack/xos/openstack-onboard.yaml", 
+        "/opt/cord/orchestration/xos_services/onos-service/xos/onos-onboard.yaml", 
+        "/opt/cord/orchestration/xos_services/vrouter/xos/vrouter-onboard.yaml", 
+        "/opt/cord/orchestration/xos_services/addressmanager/xos/addressmanager-onboard.yaml", 
+        "/opt/cord/orchestration/xos_services/vsg/xos/vsg-onboard.yaml", 
+        "/opt/cord/orchestration/xos_services/vtr/xos/vtr-onboard.yaml", 
+        "/opt/cord/orchestration/xos_services/fabric/xos/fabric-onboard.yaml"
+    ]
+}
+
+TASK [xos-core-build : Create the BUILD directory] *****************************
+Tuesday 30 October 2018  09:48:15 -0500 (0:00:00.042)       0:00:03.568 ******* 
+ok: [corddev]
+
+TASK [xos-core-build : Run the corebuilder tool] *******************************
+Tuesday 30 October 2018  09:48:15 -0500 (0:00:00.273)       0:00:03.841 ******* 
+changed: [head1] => (item=ndg-httpsclient)
+changed: [head1] => (item=passlib)
+ok: [head1] => (item=pyasn1)
+ok: [head1] => (item=pyopenssl)
+ok: [head1] => (item=urllib3)
+changed: [head1] => (item=gitpython)
+changed: [head1] => (item=graphviz)
+
+TASK [head-prep : Add pod ssh private key to head node user] ***********************************************************
+Tuesday 30 October 2018  09:48:20 -0500 (0:00:05.599)       0:01:34.450 ******* 
+changed: [corddev]
+
+TASK [xos-core-build : Build UI image] *****************************************
+Tuesday 30 October 2018  09:48:20 -0500 (0:00:05.058)       0:00:08.900 ******* 
+ok: [head1]
+
+TASK [head-prep : Add pod ssh public key to head user] *****************************************************************
+Tuesday 30 October 2018  09:48:21 -0500 (0:00:00.621)       0:01:35.072 ******* 
+changed: [head1]
+
+TASK [head-prep : Add pod ssh signed public key to head node user] *****************************************************
+Tuesday 30 October 2018  09:48:21 -0500 (0:00:00.371)       0:01:35.443 ******* 
+changed: [head1]
+
+TASK [head-prep : Disable host key checking in ~/.ssh/config] **********************************************************
+Tuesday 30 October 2018  09:48:22 -0500 (0:00:00.499)       0:01:35.943 ******* 
+changed: [head1]
+
+TASK [head-prep : Disable host key checking in ~/.ansible.cfg] *********************************************************
+Tuesday 30 October 2018  09:48:22 -0500 (0:00:00.343)       0:01:36.286 ******* 
+changed: [head1]
+
+PLAY [Common prep, install certificates] *******************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************
+Tuesday 30 October 2018  09:48:22 -0500 (0:00:00.417)       0:01:36.703 ******* 
+changed: [corddev]
+
+PLAY RECAP *********************************************************************
+corddev                    : ok=8    changed=2    unreachable=0    failed=0   
+
+Tuesday 30 October 2018  09:48:23 -0500 (0:00:02.157)       0:00:11.057 ******* 
+=============================================================================== 
+xos-core-build : Run the corebuilder tool ------------------------------- 5.06s
+Gathering Facts --------------------------------------------------------- 3.17s
+xos-core-build : Build UI image ----------------------------------------- 2.16s
+xos-core-build : Create the BUILD directory ----------------------------- 0.27s
+xos-core-build : Generate list of recipes ------------------------------- 0.20s
+xos-core-build : Join the list of recipes ------------------------------- 0.05s
+xos-core-build : Intialize recipe list ---------------------------------- 0.05s
+xos-core-build : debug -------------------------------------------------- 0.04s
+xos-core-build : Add in the profile library ----------------------------- 0.02s
+touch milestones/core-image
+ok: [head1]
+
+TASK [common-prep : Upgrade system to current using apt] ***************************************************************
+Tuesday 30 October 2018  09:48:25 -0500 (0:00:02.237)       0:01:38.941 ******* 
+skipping: [head1]
+
+TASK [common-prep : Reboot if required after dist_upgrade] *************************************************************
+Tuesday 30 October 2018  09:48:25 -0500 (0:00:00.022)       0:01:38.963 ******* 
+skipping: [head1]
+
+TASK [common-prep : Install standard packages] *************************************************************************
+Tuesday 30 October 2018  09:48:25 -0500 (0:00:00.022)       0:01:38.985 ******* 
+ok: [head1] => (item=[u'tmux', u'vim'])
+
+TASK [common-prep : Remove annoying default editors] *******************************************************************
+Tuesday 30 October 2018  09:48:25 -0500 (0:00:00.602)       0:01:39.588 ******* 
+changed: [head1] => (item=[u'nano', u'jove'])
+
+TASK [common-prep : Enable vim syntax highlighting] ********************************************************************
+Tuesday 30 October 2018  09:48:28 -0500 (0:00:02.205)       0:01:41.794 ******* 
+changed: [head1]
+
+TASK [common-prep : Configure tmux] ************************************************************************************
+Tuesday 30 October 2018  09:48:28 -0500 (0:00:00.241)       0:01:42.035 ******* 
+changed: [head1]
+
+TASK [pki-install : Copy CA certificates] ******************************************************************************
+Tuesday 30 October 2018  09:48:28 -0500 (0:00:00.461)       0:01:42.496 ******* 
+changed: [head1] => (item={u'dest': u'cord_root_ca.crt', u'src': u'root_ca/certs/ca_cert.pem'})
+changed: [head1] => (item={u'dest': u'cord_intermediate_ca.crt', u'src': u'mysite_im_ca/certs/im_cert.pem'})
+
+RUNNING HANDLER [pki-install : update-ca-certificates] *****************************************************************
+Tuesday 30 October 2018  09:48:29 -0500 (0:00:00.854)       0:01:43.351 ******* 
+changed: [head1]
+
+PLAY [Install docker and configure it] *********************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************
+Tuesday 30 October 2018  09:48:32 -0500 (0:00:02.709)       0:01:46.060 ******* 
+ok: [head1]
+
+TASK [docker-install : Prereqs and SSL support for apt for SSL] ********************************************************
+Tuesday 30 October 2018  09:48:34 -0500 (0:00:02.087)       0:01:48.147 ******* 
+ok: [head1] => (item=[u'apt-transport-https', u'ca-certificates', u'python-pip'])
+
+TASK [docker-install : Trust docker apt key] ***************************************************************************
+Tuesday 30 October 2018  09:48:35 -0500 (0:00:00.607)       0:01:48.755 ******* 
+changed: [head1]
+
+TASK [docker-install : Add docker apt repo] ****************************************************************************
+Tuesday 30 October 2018  09:48:35 -0500 (0:00:00.644)       0:01:49.399 ******* 
+changed: [head1]
+
+TASK [docker-install : Install docker] *********************************************************************************
+Tuesday 30 October 2018  09:48:40 -0500 (0:00:04.872)       0:01:54.271 ******* 
+changed: [head1]
+
+TASK [docker-install : Configure Docker] *******************************************************************************
+Tuesday 30 October 2018  09:48:51 -0500 (0:00:10.918)       0:02:05.190 ******* 
+changed: [head1]
+
+TASK [docker-install : Install docker-compose, docker python module, imagebuilder deps via pip] ************************
+Tuesday 30 October 2018  09:48:51 -0500 (0:00:00.466)       0:02:05.656 ******* 
+changed: [head1] => (item=docker==2.6.1)
+changed: [head1] => (item=docker-compose==1.15.0)
+ok: [head1] => (item=gitpython)
+ok: [head1] => (item=graphviz)
+
+TASK [docker-install : Make current user part of the Docker group] *****************************************************
+Tuesday 30 October 2018  09:48:58 -0500 (0:00:06.992)       0:02:12.649 ******* 
+changed: [head1]
+
+RUNNING HANDLER [docker-install : restart docker] **********************************************************************
+Tuesday 30 October 2018  09:48:59 -0500 (0:00:00.492)       0:02:13.142 ******* 
+changed: [head1]
+
+PLAY [Configure network interfaces] ************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************
+Tuesday 30 October 2018  09:49:01 -0500 (0:00:01.645)       0:02:14.787 ******* 
+ok: [head1]
+
+TASK [interface-config : Install bridging/bonding utilities] ***********************************************************
+Tuesday 30 October 2018  09:49:03 -0500 (0:00:02.434)       0:02:17.222 ******* 
+skipping: [head1] => (item=[]) 
+
+TASK [interface-config : Create management network interfaces] *********************************************************
+Tuesday 30 October 2018  09:49:03 -0500 (0:00:00.045)       0:02:17.267 ******* 
+skipping: [head1]
+
+TASK [interface-config : Bring up management network interfaces, if reconfigured] **************************************
+Tuesday 30 October 2018  09:49:03 -0500 (0:00:00.025)       0:02:17.292 ******* 
+skipping: [head1] => (item=mgmtbridge) 
+skipping: [head1] => (item=mgmtbond) 
+skipping: [head1] => (item=vethmgmt0) 
+
+TASK [interface-config : Default to accept forwarded traffic] **********************************************************
+Tuesday 30 October 2018  09:49:03 -0500 (0:00:00.040)       0:02:17.333 ******* 
+skipping: [head1]
+
+TASK [interface-config : Configure forwarding for management bridge] ***************************************************
+Tuesday 30 October 2018  09:49:03 -0500 (0:00:00.024)       0:02:17.357 ******* 
+skipping: [head1]
+
+TASK [interface-config : Configure NAT for management network] *********************************************************
+Tuesday 30 October 2018  09:49:03 -0500 (0:00:00.021)       0:02:17.379 ******* 
+skipping: [head1]
+
+TASK [interface-config : Create fabric network interfaces on compute nodes] ********************************************
+Tuesday 30 October 2018  09:49:03 -0500 (0:00:00.019)       0:02:17.398 ******* 
+skipping: [head1]
+
+TASK [interface-config : Bring up fabricbridge on head node] ***********************************************************
+Tuesday 30 October 2018  09:49:03 -0500 (0:00:00.018)       0:02:17.417 ******* 
+skipping: [head1]
+
+TASK [interface-config : Bring up fabricbridge:0 on head node if using VSG addresspool] ********************************
+Tuesday 30 October 2018  09:49:03 -0500 (0:00:00.019)       0:02:17.437 ******* 
+skipping: [head1]
+
+TASK [interface-config : Bring up fabricbridge:1 on head node if using PUBLIC addresspool] *****************************
+Tuesday 30 October 2018  09:49:03 -0500 (0:00:00.019)       0:02:17.456 ******* 
+skipping: [head1]
+
+TASK [interface-config : Bring up common fabric interfaces, if reconfigured] *******************************************
+Tuesday 30 October 2018  09:49:03 -0500 (0:00:00.018)       0:02:17.475 ******* 
+skipping: [head1] => (item=fabricbond) 
+
+PLAY [DNS server on head node] *****************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************
+Tuesday 30 October 2018  09:49:03 -0500 (0:00:00.028)       0:02:17.503 ******* 
+ok: [head1]
+
+TASK [dns-nsd : Install nsd] *******************************************************************************************
+Tuesday 30 October 2018  09:49:06 -0500 (0:00:02.386)       0:02:19.890 ******* 
+skipping: [head1] => (item=[]) 
+
+TASK [dns-nsd : Stop nsd until configured] *****************************************************************************
+Tuesday 30 October 2018  09:49:06 -0500 (0:00:00.043)       0:02:19.933 ******* 
+skipping: [head1]
+
+TASK [dns-nsd : Create nsd zones directory] ****************************************************************************
+Tuesday 30 October 2018  09:49:06 -0500 (0:00:00.030)       0:02:19.963 ******* 
+skipping: [head1]
+
+TASK [dns-nsd : Create nsd.conf from template] *************************************************************************
+Tuesday 30 October 2018  09:49:06 -0500 (0:00:00.029)       0:02:19.993 ******* 
+skipping: [head1]
+
+TASK [dns-nsd : Create forward zonefiles from template] ****************************************************************
+Tuesday 30 October 2018  09:49:06 -0500 (0:00:00.027)       0:02:20.020 ******* 
+skipping: [head1] => (item={u'soa': u'ns1', u'name': u'cord.lab', u'cidr': u'10.1.0.0/24', u'ns': [{u'name': u'ns1'}], u'nodelists': [u'head_lxd_list', u'physical_node_list'], u'aliases': [{u'dest': u'head1', u'name': u'apt-cache'}, {u'dest': u'head1', u'name': u'cordloghost'}, {u'dest': u'head1', u'name': u'consul'}, {u'dest': u'head1', u'name': u'docker'}, {u'dest': u'head1', u'name': u'mavenrepo'}, {u'dest': u'head1', u'name': u'ns'}, {u'dest': u'head1', u'name': u'ns1'}, {u'dest': u'head1', u'name': u'onos-cord'}, {u'dest': u'head1', u'name': u'onos-fabric'}, {u'dest': u'head1', u'name': u'xos'}, {u'dest': u'head1', u'name': u'xos-chameleon'}, {u'dest': u'head1', u'name': u'xos-consul'}, {u'dest': u'head1', u'name': u'xos-core'}, {u'dest': u'head1', u'name': u'xos-gui'}, {u'dest': u'head1', u'name': u'xos-tosca'}, {u'dest': u'head1', u'name': u'xos-ws'}]}) 
+
+TASK [dns-nsd : Create reverse zonefiles from template] ****************************************************************
+Tuesday 30 October 2018  09:49:06 -0500 (0:00:00.032)       0:02:20.053 ******* 
+skipping: [head1] => (item={u'soa': u'ns1', u'name': u'cord.lab', u'cidr': u'10.1.0.0/24', u'ns': [{u'name': u'ns1'}], u'nodelists': [u'head_lxd_list', u'physical_node_list'], u'aliases': [{u'dest': u'head1', u'name': u'apt-cache'}, {u'dest': u'head1', u'name': u'cordloghost'}, {u'dest': u'head1', u'name': u'consul'}, {u'dest': u'head1', u'name': u'docker'}, {u'dest': u'head1', u'name': u'mavenrepo'}, {u'dest': u'head1', u'name': u'ns'}, {u'dest': u'head1', u'name': u'ns1'}, {u'dest': u'head1', u'name': u'onos-cord'}, {u'dest': u'head1', u'name': u'onos-fabric'}, {u'dest': u'head1', u'name': u'xos'}, {u'dest': u'head1', u'name': u'xos-chameleon'}, {u'dest': u'head1', u'name': u'xos-consul'}, {u'dest': u'head1', u'name': u'xos-core'}, {u'dest': u'head1', u'name': u'xos-gui'}, {u'dest': u'head1', u'name': u'xos-tosca'}, {u'dest': u'head1', u'name': u'xos-ws'}]}) 
+
+TASK [dns-unbound : Install unbound] ***********************************************************************************
+Tuesday 30 October 2018  09:49:06 -0500 (0:00:00.031)       0:02:20.084 ******* 
+skipping: [head1] => (item=[]) 
+
+TASK [dns-unbound : Stop unbound until configured] *********************************************************************
+Tuesday 30 October 2018  09:49:06 -0500 (0:00:00.029)       0:02:20.114 ******* 
+skipping: [head1]
+
+TASK [dns-unbound : create unbound.conf from template] *****************************************************************
+Tuesday 30 October 2018  09:49:06 -0500 (0:00:00.023)       0:02:20.137 ******* 
+skipping: [head1]
+
+PLAY [Configure DNS resolution, DHCP on head node] *********************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************
+Tuesday 30 October 2018  09:49:06 -0500 (0:00:00.030)       0:02:20.168 ******* 
+ok: [head1]
+
+TASK [dns-configure : Make sure resolvconf is doing DNS resolver mangling] *********************************************
+Tuesday 30 October 2018  09:49:08 -0500 (0:00:02.278)       0:02:22.447 ******* 
+skipping: [head1]
+
+TASK [dns-configure : Create resolvconf configuration files] ***********************************************************
+Tuesday 30 October 2018  09:49:08 -0500 (0:00:00.027)       0:02:22.474 ******* 
+skipping: [head1] => (item=base) 
+skipping: [head1] => (item=head) 
+
+TASK [dns-configure : Tell resolvconf to refresh /etc/resolv.conf file if changed] *************************************
+Tuesday 30 October 2018  09:49:08 -0500 (0:00:00.036)       0:02:22.511 ******* 
+skipping: [head1]
+
+TASK [dns-configure : Check that Openstack LXD containers can be found in DNS] *****************************************
+Tuesday 30 October 2018  09:49:08 -0500 (0:00:00.024)       0:02:22.536 ******* 
+skipping: [head1] => (item={u'ipv4_last_octet': 10, u'name': u'juju-1', u'service': u'juju', u'aliases': [u'juju']}) 
+skipping: [head1] => (item={u'service': u'ceilometer', u'ipv4_last_octet': 20, u'name': u'ceilometer-1', u'forwarded_ports': [{u'int': 8777, u'ext': 8777}], u'aliases': [u'ceilometer']}) 
+skipping: [head1] => (item={u'service': u'glance', u'ipv4_last_octet': 30, u'name': u'glance-1', u'forwarded_ports': [{u'int': 9292, u'ext': 9292}], u'aliases': [u'glance']}) 
+skipping: [head1] => (item={u'service': u'keystone', u'ipv4_last_octet': 40, u'name': u'keystone-1', u'forwarded_ports': [{u'int': 35357, u'ext': 35357}, {u'int': 4990, u'ext': 4990}, {u'int': 5000, u'ext': 5000}], u'aliases': [u'keystone']}) 
+skipping: [head1] => (item={u'ipv4_last_octet': 50, u'name': u'percona-cluster-1', u'service': u'percona-cluster', u'aliases': [u'percona-cluster']}) 
+skipping: [head1] => (item={u'service': u'nagios', u'ipv4_last_octet': 60, u'name': u'nagios-1', u'forwarded_ports': [{u'int': 80, u'ext': 3128}], u'aliases': [u'nagios']}) 
+skipping: [head1] => (item={u'service': u'neutron-api', u'ipv4_last_octet': 70, u'name': u'neutron-api-1', u'forwarded_ports': [{u'int': 9696, u'ext': 9696}], u'aliases': [u'neutron-api']}) 
+skipping: [head1] => (item={u'service': u'nova-cloud-controller', u'ipv4_last_octet': 80, u'name': u'nova-cloud-controller-1', u'forwarded_ports': [{u'int': 8774, u'ext': 8774}], u'aliases': [u'nova-cloud-controller']}) 
+skipping: [head1] => (item={u'service': u'openstack-dashboard', u'ipv4_last_octet': 90, u'name': u'openstack-dashboard-1', u'forwarded_ports': [{u'int': 80, u'ext': 8080}], u'aliases': [u'openstack-dashboard']}) 
+skipping: [head1] => (item={u'ipv4_last_octet': 100, u'name': u'rabbitmq-server-1', u'service': u'rabbitmq-server', u'aliases': [u'rabbitmq-server']}) 
+skipping: [head1] => (item={u'ipv4_last_octet': 110, u'name': u'mongodb-1', u'service': u'mongodb', u'aliases': [u'mongodb']}) 
+
+TASK [dns-configure : Check that aliases can be found in DNS] **********************************************************
+Tuesday 30 October 2018  09:49:08 -0500 (0:00:00.084)       0:02:22.621 ******* 
+skipping: [head1] => (item=({u'soa': u'ns1', u'cidr': u'10.1.0.0/24', u'ns': [{u'name': u'ns1'}], u'name': u'cord.lab', u'nodelists': [u'head_lxd_list', u'physical_node_list']}, {u'dest': u'head1', u'name': u'apt-cache'})) 
+skipping: [head1] => (item=({u'soa': u'ns1', u'cidr': u'10.1.0.0/24', u'ns': [{u'name': u'ns1'}], u'name': u'cord.lab', u'nodelists': [u'head_lxd_list', u'physical_node_list']}, {u'dest': u'head1', u'name': u'cordloghost'})) 
+skipping: [head1] => (item=({u'soa': u'ns1', u'cidr': u'10.1.0.0/24', u'ns': [{u'name': u'ns1'}], u'name': u'cord.lab', u'nodelists': [u'head_lxd_list', u'physical_node_list']}, {u'dest': u'head1', u'name': u'consul'})) 
+skipping: [head1] => (item=({u'soa': u'ns1', u'cidr': u'10.1.0.0/24', u'ns': [{u'name': u'ns1'}], u'name': u'cord.lab', u'nodelists': [u'head_lxd_list', u'physical_node_list']}, {u'dest': u'head1', u'name': u'docker'})) 
+skipping: [head1] => (item=({u'soa': u'ns1', u'cidr': u'10.1.0.0/24', u'ns': [{u'name': u'ns1'}], u'name': u'cord.lab', u'nodelists': [u'head_lxd_list', u'physical_node_list']}, {u'dest': u'head1', u'name': u'mavenrepo'})) 
+skipping: [head1] => (item=({u'soa': u'ns1', u'cidr': u'10.1.0.0/24', u'ns': [{u'name': u'ns1'}], u'name': u'cord.lab', u'nodelists': [u'head_lxd_list', u'physical_node_list']}, {u'dest': u'head1', u'name': u'ns'})) 
+skipping: [head1] => (item=({u'soa': u'ns1', u'cidr': u'10.1.0.0/24', u'ns': [{u'name': u'ns1'}], u'name': u'cord.lab', u'nodelists': [u'head_lxd_list', u'physical_node_list']}, {u'dest': u'head1', u'name': u'ns1'})) 
+skipping: [head1] => (item=({u'soa': u'ns1', u'cidr': u'10.1.0.0/24', u'ns': [{u'name': u'ns1'}], u'name': u'cord.lab', u'nodelists': [u'head_lxd_list', u'physical_node_list']}, {u'dest': u'head1', u'name': u'onos-cord'})) 
+skipping: [head1] => (item=({u'soa': u'ns1', u'cidr': u'10.1.0.0/24', u'ns': [{u'name': u'ns1'}], u'name': u'cord.lab', u'nodelists': [u'head_lxd_list', u'physical_node_list']}, {u'dest': u'head1', u'name': u'onos-fabric'})) 
+skipping: [head1] => (item=({u'soa': u'ns1', u'cidr': u'10.1.0.0/24', u'ns': [{u'name': u'ns1'}], u'name': u'cord.lab', u'nodelists': [u'head_lxd_list', u'physical_node_list']}, {u'dest': u'head1', u'name': u'xos'})) 
+skipping: [head1] => (item=({u'soa': u'ns1', u'cidr': u'10.1.0.0/24', u'ns': [{u'name': u'ns1'}], u'name': u'cord.lab', u'nodelists': [u'head_lxd_list', u'physical_node_list']}, {u'dest': u'head1', u'name': u'xos-chameleon'})) 
+skipping: [head1] => (item=({u'soa': u'ns1', u'cidr': u'10.1.0.0/24', u'ns': [{u'name': u'ns1'}], u'name': u'cord.lab', u'nodelists': [u'head_lxd_list', u'physical_node_list']}, {u'dest': u'head1', u'name': u'xos-consul'})) 
+skipping: [head1] => (item=({u'soa': u'ns1', u'cidr': u'10.1.0.0/24', u'ns': [{u'name': u'ns1'}], u'name': u'cord.lab', u'nodelists': [u'head_lxd_list', u'physical_node_list']}, {u'dest': u'head1', u'name': u'xos-core'})) 
+skipping: [head1] => (item=({u'soa': u'ns1', u'cidr': u'10.1.0.0/24', u'ns': [{u'name': u'ns1'}], u'name': u'cord.lab', u'nodelists': [u'head_lxd_list', u'physical_node_list']}, {u'dest': u'head1', u'name': u'xos-gui'})) 
+skipping: [head1] => (item=({u'soa': u'ns1', u'cidr': u'10.1.0.0/24', u'ns': [{u'name': u'ns1'}], u'name': u'cord.lab', u'nodelists': [u'head_lxd_list', u'physical_node_list']}, {u'dest': u'head1', u'name': u'xos-tosca'})) 
+skipping: [head1] => (item=({u'soa': u'ns1', u'cidr': u'10.1.0.0/24', u'ns': [{u'name': u'ns1'}], u'name': u'cord.lab', u'nodelists': [u'head_lxd_list', u'physical_node_list']}, {u'dest': u'head1', u'name': u'xos-ws'})) 
+
+TASK [dhcpd : Install dhcpd] *******************************************************************************************
+Tuesday 30 October 2018  09:49:09 -0500 (0:00:00.090)       0:02:22.712 ******* 
+skipping: [head1] => (item=[]) 
+
+TASK [dhcpd : Create /etc/dhcp/dhcpd.conf from template] ***************************************************************
+Tuesday 30 October 2018  09:49:09 -0500 (0:00:00.027)       0:02:22.739 ******* 
+skipping: [head1]
+
+TASK [dhcpd : Set interfaces for dhcpd to listen on] *******************************************************************
+Tuesday 30 October 2018  09:49:09 -0500 (0:00:00.022)       0:02:22.762 ******* 
+skipping: [head1]
+
+PLAY [Install apt-cacher-ng] *******************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************
+Tuesday 30 October 2018  09:49:09 -0500 (0:00:00.024)       0:02:22.787 ******* 
+ok: [head1]
+
+TASK [apt-cacher-ng : Install apt-cacher-ng with apt] ******************************************************************
+Tuesday 30 October 2018  09:49:11 -0500 (0:00:02.459)       0:02:25.246 ******* 
+skipping: [head1] => (item=[]) 
+
+TASK [apt-cacher-ng : Configure apt-cacher-ng to pass through ssl repos] ***********************************************
+Tuesday 30 October 2018  09:49:11 -0500 (0:00:00.038)       0:02:25.285 ******* 
+skipping: [head1]
+
+TASK [apt-cacher-ng : Configure local system to use apt-cacher-ng] *****************************************************
+Tuesday 30 October 2018  09:49:11 -0500 (0:00:00.026)       0:02:25.311 ******* 
+skipping: [head1] => (item=02broken-repos) 
+skipping: [head1] => (item=03apt-cacher-ng) 
+
+PLAY [Install apache proxy] ********************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************
+Tuesday 30 October 2018  09:49:11 -0500 (0:00:00.039)       0:02:25.351 ******* 
+ok: [head1]
+
+TASK [apache-proxy : Install Apache] ***********************************************************************************
+Tuesday 30 October 2018  09:49:14 -0500 (0:00:02.411)       0:02:27.762 ******* 
+changed: [head1] => (item=[u'apache2', u'apache2-utils'])
+
+TASK [apache-proxy : Enable Apache2 Modules] ***************************************************************************
+Tuesday 30 October 2018  09:49:23 -0500 (0:00:09.301)       0:02:37.064 ******* 
+changed: [head1] => (item=proxy)
+changed: [head1] => (item=proxy_http)
+changed: [head1] => (item=proxy_wstunnel)
+changed: [head1] => (item=rewrite)
+changed: [head1] => (item=headers)
+
+TASK [apache-proxy : Apache configuration for CORD sites] **************************************************************
+Tuesday 30 October 2018  09:49:25 -0500 (0:00:01.899)       0:02:38.964 ******* 
+changed: [head1]
+
+TASK [apache-proxy : Enable CORD Apache Configuration] *****************************************************************
+Tuesday 30 October 2018  09:49:25 -0500 (0:00:00.444)       0:02:39.408 ******* 
+changed: [head1]
+
+RUNNING HANDLER [apache-proxy : reload apache2] ************************************************************************
+Tuesday 30 October 2018  09:49:26 -0500 (0:00:00.307)       0:02:39.715 ******* 
+changed: [head1]
+
+PLAY [Sysctl defaults] *************************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************
+Tuesday 30 October 2018  09:49:26 -0500 (0:00:00.424)       0:02:40.140 ******* 
+ok: [head1]
+
+TASK [sysctl : ElasticSearch mmap limit] *******************************************************************************
+Tuesday 30 October 2018  09:49:28 -0500 (0:00:02.337)       0:02:42.477 ******* 
+changed: [head1]
+
+PLAY RECAP *************************************************************************************************************
+head1                      : ok=40   changed=27   unreachable=0    failed=0   
+
+Tuesday 30 October 2018  09:49:29 -0500 (0:00:00.352)       0:02:42.830 ******* 
+=============================================================================== 
+head-prep : Install packages ----------------------------------------------------------------------------------- 34.88s
+head-prep : Install juju and openstack related packages -------------------------------------------------------- 22.09s
+head-prep : Make sure Ansible is newest version ---------------------------------------------------------------- 12.59s
+docker-install : Install docker -------------------------------------------------------------------------------- 10.92s
+head-prep : Install prerequisites for using PPA repos ----------------------------------------------------------- 9.76s
+apache-proxy : Install Apache ----------------------------------------------------------------------------------- 9.30s
+docker-install : Install docker-compose, docker python module, imagebuilder deps via pip ------------------------ 6.99s
+head-prep : Add Ansible PPA ------------------------------------------------------------------------------------- 5.75s
+head-prep : Install Python packages ----------------------------------------------------------------------------- 5.60s
+docker-install : Add docker apt repo ---------------------------------------------------------------------------- 4.87s
+Gathering Facts ------------------------------------------------------------------------------------------------- 3.75s
+pki-install : update-ca-certificates ---------------------------------------------------------------------------- 2.71s
+Gathering Facts ------------------------------------------------------------------------------------------------- 2.46s
+Gathering Facts ------------------------------------------------------------------------------------------------- 2.43s
+Gathering Facts ------------------------------------------------------------------------------------------------- 2.41s
+Gathering Facts ------------------------------------------------------------------------------------------------- 2.39s
+Gathering Facts ------------------------------------------------------------------------------------------------- 2.34s
+Gathering Facts ------------------------------------------------------------------------------------------------- 2.28s
+Gathering Facts ------------------------------------------------------------------------------------------------- 2.24s
+common-prep : Remove annoying default editors ------------------------------------------------------------------- 2.21s
+touch milestones/prep-headnode
+ansible-playbook --skip-tags "set_compute_node_password,switch_support,reboot,interface_config" -i ./genconfig/inventory.ini --extra-vars @./genconfig/config.yml ./maas/prime-node.yml 2>&1 | tee -a /home/cord/cord/build/logs/20181030T093839Z_maas-prime
+
+PLAY [run setup to gather facts] ***************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************
+Tuesday 30 October 2018  09:49:29 -0500 (0:00:00.030)       0:00:00.030 ******* 
+ok: [localhost]
+ok: [head1]
+ok: [corddev]
+
+TASK [run setup] *******************************************************************************************************
+Tuesday 30 October 2018  09:49:32 -0500 (0:00:02.958)       0:00:02.989 ******* 
+ok: [localhost]
+ok: [corddev]
+ok: [head1]
+
+PLAY [install docker registry] *****************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************
+Tuesday 30 October 2018  09:49:35 -0500 (0:00:02.324)       0:00:05.314 ******* 
+ok: [head1]
+
+TASK [local-ubuntu-repository : Ensure Local Repository Settings] ******************************************************
+Tuesday 30 October 2018  09:49:37 -0500 (0:00:02.373)       0:00:07.688 ******* 
+skipping: [head1]
+
+TASK [local-ubuntu-repository : Capture Existing Respositories] ********************************************************
+Tuesday 30 October 2018  09:49:37 -0500 (0:00:00.032)       0:00:07.721 ******* 
+skipping: [head1]
+
+TASK [local-ubuntu-repository : Capture Timestamp] *********************************************************************
+Tuesday 30 October 2018  09:49:37 -0500 (0:00:00.031)       0:00:07.752 ******* 
+skipping: [head1]
+
+TASK [local-ubuntu-repository : Backup Existing Respositories] *********************************************************
+Tuesday 30 October 2018  09:49:37 -0500 (0:00:00.030)       0:00:07.782 ******* 
+
+TASK [local-ubuntu-repository : Remove Existing Repositories] **********************************************************
+Tuesday 30 October 2018  09:49:37 -0500 (0:00:00.023)       0:00:07.806 ******* 
+
+TASK [local-ubuntu-repository : Ensure Update Repository List] *********************************************************
+Tuesday 30 October 2018  09:49:37 -0500 (0:00:00.026)       0:00:07.832 ******* 
+skipping: [head1]
+
+TASK [docker : Prereqs and SSL support for apt for SSL] ****************************************************************
+Tuesday 30 October 2018  09:49:37 -0500 (0:00:00.027)       0:00:07.859 ******* 
+ok: [head1] => (item=[u'apt-transport-https', u'ca-certificates', u'python-pip'])
+
+TASK [docker : Docker Apt Key] *****************************************************************************************
+Tuesday 30 October 2018  09:49:38 -0500 (0:00:00.643)       0:00:08.503 ******* 
+ok: [head1]
+
+TASK [docker : Docker repository] **************************************************************************************
+Tuesday 30 October 2018  09:49:38 -0500 (0:00:00.642)       0:00:09.146 ******* 
+ok: [head1]
+
+TASK [docker : Install docker-ce] **************************************************************************************
+Tuesday 30 October 2018  09:49:39 -0500 (0:00:00.512)       0:00:09.658 ******* 
+ok: [head1]
+
+TASK [docker : Install docker-compose] *********************************************************************************
+Tuesday 30 October 2018  09:49:39 -0500 (0:00:00.548)       0:00:10.207 ******* 
+changed: [head1] => (item=docker==2.4.2)
+ok: [head1] => (item=docker-compose==1.15.0)
+
+TASK [docker : Make current user part of the Docker group] *************************************************************
+Tuesday 30 October 2018  09:49:41 -0500 (0:00:01.774)       0:00:11.981 ******* 
+ok: [head1]
+
+TASK [registry : Ensure Hostname Resolution] ***************************************************************************
+Tuesday 30 October 2018  09:49:42 -0500 (0:00:00.399)       0:00:12.380 ******* 
+changed: [head1]
+
+TASK [registry : Directories are present] ******************************************************************************
+Tuesday 30 October 2018  09:49:42 -0500 (0:00:00.342)       0:00:12.722 ******* 
+changed: [head1] => (item=/data/registry-mirror/conf)
+
+TASK [registry : Configuration is copied] ******************************************************************************
+Tuesday 30 October 2018  09:49:42 -0500 (0:00:00.367)       0:00:13.090 ******* 
+changed: [head1]
+
+TASK [registry : Ensure Directories] ***********************************************************************************
+Tuesday 30 October 2018  09:49:43 -0500 (0:00:00.681)       0:00:13.772 ******* 
+changed: [head1]
+
+TASK [registry : Local Docker Registry] ********************************************************************************
+Tuesday 30 October 2018  09:49:43 -0500 (0:00:00.263)       0:00:14.036 ******* 
+changed: [head1] => (item=registry-compose.yml)
+
+TASK [registry : Ensure Local Registry Running] ************************************************************************
+Tuesday 30 October 2018  09:49:44 -0500 (0:00:00.419)       0:00:14.456 ******* 
+changed: [head1] => (item=registry-compose.yml)
+
+PLAY [install local SSH key on head node] ******************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************
+Tuesday 30 October 2018  09:49:54 -0500 (0:00:10.203)       0:00:24.659 ******* 
+ok: [head1]
+
+TASK [ssh-key : Get the username running the deploy] *******************************************************************
+Tuesday 30 October 2018  09:49:56 -0500 (0:00:02.525)       0:00:27.184 ******* 
+changed: [head1 -> localhost]
+
+TASK [ssh-key : Ensure User SSH Keys] **********************************************************************************
+Tuesday 30 October 2018  09:49:57 -0500 (0:00:00.191)       0:00:27.376 ******* 
+ok: [head1 -> localhost]
+
+TASK [ssh-key : Ensure Key Authorized on Target Head Node] *************************************************************
+Tuesday 30 October 2018  09:49:57 -0500 (0:00:00.136)       0:00:27.513 ******* 
+changed: [head1]
+
+TASK [ssh-key : Ensure key pair storage] *******************************************************************************
+Tuesday 30 October 2018  09:49:57 -0500 (0:00:00.357)       0:00:27.870 ******* 
+ok: [head1 -> localhost]
+
+TASK [ssh-key : Validate existing key pair] ****************************************************************************
+Tuesday 30 October 2018  09:49:57 -0500 (0:00:00.138)       0:00:28.009 ******* 
+ok: [head1 -> localhost]
+
+TASK [ssh-key : Generate key pair] *************************************************************************************
+Tuesday 30 October 2018  09:49:57 -0500 (0:00:00.138)       0:00:28.147 ******* 
+skipping: [head1]
+
+TASK [ssh-key : Ensure privacy of key pair] ****************************************************************************
+Tuesday 30 October 2018  09:49:57 -0500 (0:00:00.033)       0:00:28.181 ******* 
+ok: [head1 -> localhost] => (item={u'name': u'cord_rsa', u'mode': u'0644'})
+ok: [head1 -> localhost] => (item={u'name': u'cord_rsa.pub', u'mode': u'0644'})
+
+PLAY RECAP *************************************************************************************************************
+corddev                    : ok=2    changed=0    unreachable=0    failed=0   
+head1                      : ok=22   changed=9    unreachable=0    failed=0   
+localhost                  : ok=2    changed=0    unreachable=0    failed=0   
+
+Tuesday 30 October 2018  09:49:58 -0500 (0:00:00.245)       0:00:28.427 ******* 
+=============================================================================== 
+registry : Ensure Local Registry Running ----------------------------------------------------------------------- 10.20s
+Gathering Facts ------------------------------------------------------------------------------------------------- 2.96s
+Gathering Facts ------------------------------------------------------------------------------------------------- 2.53s
+Gathering Facts ------------------------------------------------------------------------------------------------- 2.37s
+run setup ------------------------------------------------------------------------------------------------------- 2.32s
+docker : Install docker-compose --------------------------------------------------------------------------------- 1.77s
+registry : Configuration is copied ------------------------------------------------------------------------------ 0.68s
+docker : Prereqs and SSL support for apt for SSL ---------------------------------------------------------------- 0.64s
+docker : Docker Apt Key ----------------------------------------------------------------------------------------- 0.64s
+docker : Install docker-ce -------------------------------------------------------------------------------------- 0.55s
+docker : Docker repository -------------------------------------------------------------------------------------- 0.51s
+registry : Local Docker Registry -------------------------------------------------------------------------------- 0.42s
+docker : Make current user part of the Docker group ------------------------------------------------------------- 0.40s
+registry : Directories are present ------------------------------------------------------------------------------ 0.37s
+ssh-key : Ensure Key Authorized on Target Head Node ------------------------------------------------------------- 0.36s
+registry : Ensure Hostname Resolution --------------------------------------------------------------------------- 0.34s
+registry : Ensure Directories ----------------------------------------------------------------------------------- 0.26s
+ssh-key : Ensure privacy of key pair ---------------------------------------------------------------------------- 0.25s
+ssh-key : Get the username running the deploy ------------------------------------------------------------------- 0.19s
+ssh-key : Ensure key pair storage ------------------------------------------------------------------------------- 0.14s
+touch milestones/maas-prime
+ssh corddev "cd /opt/cord/build/maas; rm -f consul.publish; make MAKE_CONFIG=.././genconfig/config.mk publish" 2>&1 | tee -a /home/cord/cord/build/logs/20181030T093839Z_publish-maas-images
+Using makefile configuration ".././genconfig/config.mk"
+make MAKE_CONFIG=/opt/cord/build/genconfig/config.mk CONFIG= -C automation publish
+make[1]: Entering directory `/opt/cord/build/maas/automation'
+docker tag opencord/maas-automation:candidate docker-registry:5000/opencord/maas-automation:candidate
+docker push docker-registry:5000/opencord/maas-automation:candidate
+The push refers to a repository [docker-registry:5000/opencord/maas-automation]
+bf05ff58577a: Preparing
+ffd20c106e18: Preparing
+ffd20c106e18: Pushed
+bf05ff58577a: Pushed
+candidate: digest: sha256:6f3843807123b59323f431883ad4fa0356175d7722802a301543e7626c997244 size: 739
+make[1]: Leaving directory `/opt/cord/build/maas/automation'
+make MAKE_CONFIG=/opt/cord/build/genconfig/config.mk CONFIG= -C config-generator publish
+make[1]: Entering directory `/opt/cord/build/maas/config-generator'
+docker tag opencord/maas-generator:candidate docker-registry:5000/opencord/maas-generator:candidate
+docker push docker-registry:5000/opencord/maas-generator:candidate
+The push refers to a repository [docker-registry:5000/opencord/maas-generator]
+595d9a25082e: Preparing
+7201ef024549: Preparing
+ffd20c106e18: Preparing
+ffd20c106e18: Mounted from opencord/maas-automation
+595d9a25082e: Pushed
+7201ef024549: Pushed
+candidate: digest: sha256:e4b7bbf1f44b1a17f1c69f0b923879b9af591aa278a523a7d5a5d4a48899fb64 size: 946
+make[1]: Leaving directory `/opt/cord/build/maas/config-generator'
+make MAKE_CONFIG=/opt/cord/build/genconfig/config.mk CONFIG= -C harvester publish
+make[1]: Entering directory `/opt/cord/build/maas/harvester'
+docker tag opencord/maas-harvester:candidate docker-registry:5000/opencord/maas-harvester:candidate
+docker push docker-registry:5000/opencord/maas-harvester:candidate
+The push refers to a repository [docker-registry:5000/opencord/maas-harvester]
+f93a9fe8fdbc: Preparing
+e0b0a56b0469: Preparing
+ffd20c106e18: Preparing
+ffd20c106e18: Mounted from opencord/maas-generator
+f93a9fe8fdbc: Pushed
+e0b0a56b0469: Pushed
+candidate: digest: sha256:32825d60c5b3cbc91685e194ad43f8c7c1c567699810cb88c05fe6513bd4e5de size: 950
+make[1]: Leaving directory `/opt/cord/build/maas/harvester'
+make MAKE_CONFIG=/opt/cord/build/genconfig/config.mk CONFIG= -C ip-allocator publish
+make[1]: Entering directory `/opt/cord/build/maas/ip-allocator'
+docker tag opencord/maas-allocator:candidate docker-registry:5000/opencord/maas-allocator:candidate
+docker push docker-registry:5000/opencord/maas-allocator:candidate
+The push refers to a repository [docker-registry:5000/opencord/maas-allocator]
+b7af16c210a4: Preparing
+ffd20c106e18: Preparing
+ffd20c106e18: Mounted from opencord/maas-harvester
+b7af16c210a4: Pushed
+candidate: digest: sha256:1c29c083597dd051fda3472d9d40ba2a87e57afd4769bd6a9c06d8b82d791db4 size: 739
+make[1]: Leaving directory `/opt/cord/build/maas/ip-allocator'
+make MAKE_CONFIG=/opt/cord/build/genconfig/config.mk CONFIG= -C provisioner publish
+make[1]: Entering directory `/opt/cord/build/maas/provisioner'
+docker tag opencord/maas-provisioner:candidate docker-registry:5000/opencord/maas-provisioner:candidate
+docker push docker-registry:5000/opencord/maas-provisioner:candidate
+The push refers to a repository [docker-registry:5000/opencord/maas-provisioner]
+bf270499c8c5: Preparing
+1355bed9c666: Preparing
+8cbf10ff9cb4: Preparing
+a36721819567: Preparing
+ce1c55e4ec78: Preparing
+05c2dea6380d: Preparing
+05c2dea6380d: Waiting
+8cbf10ff9cb4: Pushed
+a36721819567: Pushed
+1355bed9c666: Pushed
+bf270499c8c5: Pushed
+05c2dea6380d: Pushed
+ce1c55e4ec78: Pushed
+candidate: digest: sha256:defdea06afcbb18b47be6351da7c797c00c2cf4fbb15776eb42fc91407641f42 size: 1572
+make[1]: Leaving directory `/opt/cord/build/maas/provisioner'
+make MAKE_CONFIG=/opt/cord/build/genconfig/config.mk CONFIG= -C switchq publish
+make[1]: Entering directory `/opt/cord/build/maas/switchq'
+docker tag opencord/maas-switchq:candidate docker-registry:5000/opencord/maas-switchq:candidate
+docker push docker-registry:5000/opencord/maas-switchq:candidate
+The push refers to a repository [docker-registry:5000/opencord/maas-switchq]
+78a3694ff2a9: Preparing
+4a23ba50d1fd: Preparing
+ffd20c106e18: Preparing
+ffd20c106e18: Mounted from opencord/maas-allocator
+4a23ba50d1fd: Pushed
+78a3694ff2a9: Pushed
+candidate: digest: sha256:974abd33084277fb5a82581a2bf6b6bd1feb82d0026705ce2377d75588cebc6b size: 946
+make[1]: Leaving directory `/opt/cord/build/maas/switchq'
+docker pull consul@sha256:0dc990ff3c44d5b5395475bcc5ebdae4fc8b67f69e17942a8b9793b3df74d290
+sha256:0dc990ff3c44d5b5395475bcc5ebdae4fc8b67f69e17942a8b9793b3df74d290: Pulling from library/consul
+6c123565ed5e: Pulling fs layer
+c360837a94e2: Pulling fs layer
+4e298b2da1e2: Pulling fs layer
+46f89b06fcc9: Pulling fs layer
+3f453ecb18c0: Pulling fs layer
+46f89b06fcc9: Waiting
+3f453ecb18c0: Waiting
+c360837a94e2: Verifying Checksum
+c360837a94e2: Download complete
+4e298b2da1e2: Verifying Checksum
+4e298b2da1e2: Download complete
+6c123565ed5e: Verifying Checksum
+6c123565ed5e: Download complete
+6c123565ed5e: Pull complete
+c360837a94e2: Pull complete
+4e298b2da1e2: Pull complete
+3f453ecb18c0: Verifying Checksum
+3f453ecb18c0: Download complete
+46f89b06fcc9: Verifying Checksum
+46f89b06fcc9: Download complete
+46f89b06fcc9: Pull complete
+3f453ecb18c0: Pull complete
+Digest: sha256:0dc990ff3c44d5b5395475bcc5ebdae4fc8b67f69e17942a8b9793b3df74d290
+Status: Downloaded newer image for consul@sha256:0dc990ff3c44d5b5395475bcc5ebdae4fc8b67f69e17942a8b9793b3df74d290
+docker tag consul@sha256:0dc990ff3c44d5b5395475bcc5ebdae4fc8b67f69e17942a8b9793b3df74d290 docker-registry:5000/consul:candidate
+docker push docker-registry:5000/consul:candidate
+The push refers to a repository [docker-registry:5000/consul]
+828c386f8a52: Preparing
+e3aac081995f: Preparing
+cf1162058582: Preparing
+f0b05bd2fc6e: Preparing
+2c675ee9ed53: Preparing
+f0b05bd2fc6e: Pushed
+828c386f8a52: Pushed
+e3aac081995f: Pushed
+2c675ee9ed53: Pushed
+cf1162058582: Pushed
+candidate: digest: sha256:373003c4b1ab2a4a60e549be78cb17c4e624ac712d6f67ae2b8d4cee755085f9 size: 1363
+touch milestones/publish-maas-images
+ansible-playbook --skip-tags "set_compute_node_password,switch_support,reboot,interface_config" -i ./genconfig/inventory.ini --extra-vars @./genconfig/config.yml ./maas/head-node.yml 2>&1 | tee -a /home/cord/cord/build/logs/20181030T093839Z_deploy-maas
+[DEPRECATION WARNING]: The use of 'include' for tasks has been deprecated. Use 'import_tasks' for static inclusions or 
+'include_tasks' for dynamic inclusions. This feature will be removed in a future release. Deprecation warnings can be 
+disabled by setting deprecation_warnings=False in ansible.cfg.
+[DEPRECATION WARNING]: include is kept for backwards compatibility but usage is discouraged. The module documentation 
+details page may explain more about this rationale.. This feature will be removed in a future release. Deprecation 
+warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+
+PLAY [run setup to gather facts] ***************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************
+Tuesday 30 October 2018  09:50:19 -0500 (0:00:00.030)       0:00:00.030 ******* 
+ok: [localhost]
+ok: [corddev]
+ok: [head1]
+
+TASK [run setup] *******************************************************************************************************
+Tuesday 30 October 2018  09:50:23 -0500 (0:00:04.451)       0:00:04.481 ******* 
+ok: [localhost]
+ok: [corddev]
+ok: [head1]
+
+PLAY [Install MaaS and supporting files on head node] ******************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************
+Tuesday 30 October 2018  09:50:26 -0500 (0:00:02.463)       0:00:06.945 ******* 
+ok: [head1]
+
+TASK [local-ubuntu-repository : Ensure Local Repository Settings] ******************************************************
+Tuesday 30 October 2018  09:50:28 -0500 (0:00:02.155)       0:00:09.101 ******* 
+skipping: [head1]
+
+TASK [local-ubuntu-repository : Capture Existing Respositories] ********************************************************
+Tuesday 30 October 2018  09:50:28 -0500 (0:00:00.030)       0:00:09.131 ******* 
+skipping: [head1]
+
+TASK [local-ubuntu-repository : Capture Timestamp] *********************************************************************
+Tuesday 30 October 2018  09:50:28 -0500 (0:00:00.029)       0:00:09.161 ******* 
+skipping: [head1]
+
+TASK [local-ubuntu-repository : Backup Existing Respositories] *********************************************************
+Tuesday 30 October 2018  09:50:28 -0500 (0:00:00.024)       0:00:09.186 ******* 
+
+TASK [local-ubuntu-repository : Remove Existing Repositories] **********************************************************
+Tuesday 30 October 2018  09:50:28 -0500 (0:00:00.022)       0:00:09.208 ******* 
+
+TASK [local-ubuntu-repository : Ensure Update Repository List] *********************************************************
+Tuesday 30 October 2018  09:50:28 -0500 (0:00:00.021)       0:00:09.229 ******* 
+skipping: [head1]
+
+TASK [local-ubuntu-repository : Ensure Local Repository Settings] ******************************************************
+Tuesday 30 October 2018  09:50:28 -0500 (0:00:00.021)       0:00:09.251 ******* 
+skipping: [head1]
+
+TASK [local-ubuntu-repository : Capture Existing Respositories] ********************************************************
+Tuesday 30 October 2018  09:50:28 -0500 (0:00:00.019)       0:00:09.271 ******* 
+skipping: [head1]
+
+TASK [local-ubuntu-repository : Capture Timestamp] *********************************************************************
+Tuesday 30 October 2018  09:50:28 -0500 (0:00:00.019)       0:00:09.290 ******* 
+skipping: [head1]
+
+TASK [local-ubuntu-repository : Backup Existing Respositories] *********************************************************
+Tuesday 30 October 2018  09:50:28 -0500 (0:00:00.020)       0:00:09.311 ******* 
+
+TASK [local-ubuntu-repository : Remove Existing Repositories] **********************************************************
+Tuesday 30 October 2018  09:50:28 -0500 (0:00:00.018)       0:00:09.329 ******* 
+
+TASK [local-ubuntu-repository : Ensure Update Repository List] *********************************************************
+Tuesday 30 October 2018  09:50:28 -0500 (0:00:00.019)       0:00:09.348 ******* 
+skipping: [head1]
+
+TASK [docker : Prereqs and SSL support for apt for SSL] ****************************************************************
+Tuesday 30 October 2018  09:50:28 -0500 (0:00:00.019)       0:00:09.368 ******* 
+ok: [head1] => (item=[u'apt-transport-https', u'ca-certificates', u'python-pip'])
+
+TASK [docker : Docker Apt Key] *****************************************************************************************
+Tuesday 30 October 2018  09:50:29 -0500 (0:00:00.660)       0:00:10.028 ******* 
+ok: [head1]
+
+TASK [docker : Docker repository] **************************************************************************************
+Tuesday 30 October 2018  09:50:30 -0500 (0:00:00.685)       0:00:10.714 ******* 
+ok: [head1]
+
+TASK [docker : Install docker-ce] **************************************************************************************
+Tuesday 30 October 2018  09:50:30 -0500 (0:00:00.571)       0:00:11.285 ******* 
+ok: [head1]
+
+TASK [docker : Install docker-compose] *********************************************************************************
+Tuesday 30 October 2018  09:50:31 -0500 (0:00:00.523)       0:00:11.809 ******* 
+ok: [head1] => (item=docker==2.4.2)
+ok: [head1] => (item=docker-compose==1.15.0)
+
+TASK [docker : Make current user part of the Docker group] *************************************************************
+Tuesday 30 October 2018  09:50:32 -0500 (0:00:01.149)       0:00:12.958 ******* 
+ok: [head1]
+
+TASK [compute-node : Verify Network Bits on Network Specifications] ****************************************************
+Tuesday 30 October 2018  09:50:32 -0500 (0:00:00.454)       0:00:13.413 ******* 
+skipping: [head1] => (item=10.6.1.1/24) 
+skipping: [head1] => (item=10.1.0.1/24) 
+skipping: [head1] => (item=manual) 
+
+TASK [compute-node : Applications] *************************************************************************************
+Tuesday 30 October 2018  09:50:32 -0500 (0:00:00.106)       0:00:13.519 ******* 
+changed: [head1] => (item=[u'whois', u'build-essential=11.6*', u'git=1:1.9.*', u'python-pip=1.5.4*', u'ifenslave-2.6=2.4*', u'bridge-utils=1.5-*', u'ethtool=1:3.13*', u'minicom=2.7*', u'curl=7.35.*', u'jq=1.3*'])
+
+TASK [compute-node : Validate Encyrpted Compute Node Password] *********************************************************
+Tuesday 30 October 2018  09:50:38 -0500 (0:00:05.010)       0:00:18.529 ******* 
+ok: [head1]
+
+TASK [compute-node : Encyrpt Compute Node Password] ********************************************************************
+Tuesday 30 October 2018  09:50:38 -0500 (0:00:00.090)       0:00:18.620 ******* 
+ok: [head1]
+
+TASK [compute-node : Extract Encrypted Compute Node Password] **********************************************************
+Tuesday 30 October 2018  09:50:38 -0500 (0:00:00.331)       0:00:18.951 ******* 
+ok: [head1]
+
+TASK [compute-node : Copy Encrypted Compute Node Password] *************************************************************
+Tuesday 30 October 2018  09:50:38 -0500 (0:00:00.045)       0:00:18.997 ******* 
+skipping: [head1]
+
+TASK [compute-node : Ensure Docker Insecure Repository] ****************************************************************
+Tuesday 30 October 2018  09:50:38 -0500 (0:00:00.027)       0:00:19.024 ******* 
+changed: [head1]
+
+TASK [compute-node : Ensure Docker Registry Mirror] ********************************************************************
+Tuesday 30 October 2018  09:50:38 -0500 (0:00:00.305)       0:00:19.329 ******* 
+changed: [head1]
+
+TASK [compute-node : Docker Restart] ***********************************************************************************
+Tuesday 30 October 2018  09:50:39 -0500 (0:00:00.235)       0:00:19.565 ******* 
+changed: [head1]
+
+TASK [compute-node : Ensure Docker Ansible Support] ********************************************************************
+Tuesday 30 October 2018  09:50:41 -0500 (0:00:01.967)       0:00:21.532 ******* 
+ok: [head1]
+
+TASK [compute-node : Authorize SSH Key] ********************************************************************************
+Tuesday 30 October 2018  09:50:41 -0500 (0:00:00.524)       0:00:22.056 ******* 
+changed: [head1]
+
+TASK [compute-node : Verify Private SSH Key] ***************************************************************************
+Tuesday 30 October 2018  09:50:41 -0500 (0:00:00.440)       0:00:22.497 ******* 
+ok: [head1]
+
+TASK [compute-node : Ensure SSH Key Pair] ******************************************************************************
+Tuesday 30 October 2018  09:50:42 -0500 (0:00:00.366)       0:00:22.864 ******* 
+changed: [head1] => (item={u'dest': u'cord_rsa', u'src': u'cord_rsa'})
+changed: [head1] => (item={u'dest': u'cord_rsa.pub', u'src': u'cord_rsa.pub'})
+
+TASK [compute-node : Ensure SSH config] ********************************************************************************
+Tuesday 30 October 2018  09:50:43 -0500 (0:00:00.951)       0:00:23.816 ******* 
+changed: [head1] => (item=config)
+
+TASK [compute-node : Ensure CORD SUDO] *********************************************************************************
+Tuesday 30 October 2018  09:50:43 -0500 (0:00:00.440)       0:00:24.256 ******* 
+changed: [head1]
+
+TASK [compute-node : Ensure Utility Scripts] ***************************************************************************
+Tuesday 30 October 2018  09:50:44 -0500 (0:00:00.391)       0:00:24.648 ******* 
+changed: [head1] => (item=delete-fabric-config)
+changed: [head1] => (item=delete-node-prov-state)
+changed: [head1] => (item=docker-ip)
+changed: [head1] => (item=fabric-pingall)
+changed: [head1] => (item=get-fabric-config)
+changed: [head1] => (item=get-node-prov-state)
+changed: [head1] => (item=remove-xos-components)
+changed: [head1] => (item=remove-maas-components)
+changed: [head1] => (item=post-fabric-config)
+changed: [head1] => (item=pull-latest-docker-images)
+
+TASK [compute-node : Verify Mellanox NICs] *****************************************************************************
+Tuesday 30 October 2018  09:50:48 -0500 (0:00:03.934)       0:00:28.583 ******* 
+ok: [head1]
+
+TASK [compute-node : Verify Intel 40Gb NIC] ****************************************************************************
+Tuesday 30 October 2018  09:50:48 -0500 (0:00:00.257)       0:00:28.840 ******* 
+ok: [head1]
+
+TASK [compute-node : Load modules at boot] *****************************************************************************
+Tuesday 30 October 2018  09:50:48 -0500 (0:00:00.244)       0:00:29.085 ******* 
+changed: [head1] => (item=lp)
+changed: [head1] => (item=loop)
+changed: [head1] => (item=rtc)
+changed: [head1] => (item=bonding)
+
+TASK [maas : Verify Network Bits on Network Specifications] ************************************************************
+Tuesday 30 October 2018  09:50:49 -0500 (0:00:00.815)       0:00:29.901 ******* 
+skipping: [head1] => (item=10.1.0.0/24) 
+skipping: [head1] => (item=172.42.0.0/24) 
+skipping: [head1] => (item=10.6.1.0/24) 
+
+TASK [maas : Ensure Management Bridge Interface] ***********************************************************************
+Tuesday 30 October 2018  09:50:49 -0500 (0:00:00.063)       0:00:29.964 ******* 
+ok: [head1]
+
+TASK [maas : Verify Management Bridge] *********************************************************************************
+Tuesday 30 October 2018  09:50:49 -0500 (0:00:00.257)       0:00:30.221 ******* 
+fatal: [head1]: FAILED! => {"changed": false, "msg": "The head node must have a network bridge named 'mgmtbr' to continue the deployment. Please see docuemataiton at 'http://github.com/opencord/cord'."}
+	to retry, use: --limit @/home/cord/cord/build/maas/head-node.retry
+
+PLAY RECAP *************************************************************************************************************
+corddev                    : ok=2    changed=0    unreachable=0    failed=0   
+head1                      : ok=27   changed=10   unreachable=0    failed=1   
+localhost                  : ok=2    changed=0    unreachable=0    failed=0   
+
+Tuesday 30 October 2018  09:50:49 -0500 (0:00:00.045)       0:00:30.267 ******* 
+=============================================================================== 
+compute-node : Applications ------------------------------------------------------------------------------------- 5.01s
+Gathering Facts ------------------------------------------------------------------------------------------------- 4.45s
+compute-node : Ensure Utility Scripts --------------------------------------------------------------------------- 3.93s
+run setup ------------------------------------------------------------------------------------------------------- 2.46s
+Gathering Facts ------------------------------------------------------------------------------------------------- 2.16s
+compute-node : Docker Restart ----------------------------------------------------------------------------------- 1.97s
+docker : Install docker-compose --------------------------------------------------------------------------------- 1.15s
+compute-node : Ensure SSH Key Pair ------------------------------------------------------------------------------ 0.95s
+compute-node : Load modules at boot ----------------------------------------------------------------------------- 0.82s
+docker : Docker Apt Key ----------------------------------------------------------------------------------------- 0.69s
+docker : Prereqs and SSL support for apt for SSL ---------------------------------------------------------------- 0.66s
+docker : Docker repository -------------------------------------------------------------------------------------- 0.57s
+compute-node : Ensure Docker Ansible Support -------------------------------------------------------------------- 0.52s
+docker : Install docker-ce -------------------------------------------------------------------------------------- 0.52s
+docker : Make current user part of the Docker group ------------------------------------------------------------- 0.45s
+compute-node : Authorize SSH Key -------------------------------------------------------------------------------- 0.44s
+compute-node : Ensure SSH config -------------------------------------------------------------------------------- 0.44s
+compute-node : Ensure CORD SUDO --------------------------------------------------------------------------------- 0.39s
+compute-node : Verify Private SSH Key --------------------------------------------------------------------------- 0.37s
+compute-node : Encyrpt Compute Node Password -------------------------------------------------------------------- 0.33s
+make: *** [milestones/deploy-maas] Error 2

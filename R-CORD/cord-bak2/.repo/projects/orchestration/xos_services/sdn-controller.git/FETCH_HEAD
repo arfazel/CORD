@@ -1,0 +1,5 @@
+8400e1151753e263b0fa3c506ffcba8c5bdca1b6		branch 'cord-4.1' of https://gerrit.opencord.org/sdn-controller
+ee4918b8dd2966a880f694e577bfcb876830f164		branch 'cord-5.0' of https://gerrit.opencord.org/sdn-controller
+bf74e13f0ae07e008090f015fdabf5f405c5e137		branch 'master' of https://gerrit.opencord.org/sdn-controller
+803e70d81683695fc17ca4da8910935c21f6de97	not-for-merge	tag '1.0.0' of https://gerrit.opencord.org/sdn-controller
+2f6cbf66fc2558162b23ec061e17ad160f4ba1eb	not-for-merge	tag '1.0.1' of https://gerrit.opencord.org/sdn-controller

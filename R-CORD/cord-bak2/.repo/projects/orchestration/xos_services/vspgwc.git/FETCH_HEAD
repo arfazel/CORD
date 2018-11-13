@@ -1,0 +1,5 @@
+5ce3a1b8ffa5e29053b61ce436bec2f63cb168cd		branch 'cord-4.1' of https://gerrit.opencord.org/vspgwc
+4025233aeba8b28b6fccc02520ccec6483568d56		branch 'cord-5.0' of https://gerrit.opencord.org/vspgwc
+380274dd870f7a8f25ac74cf32da125a5980646e		branch 'master' of https://gerrit.opencord.org/vspgwc
+6cb4ac94bd4c43b3c13e8937e632ac1a078ccc2a	not-for-merge	tag '1.0.0' of https://gerrit.opencord.org/vspgwc
+09cd45bd799daa6526f9df50b1b2985ba21ed49f	not-for-merge	tag '1.0.1' of https://gerrit.opencord.org/vspgwc

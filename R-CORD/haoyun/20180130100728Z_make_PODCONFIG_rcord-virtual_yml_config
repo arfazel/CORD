@@ -1,0 +1,215 @@
+Running 'make -j4 PODCONFIG=rcord-virtual.yml config'
+Makefile:46: genconfig/config.mk: No such file or directory
+test -e "./podconfig/rcord-virtual.yml" || { echo "PODCONFIG file ./podconfig/rcord-virtual.yml doesn't exist!" ; exit 1; }
+ansible-playbook -i 'localhost,' --extra-vars="cord_podconfig='./podconfig/rcord-virtual.yml' genconfig_dir='./genconfig' scenarios_dir='./scenarios'" ./ansible/genconfig.yml 2>&1 | tee -a ./logs/20180130T040831Z_config.mk
+
+PLAY [Load pod and scenario config files] **********************************************************************************************************************************************************************************************************************
+
+TASK [Set pod_config_path fact] ********************************************************************************************************************************************************************************************************************************
+Tuesday 30 January 2018  04:08:31 -0600 (0:00:00.041)       0:00:00.041 ******* 
+ok: [localhost]
+
+TASK [Load pod config] *****************************************************************************************************************************************************************************************************************************************
+Tuesday 30 January 2018  04:08:31 -0600 (0:00:00.018)       0:00:00.059 ******* 
+ok: [localhost]
+
+TASK [Set scenario_config_path fact] ***************************************************************************************************************************************************************************************************************************
+Tuesday 30 January 2018  04:08:31 -0600 (0:00:00.024)       0:00:00.083 ******* 
+ok: [localhost]
+
+TASK [Load scenario config] ************************************************************************************************************************************************************************************************************************************
+Tuesday 30 January 2018  04:08:31 -0600 (0:00:00.016)       0:00:00.099 ******* 
+ok: [localhost]
+
+TASK [Reload pod config to take precedence] ********************************************************************************************************************************************************************************************************************
+Tuesday 30 January 2018  04:08:31 -0600 (0:00:00.021)       0:00:00.121 ******* 
+ok: [localhost]
+
+TASK [Load pod and scenario configs into facts] ****************************************************************************************************************************************************************************************************************
+Tuesday 30 January 2018  04:08:31 -0600 (0:00:00.016)       0:00:00.138 ******* 
+ok: [localhost]
+
+TASK [Combine pod and scenario config into master config] ******************************************************************************************************************************************************************************************************
+Tuesday 30 January 2018  04:08:31 -0600 (0:00:00.034)       0:00:00.172 ******* 
+ok: [localhost]
+
+TASK [Print vars] **********************************************************************************************************************************************************************************************************************************************
+Tuesday 30 January 2018  04:08:31 -0600 (0:00:00.019)       0:00:00.191 ******* 
+ok: [localhost] => {
+    "master_config": {
+        "always_pull_xos_images": true, 
+        "build_cord_dir": "/opt/cord", 
+        "build_cord_profile_dir": "/opt/cord_profile", 
+        "build_targets": [
+            "compute1-up"
+        ], 
+        "buildnode": "corddev", 
+        "compute_vm_cpu": 8, 
+        "compute_vm_mem": 16384, 
+        "config_cord_dir": "{{ ( playbook_dir ~ '/../..' ) | realpath }}", 
+        "config_cord_profile_dir": "{{ ( playbook_dir ~ '/../../../cord_profile' ) | realpath }}", 
+        "copy_config_prereqs": [
+            "cord-config"
+        ], 
+        "cord_config_prereqs": [
+            "copy-cord"
+        ], 
+        "cord_in_a_box": true, 
+        "cord_profile": "rcord", 
+        "cord_scenario": "cord", 
+        "deploy_docker_registry": "docker-registry:5000", 
+        "deploy_docker_tag": "candidate", 
+        "deploy_mavenrepo_prereqs": [
+            "deploy-maas"
+        ], 
+        "deploy_onos_prereqs": [
+            "deploy-maas", 
+            "deploy-mavenrepo", 
+            "publish-docker-images"
+        ], 
+        "deploy_openstack_prereqs": [
+            "deploy-maas"
+        ], 
+        "dev_vm_cpu": 1, 
+        "dev_vm_mem": 2048, 
+        "docker_image_whitelist": [
+            "xosproject/xos-base", 
+            "xosproject/xos", 
+            "xosproject/xos-client", 
+            "xosproject/xos-corebuilder", 
+            "xosproject/xos-gui", 
+            "xosproject/xos-gui-extension-builder", 
+            "xosproject/xos-libraries", 
+            "xosproject/xos-postgres", 
+            "xosproject/xos-tosca", 
+            "xosproject/xos-ws", 
+            "xosproject/chameleon", 
+            "xosproject/gui-extension-rcord", 
+            "xosproject/gui-extension-sample", 
+            "xosproject/gui-extension-vtr", 
+            "xosproject/xos-synchronizer-base", 
+            "xosproject/addressmanager-synchronizer", 
+            "xosproject/exampleservice-synchronizer", 
+            "xosproject/fabric-synchronizer", 
+            "xosproject/onos-synchronizer", 
+            "xosproject/openstack-synchronizer", 
+            "xosproject/volt-synchronizer", 
+            "xosproject/vrouter-synchronizer", 
+            "xosproject/vsg-synchronizer", 
+            "xosproject/vtn-synchronizer", 
+            "xosproject/vtr-synchronizer", 
+            "gliderlabs/consul-server", 
+            "gliderlabs/registrator", 
+            "nginx", 
+            "onosproject/onos", 
+            "redis", 
+            "node"
+        ], 
+        "docker_opts": "--insecure-registry {{ deploy_docker_registry }}", 
+        "enable_fabric": false, 
+        "external_iface": "eth0", 
+        "fabric_exclude_names": "eth0,eth1", 
+        "fabric_include_module_types": "omit", 
+        "fabric_include_names": "eth2", 
+        "fabric_ip": "10.6.1.1/24", 
+        "frontend_only": false, 
+        "head_vm_cpu": 8, 
+        "head_vm_mem": 16384, 
+        "headnode": "head1", 
+        "host_cord_profile_dir": "~/cord_profile", 
+        "inventory_groups": {
+            "build": {
+                "corddev": null
+            }, 
+            "compute": null, 
+            "config": {
+                "localhost": {
+                    "ansible_connection": "local"
+                }
+            }, 
+            "head": {
+                "head1": null
+            }
+        }, 
+        "management_exclude_names": "eth0,eth2", 
+        "management_include_names": "eth1", 
+        "management_ip": "10.1.0.1/24", 
+        "management_network": "10.1.0.0/24", 
+        "physical_node_list": [
+            {
+                "aliases": [
+                    "head"
+                ], 
+                "ipv4_last_octet": 1, 
+                "name": "head1"
+            }
+        ], 
+        "prep_headnode_prereqs": [
+            "copy-cord", 
+            "copy-config"
+        ], 
+        "pull_docker_registry": "docker-registry:5000/", 
+        "pull_docker_tag": "candidate", 
+        "setup_automation_prereqs": [
+            "deploy-openstack"
+        ], 
+        "skipTags": [
+            "set_compute_node_password", 
+            "switch_support", 
+            "reboot", 
+            "interface_config"
+        ], 
+        "start_xos_prereqs": [
+            "deploy-maas", 
+            "publish-docker-images"
+        ], 
+        "switch_vm_cpu": 1, 
+        "switch_vm_mem": 512, 
+        "use_apt_cache": false, 
+        "vagrant_up_prereqs": [
+            "prereqs-check", 
+            "ciab-ovs"
+        ], 
+        "vagrant_vms": [
+            "corddev", 
+            "head1"
+        ], 
+        "vm_management_network_name": "cordmgmt"
+    }
+}
+
+PLAY [Generate config files] ***********************************************************************************************************************************************************************************************************************************
+
+TASK [genconfig : Create cord_profile file] ********************************************************************************************************************************************************************************************************************
+Tuesday 30 January 2018  04:08:31 -0600 (0:00:00.026)       0:00:00.218 ******* 
+changed: [localhost]
+
+TASK [genconfig : Create cord_scenario file] *******************************************************************************************************************************************************************************************************************
+Tuesday 30 January 2018  04:08:32 -0600 (0:00:00.434)       0:00:00.653 ******* 
+changed: [localhost]
+
+TASK [genconfig : Generate config files] ***********************************************************************************************************************************************************************************************************************
+Tuesday 30 January 2018  04:08:32 -0600 (0:00:00.321)       0:00:00.974 ******* 
+changed: [localhost] => (item=inventory.ini)
+changed: [localhost] => (item=config.mk)
+changed: [localhost] => (item=config.yml)
+
+PLAY RECAP *****************************************************************************************************************************************************************************************************************************************************
+localhost                  : ok=11   changed=3    unreachable=0    failed=0   
+
+Tuesday 30 January 2018  04:08:33 -0600 (0:00:00.745)       0:00:01.720 ******* 
+=============================================================================== 
+genconfig : Generate config files ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.75s
+genconfig : Create cord_profile file -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.43s
+genconfig : Create cord_scenario file ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.32s
+Load pod and scenario configs into facts ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.03s
+Print vars ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.03s
+Load pod config ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.02s
+Load scenario config ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ 0.02s
+Combine pod and scenario config into master config ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ 0.02s
+Set pod_config_path fact -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.02s
+Reload pod config to take precedence -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.02s
+Set scenario_config_path fact --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.02s
+
+CORD is configured with profile: 'rcord', scenario: 'cord'
+Run 'make -j4 build' to continue.

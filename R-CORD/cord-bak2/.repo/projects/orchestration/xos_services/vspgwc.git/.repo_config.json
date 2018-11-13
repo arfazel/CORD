@@ -1,0 +1,23 @@
+{
+  "core.filemode": [
+    "true"
+  ], 
+  "remote.opencord.projectname": [
+    "vspgwc"
+  ], 
+  "core.repositoryformatversion": [
+    "0"
+  ], 
+  "remote.opencord.fetch": [
+    "+refs/heads/*:refs/remotes/opencord/*"
+  ], 
+  "filter.lfs.smudge": [
+    "git-lfs smudge --skip -- %f"
+  ], 
+  "remote.opencord.review": [
+    "https://gerrit.opencord.org/"
+  ], 
+  "remote.opencord.url": [
+    "https://gerrit.opencord.org/vspgwc"
+  ]
+}

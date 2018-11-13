@@ -1,0 +1,8 @@
+f6839d5ab3f7b948743c0a75e381e5ee27b74810		branch 'cord-3.0' of https://gerrit.opencord.org/vtn-service
+579c0039cee77f9657b7f963a3bf7d122c6f4e69		branch 'cord-4.0' of https://gerrit.opencord.org/vtn-service
+579c0039cee77f9657b7f963a3bf7d122c6f4e69		branch 'cord-4.1' of https://gerrit.opencord.org/vtn-service
+4cc444173a3753c5c0e70937b3d6c9ff32c8ce9b		branch 'cord-5.0' of https://gerrit.opencord.org/vtn-service
+d712a5b37fae101a70050485b0fb1c58cda46d5e		branch 'master' of https://gerrit.opencord.org/vtn-service
+bebe8d08f0b98d659ebd38f365805712142cd998	not-for-merge	tag '1.0.0' of https://gerrit.opencord.org/vtn-service
+8e87f997b58891e7e3483f1f79da1664ab563453	not-for-merge	tag '1.0.1' of https://gerrit.opencord.org/vtn-service
+b11c3a98970dbec323d16f70995741ccd85d3bd1	not-for-merge	tag '1.0.2' of https://gerrit.opencord.org/vtn-service

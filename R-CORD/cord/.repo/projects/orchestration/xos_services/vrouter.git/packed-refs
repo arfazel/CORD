@@ -1,0 +1,22 @@
+# pack-refs with: peeled fully-peeled 
+db9686cc6d8ca8f8d0065a6d36d09c4cbb351a76 refs/remotes/opencord/cord-1.0
+cd0f067b52eb705517b307d977c6c6407b015c57 refs/remotes/opencord/cord-2.0
+4435ce3e9707a4bda12a931153fbd8f7053b48de refs/remotes/opencord/cord-3.0
+36cec1e1acda17c9f9bfacf66795f9fb743eacc9 refs/remotes/opencord/cord-4.0
+36cec1e1acda17c9f9bfacf66795f9fb743eacc9 refs/remotes/opencord/cord-4.1
+d9592c419aafc9d5db7a25bc45d40a2672fcc331 refs/remotes/opencord/cord-5.0
+9fae28ceca87f4de30fec2b6133ff381c4adc9cb refs/remotes/opencord/master
+6c75ac73c5bad84faad65c1db8e9cea205425b6c refs/remotes/opencord/null
+db9686cc6d8ca8f8d0065a6d36d09c4cbb351a76 refs/tags/1.0.0
+a6038716a48061939caca2c5cadde9b9560cc260 refs/tags/2.0.0
+^d3bce26d60f1e59f95e386a78372e0c99f47e2e1
+e82894d822379b23dce81272248c2eb9dacb8ef1 refs/tags/2.0.1
+^11e1431b7ef98eef4326a691b40a1c418a553d2c
+15b7a2d256c335d98b39752325594b7fd4c03ab5 refs/tags/2.0.2
+^283db844d591f9fcbfe729adb43822dc76cccf3d
+15ce04c1d15b78aa029841b64d96fc8fbfc70f4d refs/tags/2.0.3
+^9fae28ceca87f4de30fec2b6133ff381c4adc9cb
+db9686cc6d8ca8f8d0065a6d36d09c4cbb351a76 refs/tags/cord-1.0-rc1
+db9686cc6d8ca8f8d0065a6d36d09c4cbb351a76 refs/tags/cord-1.0-rc2
+db9686cc6d8ca8f8d0065a6d36d09c4cbb351a76 refs/tags/cord-1.0-rc3
+f7e5ac5b140168a07e68cde82eb87d6f483d0746 refs/tags/cord-1.0-rc4

@@ -1,0 +1,26 @@
+
+# Site
+- model: core.Site
+  fields:
+    name: "mysite"
+    abbreviated_name: "mysite"
+    login_base: "mysite"
+    site_url: "http://mysite.opencloud.us/"
+    hosts_nodes: true
+
+# User
+- model: core.User
+  fields:
+    email: "xosadmin@opencord.org"
+    password: "Ayg53z9Uk4wac1wc1p4j"
+    firstname: "XOS"
+    lastname: "Admin"
+    is_admin: True
+  relations:
+    site:
+      fields:
+        name: "mysite"
+      model: core.Site
+
+# All other users
+

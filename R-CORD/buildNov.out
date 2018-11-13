@@ -1,0 +1,342 @@
+python ./scripts/imagebuilder.py -f ./genconfig/config.yml -l ./image_logs -g ./ib_graph.dot -a ./ib_actions.yml 2>&1 | tee -a /home/cord/cord/build/logs/20181030T180506Z_local-docker-images
+INFO:__main__:Master container list file: /home/cord/cord/build/docker_images.yml
+INFO:__main__:Filtering image list per 'docker_image_whitelist' in: /home/cord/cord/build/genconfig/config.yml
+INFO:__main__:Loading manifest file: /home/cord/cord/.repo/manifest.xml
+INFO:__main__:Manifest is on branch 'opencord/cord-5.0' with remote 'https://gerrit.opencord.org/'
+INFO:__main__:All parent images: xosproject/xos-client:candidate, node:7.9.0, ubuntu:14.04.5, nginx:candidate, alpine:latest, xosproject/xos-synchronizer-base:candidate, xosproject/xos-gui-builder:candidate, xosproject/xos-base:candidate, xosproject/xos-libraries:candidate
+INFO:__main__:Preexisting Image - ID: sha256:5869a2af670490a841307e967e3aae8c7cc2503ca138775f397cf9c26f2018e2, tags: xosproject/xos-ui:candidate
+INFO:__main__:Preexisting Image - ID: sha256:196d12cf6ab19273823e700516e98eb1910b03b17840f9d5509f03858484d321, tags: alpine:candidate,alpine:latest
+INFO:__main__: Image sha256:196d12cf6ab19273823e700516e98eb1910b03b17840f9d5509f03858484d321 has up-to-date labels and build_tag
+INFO:__main__:Preexisting Image - ID: sha256:0dccc785364ee51252eedef8833a9cbf13cf3fae359cacb11ab1327cf46724af, tags: xosproject/rcord-synchronizer:5aa2e4e1298d1e63817c4a6a3f757d7c442ab1cd,xosproject/rcord-synchronizer:candidate
+INFO:__main__: Image sha256:0dccc785364ee51252eedef8833a9cbf13cf3fae359cacb11ab1327cf46724af has up-to-date labels and build_tag
+INFO:__main__:Preexisting Image - ID: sha256:4213117a1f4636887b4bcdef2bf3b50e192bee434ec3c556e072c2a5891b8ff3, tags: xosproject/exampleservice-synchronizer:84833a2e2509da488dc5e2ffd3857e358cb53f5e,xosproject/exampleservice-synchronizer:candidate
+INFO:__main__: Image sha256:4213117a1f4636887b4bcdef2bf3b50e192bee434ec3c556e072c2a5891b8ff3 has up-to-date labels and build_tag
+INFO:__main__:Preexisting Image - ID: sha256:d2378b56b47d5c1493681f5d29074ae3483a24e396be7186dda07f85f866cde3, tags: xosproject/fabric-synchronizer:2ca6e4b8fe462d4bbd0b7e1a1807791ebaa9657e,xosproject/fabric-synchronizer:candidate
+INFO:__main__: Image sha256:d2378b56b47d5c1493681f5d29074ae3483a24e396be7186dda07f85f866cde3 has up-to-date labels and build_tag
+INFO:__main__:Preexisting Image - ID: sha256:ee6db90a3a826f2cf8e63f4a4697b9379c32dff1909ce81b23f6765342cc70fe, tags: xosproject/vsg-synchronizer:candidate,xosproject/vsg-synchronizer:e96314ee6c7e51ef41d25e18c79dc93b597d7add
+INFO:__main__: Image sha256:ee6db90a3a826f2cf8e63f4a4697b9379c32dff1909ce81b23f6765342cc70fe has up-to-date labels and build_tag
+INFO:__main__:Preexisting Image - ID: sha256:32709da8fc407c660c392509929c213cb360dae3d050021acd7ee66b8b944569, tags: xosproject/vtr-synchronizer:candidate,xosproject/vtr-synchronizer:e8b82be5e2aa43bc7d47b4d81e7927732d499755
+INFO:__main__: Image sha256:32709da8fc407c660c392509929c213cb360dae3d050021acd7ee66b8b944569 has up-to-date labels and build_tag
+INFO:__main__:Preexisting Image - ID: sha256:4fd02ed674642ec785409187fabefd428a977e1a63e55e1c4a28c8accf2678bc, tags: xosproject/vtn-synchronizer:4cc444173a3753c5c0e70937b3d6c9ff32c8ce9b,xosproject/vtn-synchronizer:candidate
+INFO:__main__: Image sha256:4fd02ed674642ec785409187fabefd428a977e1a63e55e1c4a28c8accf2678bc has up-to-date labels and build_tag
+INFO:__main__:Preexisting Image - ID: sha256:036cd5100a16eb9a0112c5f66aff37decc4b294fb29857845c8bd50779115b1c, tags: xosproject/vrouter-synchronizer:candidate,xosproject/vrouter-synchronizer:d9592c419aafc9d5db7a25bc45d40a2672fcc331
+INFO:__main__: Image sha256:036cd5100a16eb9a0112c5f66aff37decc4b294fb29857845c8bd50779115b1c has up-to-date labels and build_tag
+INFO:__main__:Preexisting Image - ID: sha256:95a85426f8a51902bd0931bedc6a18159430c45dd311bb5fc883ef0798e85628, tags: xosproject/volt-synchronizer:1bdcffa6b38ef492866bab5dd063a3bb6567513d,xosproject/volt-synchronizer:candidate
+INFO:__main__: Image sha256:95a85426f8a51902bd0931bedc6a18159430c45dd311bb5fc883ef0798e85628 has up-to-date labels and build_tag
+INFO:__main__:Preexisting Image - ID: sha256:deaa81ff263e2a3031bc289e893461f14797a9862f0fd6346e0d8914a26da8e5, tags: xosproject/onos-synchronizer:a0f6aa8d9e73f3a0fe6e7424cceeaafd8a78a855,xosproject/onos-synchronizer:candidate
+INFO:__main__: Image sha256:deaa81ff263e2a3031bc289e893461f14797a9862f0fd6346e0d8914a26da8e5 has up-to-date labels and build_tag
+INFO:__main__:Preexisting Image - ID: sha256:337635492dfc865854073be3ce458c151320c46daf27a05891e4645da576be1a, tags: xosproject/openstack-synchronizer:6c0804cb8b53be2be4f574e74545e67619e5784a,xosproject/openstack-synchronizer:candidate
+INFO:__main__: Image sha256:337635492dfc865854073be3ce458c151320c46daf27a05891e4645da576be1a has up-to-date labels and build_tag
+INFO:__main__:Preexisting Image - ID: sha256:f75e3b93810e0e583944463799310fad2976ad0e48f9b515cba620fe01f25577, tags: xosproject/addressmanager-synchronizer:b441a77e77c7a4219a8882f5675223d5d7d99e9c,xosproject/addressmanager-synchronizer:candidate
+INFO:__main__: Image sha256:f75e3b93810e0e583944463799310fad2976ad0e48f9b515cba620fe01f25577 has up-to-date labels and build_tag
+INFO:__main__:Preexisting Image - ID: sha256:ccd5f310f13e32d104384a489740ad270c496387cf6f4779b3328be4b3f2f623, tags: xosproject/xos-tosca:08803a9e271343604486e5b1ef60f5a15999f929,xosproject/xos-tosca:candidate
+INFO:__main__: Image sha256:ccd5f310f13e32d104384a489740ad270c496387cf6f4779b3328be4b3f2f623 has up-to-date labels and build_tag
+INFO:__main__:Preexisting Image - ID: sha256:706404740fa5194fb7aef5e7599b6af174c5fe523c8aeac2f031c75b132bf86b, tags: xosproject/xos-synchronizer-base:candidate,xosproject/xos-synchronizer-base:d05de401d75eaf7db11b3636c17c27a718c5bbe3
+INFO:__main__: Image sha256:706404740fa5194fb7aef5e7599b6af174c5fe523c8aeac2f031c75b132bf86b has up-to-date labels and build_tag
+INFO:__main__:Preexisting Image - ID: sha256:9996afd217288e86980cb8b4d4e523b9db3a5491f9ac443da353e1e76727c8a7, tags: xosproject/xos-client:candidate,xosproject/xos-client:d05de401d75eaf7db11b3636c17c27a718c5bbe3
+INFO:__main__: Image sha256:9996afd217288e86980cb8b4d4e523b9db3a5491f9ac443da353e1e76727c8a7 has up-to-date labels and build_tag
+INFO:__main__:Preexisting Image - ID: sha256:557de293d3dd221545d86daffc24e80cec8f6552a19d0a4285419c9e7da716b6, tags: xosproject/xos-corebuilder:candidate,xosproject/xos-corebuilder:d05de401d75eaf7db11b3636c17c27a718c5bbe3
+INFO:__main__: Image sha256:557de293d3dd221545d86daffc24e80cec8f6552a19d0a4285419c9e7da716b6 has up-to-date labels and build_tag
+INFO:__main__:Preexisting Image - ID: sha256:33bc1e6694034fd9820c0ddfd9213a6a7c7bbc3d09e37aea6fe813e8c5b5ae3d, tags: xosproject/xos:candidate,xosproject/xos:d05de401d75eaf7db11b3636c17c27a718c5bbe3
+INFO:__main__: Image sha256:33bc1e6694034fd9820c0ddfd9213a6a7c7bbc3d09e37aea6fe813e8c5b5ae3d has up-to-date labels and build_tag
+INFO:__main__:Preexisting Image - ID: sha256:cbfcd5ff760da5ae50ad189b61efe69c0765ec4d4f65c7e1ed4fa3fdc6279a87, tags: xosproject/chameleon:candidate,xosproject/chameleon:d05de401d75eaf7db11b3636c17c27a718c5bbe3
+INFO:__main__: Image sha256:cbfcd5ff760da5ae50ad189b61efe69c0765ec4d4f65c7e1ed4fa3fdc6279a87 has up-to-date labels and build_tag
+INFO:__main__:Preexisting Image - ID: sha256:a8f53faa33ceecb5ef67e3c61db84e1fe4ef24ca557536ada77a2fd96da24f14, tags: xosproject/xos-libraries:candidate,xosproject/xos-libraries:d05de401d75eaf7db11b3636c17c27a718c5bbe3
+INFO:__main__: Image sha256:a8f53faa33ceecb5ef67e3c61db84e1fe4ef24ca557536ada77a2fd96da24f14 has up-to-date labels and build_tag
+INFO:__main__:Preexisting Image - ID: sha256:c6e79dbf675a93a6c1450c597a86cdc8e5f7ee0ed06d4fcc0376492976be14c2, tags: xosproject/gui-extension-rcord:5aa2e4e1298d1e63817c4a6a3f757d7c442ab1cd,xosproject/gui-extension-rcord:candidate
+INFO:__main__: Image sha256:c6e79dbf675a93a6c1450c597a86cdc8e5f7ee0ed06d4fcc0376492976be14c2 has up-to-date labels and build_tag
+INFO:__main__:Preexisting Image - ID: sha256:3726c832a01ebc218db7a898ffd7e550263e92e1a04106f8787d5a141c954cd3, tags: xosproject/xos-postgres:candidate,xosproject/xos-postgres:d05de401d75eaf7db11b3636c17c27a718c5bbe3
+INFO:__main__: Image sha256:3726c832a01ebc218db7a898ffd7e550263e92e1a04106f8787d5a141c954cd3 has up-to-date labels and build_tag
+INFO:__main__:Preexisting Image - ID: sha256:7d3e146e6dcaec104ceb001eded9336bfbd284eff98e6897c45f1714fd5a8fc9, tags: xosproject/xos-base:candidate,xosproject/xos-base:d05de401d75eaf7db11b3636c17c27a718c5bbe3
+INFO:__main__: Image sha256:7d3e146e6dcaec104ceb001eded9336bfbd284eff98e6897c45f1714fd5a8fc9 has up-to-date labels and build_tag
+INFO:__main__:Preexisting Image - ID: sha256:576b672210ef15a48f82d3b564a6cb307e4ab0c3b30af4fb8fd3d253817d8160, tags: xosproject/xos-ws:a263b67c0448ab9fd450424327cf70dadb4574d3,xosproject/xos-ws:candidate
+INFO:__main__: Image sha256:576b672210ef15a48f82d3b564a6cb307e4ab0c3b30af4fb8fd3d253817d8160 has up-to-date labels and build_tag
+INFO:__main__:Preexisting Image - ID: sha256:729a6e500a1a86d8ddaa5a84031481c0cb1cc5ea28b3c7612d8d89d06e63ee5f, tags: xosproject/gui-extension-vtr:candidate,xosproject/gui-extension-vtr:e8b82be5e2aa43bc7d47b4d81e7927732d499755
+INFO:__main__: Image sha256:729a6e500a1a86d8ddaa5a84031481c0cb1cc5ea28b3c7612d8d89d06e63ee5f has up-to-date labels and build_tag
+INFO:__main__:Preexisting Image - ID: sha256:62bba4e58842ed22ea1aaccd30f39f4fd0c5bdc7b411f7212da41a76ad62ce5f, tags: xosproject/xos-gui:af2d1db0bd951c627897f31a19778731335151d2,xosproject/xos-gui:candidate
+INFO:__main__: Image sha256:62bba4e58842ed22ea1aaccd30f39f4fd0c5bdc7b411f7212da41a76ad62ce5f has up-to-date labels and build_tag
+INFO:__main__:Preexisting Image - ID: sha256:84762b3f7f9730d797631d13a00ca80297af27e072dfcfd94dc814ec12014b9a, tags: xosproject/xos-gui-builder:af2d1db0bd951c627897f31a19778731335151d2,xosproject/xos-gui-builder:candidate
+INFO:__main__: Image sha256:84762b3f7f9730d797631d13a00ca80297af27e072dfcfd94dc814ec12014b9a has up-to-date labels and build_tag
+INFO:__main__:Preexisting Image - ID: sha256:f4e457c93c499d50ce9b107e4d85da7ba29df38ebf4e82a97582e7e9eae608ae, tags: xosproject/vtn-synchronizer:579c0039cee77f9657b7f963a3bf7d122c6f4e69
+INFO:__main__:Non-matching label: org.label-schema.vcs-ref
+INFO:__main__: Image sha256:f4e457c93c499d50ce9b107e4d85da7ba29df38ebf4e82a97582e7e9eae608ae has obsolete labels, lacks build_tag, ignore
+INFO:__main__:Preexisting Image - ID: sha256:7d56a792b62bda7a655ee583b047ab40731136d699f52c92e30195907717a7dd, tags: xosproject/addressmanager-synchronizer:323788334e407b49c8f959a26cd25c4e5526f606
+INFO:__main__:Non-matching label: org.label-schema.vcs-ref
+INFO:__main__: Image sha256:7d56a792b62bda7a655ee583b047ab40731136d699f52c92e30195907717a7dd has obsolete labels, lacks build_tag, ignore
+INFO:__main__:Preexisting Image - ID: sha256:d6d08d49f1896e0a9f7fe4070d55e7eb76ddcf0337c133069cd00130160aed3f, tags: xosproject/vrouter-synchronizer:36cec1e1acda17c9f9bfacf66795f9fb743eacc9
+INFO:__main__:Non-matching label: org.label-schema.vcs-ref
+INFO:__main__: Image sha256:d6d08d49f1896e0a9f7fe4070d55e7eb76ddcf0337c133069cd00130160aed3f has obsolete labels, lacks build_tag, ignore
+INFO:__main__:Preexisting Image - ID: sha256:cd152253957b8471a964505bd2b3e0f62ba2504ad0f008f7fc30d691577dbc1d, tags: <none>:<none>
+INFO:__main__:Preexisting Image - ID: sha256:3f8a4339aadda5897b744682f5f774dc69991a81af8d715d37a616bb4c99edf5, tags: nginx:1.13,nginx:candidate
+INFO:__main__: Image sha256:3f8a4339aadda5897b744682f5f774dc69991a81af8d715d37a616bb4c99edf5 has up-to-date labels and build_tag
+INFO:__main__:Preexisting Image - ID: sha256:256639e384def6847022d186f3fb09da857c850e0346ce5cea9365b1faee0052, tags: redis:3.2,redis:candidate
+INFO:__main__: Image sha256:256639e384def6847022d186f3fb09da857c850e0346ce5cea9365b1faee0052 has up-to-date labels and build_tag
+INFO:__main__:Preexisting Image - ID: sha256:3f188fdac07342584acaa2cd6e41c613510b615775a54545da32e66c67b519e4, tags: xosproject/xos-tosca:251ee3b98743997947ee0aa62341a69289691848
+INFO:__main__:Non-matching label: org.label-schema.vcs-ref
+INFO:__main__: Image sha256:3f188fdac07342584acaa2cd6e41c613510b615775a54545da32e66c67b519e4 has obsolete labels, lacks build_tag, ignore
+INFO:__main__:Preexisting Image - ID: sha256:a9563655dad9697e42a2f49979e63960b5c5dc41f061ffb1169a2251d9a17bc9, tags: xosproject/gui-extension-sample:4f6067c0fdcb30c831bc89d5561b5dd762138e9d,xosproject/gui-extension-sample:candidate
+INFO:__main__:Preexisting Image - ID: sha256:ad99ef5e2777adb314b4236351fec4a68920ce087da4494a6056ea66d3296ffb, tags: xosproject/vsg-synchronizer:3121529bd586f830274fc7b51a80d645ba5d8008
+INFO:__main__:Non-matching label: org.label-schema.vcs-ref
+INFO:__main__: Image sha256:ad99ef5e2777adb314b4236351fec4a68920ce087da4494a6056ea66d3296ffb has obsolete labels, lacks build_tag, ignore
+INFO:__main__:Preexisting Image - ID: sha256:123cde58414beda23aeed6798fd2526551370081c9282cb2fbea1295453e3adf, tags: xosproject/openstack-synchronizer:686125549cd7d965b6365717a5f1895bd71815c0
+INFO:__main__:Non-matching label: org.label-schema.vcs-ref
+INFO:__main__: Image sha256:123cde58414beda23aeed6798fd2526551370081c9282cb2fbea1295453e3adf has obsolete labels, lacks build_tag, ignore
+INFO:__main__:Preexisting Image - ID: sha256:9b793ba3ab2981655a811502809d53a009dd29f8397a25242de691bea9d2200e, tags: xosproject/onos-synchronizer:b6fe54d3bb36fd648e3a3c1685c80ffea694b5fc
+INFO:__main__:Non-matching label: org.label-schema.vcs-ref
+INFO:__main__: Image sha256:9b793ba3ab2981655a811502809d53a009dd29f8397a25242de691bea9d2200e has obsolete labels, lacks build_tag, ignore
+INFO:__main__:Preexisting Image - ID: sha256:6d2a7d1de038526ab880cb480d2f4142961cd8f6020815e5e6fde05ae3f52d6d, tags: xosproject/exampleservice-synchronizer:5bcf68370687d598ecb5c54c064b0388cf7a27e1
+INFO:__main__:Non-matching label: org.label-schema.vcs-ref
+INFO:__main__: Image sha256:6d2a7d1de038526ab880cb480d2f4142961cd8f6020815e5e6fde05ae3f52d6d has obsolete labels, lacks build_tag, ignore
+INFO:__main__:Preexisting Image - ID: sha256:57be5907f33aaf315116604451f02b72d5f42c10a09a9f177388c7bc3140f56a, tags: xosproject/fabric-synchronizer:2d0912af70016d72074d8659deed69e392d9ea3d
+INFO:__main__:Non-matching label: org.label-schema.vcs-ref
+INFO:__main__: Image sha256:57be5907f33aaf315116604451f02b72d5f42c10a09a9f177388c7bc3140f56a has obsolete labels, lacks build_tag, ignore
+INFO:__main__:Preexisting Image - ID: sha256:87b74d9e4acec76abe13573bc8953bf3f3b85d5abef0183c00d0c82bc1a5fd9e, tags: xosproject/vtr-synchronizer:e4e85a2f83c6e3cb4de4b59945772ed9dfcba777
+INFO:__main__:Non-matching label: org.label-schema.vcs-ref
+INFO:__main__: Image sha256:87b74d9e4acec76abe13573bc8953bf3f3b85d5abef0183c00d0c82bc1a5fd9e has obsolete labels, lacks build_tag, ignore
+INFO:__main__:Preexisting Image - ID: sha256:3a01a67894673387bb178681bc1526b59a092f52266b3bcb3ee0ad75a99e0ca8, tags: xosproject/volt-synchronizer:9545fd8c5a0aaccdf042811e9ab862d3dc7cbbf8
+INFO:__main__:Non-matching label: org.label-schema.vcs-ref
+INFO:__main__: Image sha256:3a01a67894673387bb178681bc1526b59a092f52266b3bcb3ee0ad75a99e0ca8 has obsolete labels, lacks build_tag, ignore
+INFO:__main__:Preexisting Image - ID: sha256:36757abd1c483ac92d49175c42472f1a2c0efdbb65c193028e9cdb821033da9a, tags: xosproject/xos-synchronizer-base:45583fdabc1eeb13db81f98fdf94d05a68c46858
+INFO:__main__:Non-matching label: org.label-schema.vcs-ref
+INFO:__main__: Image sha256:36757abd1c483ac92d49175c42472f1a2c0efdbb65c193028e9cdb821033da9a has obsolete labels, lacks build_tag, ignore
+INFO:__main__:Preexisting Image - ID: sha256:7b71159d8a77f386cdd8c492112caf7d76edce5d9cec6bc463f6afc4f9a2742f, tags: xosproject/xos-client:45583fdabc1eeb13db81f98fdf94d05a68c46858
+INFO:__main__:Non-matching label: org.label-schema.vcs-ref
+INFO:__main__: Image sha256:7b71159d8a77f386cdd8c492112caf7d76edce5d9cec6bc463f6afc4f9a2742f has obsolete labels, lacks build_tag, ignore
+INFO:__main__:Preexisting Image - ID: sha256:560c9d184baae1dda5e6587d67f37c72dcd20bdd3b7f377f0ebdb2fdead612aa, tags: xosproject/xos-corebuilder:45583fdabc1eeb13db81f98fdf94d05a68c46858
+INFO:__main__:Non-matching label: org.label-schema.vcs-ref
+INFO:__main__: Image sha256:560c9d184baae1dda5e6587d67f37c72dcd20bdd3b7f377f0ebdb2fdead612aa has obsolete labels, lacks build_tag, ignore
+INFO:__main__:Preexisting Image - ID: sha256:0e4f2f2516387885120e39ce94e9f10999f534cb620604079269d5db850c0a24, tags: xosproject/xos:45583fdabc1eeb13db81f98fdf94d05a68c46858
+INFO:__main__:Non-matching label: org.label-schema.vcs-ref
+INFO:__main__: Image sha256:0e4f2f2516387885120e39ce94e9f10999f534cb620604079269d5db850c0a24 has obsolete labels, lacks build_tag, ignore
+INFO:__main__:Preexisting Image - ID: sha256:0d69b1d6fe3b3625795b9df1ca2dbb82c5c1d5110679bf2d6a19d3f648ba636a, tags: xosproject/chameleon:45583fdabc1eeb13db81f98fdf94d05a68c46858
+INFO:__main__:Non-matching label: org.label-schema.vcs-ref
+INFO:__main__: Image sha256:0d69b1d6fe3b3625795b9df1ca2dbb82c5c1d5110679bf2d6a19d3f648ba636a has obsolete labels, lacks build_tag, ignore
+INFO:__main__:Preexisting Image - ID: sha256:34c125de8bac2a96547bf2efb32717975af943cc372528cff5d5dbd3f3ee7a93, tags: xosproject/xos-libraries:45583fdabc1eeb13db81f98fdf94d05a68c46858
+INFO:__main__:Non-matching label: org.label-schema.vcs-ref
+INFO:__main__: Image sha256:34c125de8bac2a96547bf2efb32717975af943cc372528cff5d5dbd3f3ee7a93 has obsolete labels, lacks build_tag, ignore
+INFO:__main__:Preexisting Image - ID: sha256:f612cedad6af1d407052853d3cbaaa42471efbe9d28aff01bc0223ffaf4c9f19, tags: xosproject/xos-postgres:45583fdabc1eeb13db81f98fdf94d05a68c46858
+INFO:__main__:Non-matching label: org.label-schema.vcs-ref
+INFO:__main__: Image sha256:f612cedad6af1d407052853d3cbaaa42471efbe9d28aff01bc0223ffaf4c9f19 has obsolete labels, lacks build_tag, ignore
+INFO:__main__:Preexisting Image - ID: sha256:f54dd8e9cbad8e0b8c40f01e04b53056a59e83d21f406a6ed8f713d865dbe4a8, tags: xosproject/xos-base:45583fdabc1eeb13db81f98fdf94d05a68c46858
+INFO:__main__:Non-matching label: org.label-schema.vcs-ref
+INFO:__main__: Image sha256:f54dd8e9cbad8e0b8c40f01e04b53056a59e83d21f406a6ed8f713d865dbe4a8 has obsolete labels, lacks build_tag, ignore
+INFO:__main__:Preexisting Image - ID: sha256:b19f8d49c8fac4baa8b46ca3dbc16adfae1182cfaa431094761051feda763b4c, tags: xosproject/gui-extension-rcord:5cdf61469bd7a80493ee6dfe65945722fa1360d8
+INFO:__main__:Non-matching label: org.label-schema.vcs-ref
+INFO:__main__: Image sha256:b19f8d49c8fac4baa8b46ca3dbc16adfae1182cfaa431094761051feda763b4c has obsolete labels, lacks build_tag, ignore
+INFO:__main__:Preexisting Image - ID: sha256:20e923937e19433645ffc115fc8f80780a91f4f7a1c60ddb7169b7970160a232, tags: xosproject/gui-extension-vtr:e4e85a2f83c6e3cb4de4b59945772ed9dfcba777
+INFO:__main__:Non-matching label: org.label-schema.vcs-ref
+INFO:__main__: Image sha256:20e923937e19433645ffc115fc8f80780a91f4f7a1c60ddb7169b7970160a232 has obsolete labels, lacks build_tag, ignore
+INFO:__main__:Preexisting Image - ID: sha256:b7041090328c5e730571a4e96f763c59c4ff2339c57f5a53eceb2eccc3deff7c, tags: xosproject/xos-gui-extension-builder:candidate,xosproject/xos-gui-extension-builder:f5739de72e9cd15a5619e415c092552f47f2fdb0
+INFO:__main__:Preexisting Image - ID: sha256:953958a79bc1d4f7fd71489a932af1e5b97afbddec44b44be9b93991f9783a0d, tags: xosproject/xos-gui:f5739de72e9cd15a5619e415c092552f47f2fdb0
+INFO:__main__:Non-matching label: org.label-schema.vcs-ref
+INFO:__main__: Image sha256:953958a79bc1d4f7fd71489a932af1e5b97afbddec44b44be9b93991f9783a0d has obsolete labels, lacks build_tag, ignore
+INFO:__main__:Preexisting Image - ID: sha256:212e9a1cdf17d189fe568276d3ee82d9d6c072baf2870122874fef4c260799e4, tags: xosproject/xos-ws:53620228c2b497bfd4554d7e61672c7294c598ec
+INFO:__main__:Non-matching label: org.label-schema.vcs-ref
+INFO:__main__: Image sha256:212e9a1cdf17d189fe568276d3ee82d9d6c072baf2870122874fef4c260799e4 has obsolete labels, lacks build_tag, ignore
+INFO:__main__:Preexisting Image - ID: sha256:cd82b1177fd580914cfe250c1f6955d2c08a324279cf34243ceef82f31b516d1, tags: onosproject/onos:1.10.6,onosproject/onos:candidate
+INFO:__main__:Preexisting Image - ID: sha256:132b7427a3b40f958aaeae8716e0cbb2177658d2410554ed142e583ef522309f, tags: ubuntu:14.04.5,ubuntu:candidate
+INFO:__main__: Image sha256:132b7427a3b40f958aaeae8716e0cbb2177658d2410554ed142e583ef522309f has up-to-date labels and build_tag
+INFO:__main__:Preexisting Image - ID: sha256:90223b3d894eded1bda3df07ebacc7d9b8c8efb9bf464c9862e3a5584c3398da, tags: node:7.9.0,node:candidate
+INFO:__main__: Image sha256:90223b3d894eded1bda3df07ebacc7d9b8c8efb9bf464c9862e3a5584c3398da has up-to-date labels and build_tag
+INFO:__main__:Preexisting Image - ID: sha256:7cc356fb97a9aafb9edd096eb879d600f94fe602260623fe5666fbb3ca0ad67c, tags: gliderlabs/consul-server:0.6,gliderlabs/consul-server:candidate
+INFO:__main__: Image sha256:7cc356fb97a9aafb9edd096eb879d600f94fe602260623fe5666fbb3ca0ad67c has up-to-date labels and build_tag
+INFO:__main__:Preexisting Image - ID: sha256:0eb144a2bd9bf13d5ff770d4a5d1bfbb062ff88c3e0f99853c3271cb46590002, tags: gliderlabs/registrator:candidate,gliderlabs/registrator:v7
+INFO:__main__: Image sha256:0eb144a2bd9bf13d5ff770d4a5d1bfbb062ff88c3e0f99853c3271cb46590002 has up-to-date labels and build_tag
+INFO:__main__:Saving DOT dependency graph to: /home/cord/cord/build/ib_graph.dot
+INFO:__main__:Preexisting and clean images: xosproject/xos-base, xosproject/xos-postgres, xosproject/xos, xosproject/xos-libraries, xosproject/xos-corebuilder, xosproject/chameleon, xosproject/xos-client, xosproject/xos-synchronizer-base, xosproject/xos-tosca, xosproject/xos-ws, xosproject/xos-gui-builder, xosproject/xos-gui, xosproject/gui-extension-rcord, xosproject/gui-extension-vtr, xosproject/addressmanager-synchronizer, xosproject/openstack-synchronizer, xosproject/onos-synchronizer, xosproject/volt-synchronizer, xosproject/vrouter-synchronizer, xosproject/vtn-synchronizer, xosproject/vtr-synchronizer, xosproject/vsg-synchronizer, xosproject/fabric-synchronizer, xosproject/exampleservice-synchronizer, xosproject/rcord-synchronizer, gliderlabs/consul-server, gliderlabs/registrator, nginx, redis, node, ubuntu, alpine
+INFO:__main__:Upstream images that must be fetched: 
+INFO:__main__:Clean, buildable images to attempt to fetch: 
+INFO:__main__:Buildable images, due to unclean context or parents: 
+INFO:__main__:Saving actions as YAML to: /home/cord/cord/build/ib_actions.yml
+touch milestones/local-docker-images
+ansible-playbook  -i ./genconfig/inventory.ini --extra-vars @./genconfig/config.yml ./platform-install/build-core-image-playbook.yml 2>&1 | tee -a /home/cord/cord/build/logs/20181030T180506Z_local-core-image
+
+PLAY [Build the XOS core image] ****************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************************************************************************************************
+Tuesday 30 October 2018  18:05:08 -0500 (0:00:00.031)       0:00:00.031 ******* 
+ok: [localhost]
+
+TASK [xos-core-build : Intialize recipe list] **************************************************************************************************************************************************************
+Tuesday 30 October 2018  18:05:09 -0500 (0:00:00.843)       0:00:00.875 ******* 
+ok: [localhost]
+
+TASK [xos-core-build : Generate list of recipes] ***********************************************************************************************************************************************************
+Tuesday 30 October 2018  18:05:09 -0500 (0:00:00.029)       0:00:00.905 ******* 
+ok: [localhost] => (item={u'path': u'orchestration/profiles/rcord', u'name': u'rcord'})
+ok: [localhost] => (item={u'synchronizer': True, u'path': u'orchestration/xos_services/olt-service', u'keypair': u'volt_rsa', u'name': u'volt'})
+ok: [localhost] => (item={u'path': u'orchestration/xos_services/vtn-service', u'keypair': u'vsg_rsa', u'name': u'vtn'})
+ok: [localhost] => (item={u'path': u'orchestration/xos_services/openstack', u'name': u'openstack'})
+ok: [localhost] => (item={u'path': u'orchestration/xos_services/onos-service', u'keypair': u'onos_rsa', u'name': u'onos'})
+ok: [localhost] => (item={u'path': u'orchestration/xos_services/vrouter', u'name': u'vrouter'})
+ok: [localhost] => (item={u'path': u'orchestration/xos_services/addressmanager', u'name': u'addressmanager'})
+ok: [localhost] => (item={u'path': u'orchestration/xos_services/vsg', u'keypair': u'vsg_rsa', u'name': u'vsg'})
+ok: [localhost] => (item={u'path': u'orchestration/xos_services/vtr', u'keypair': u'vsg_rsa', u'name': u'vtr'})
+ok: [localhost] => (item={u'path': u'orchestration/xos_services/fabric', u'name': u'fabric'})
+
+TASK [xos-core-build : Add in the profile library] *********************************************************************************************************************************************************
+Tuesday 30 October 2018  18:05:09 -0500 (0:00:00.124)       0:00:01.029 ******* 
+skipping: [localhost]
+
+TASK [xos-core-build : Join the list of recipes] ***********************************************************************************************************************************************************
+Tuesday 30 October 2018  18:05:09 -0500 (0:00:00.027)       0:00:01.056 ******* 
+ok: [localhost]
+
+TASK [xos-core-build : debug] ******************************************************************************************************************************************************************************
+Tuesday 30 October 2018  18:05:09 -0500 (0:00:00.030)       0:00:01.087 ******* 
+ok: [localhost] => {
+    "msg": [
+        "/opt/cord/orchestration/xos/xos/core/core-onboard.yaml", 
+        "/opt/cord/orchestration/profiles/rcord/xos/rcord-onboard.yaml", 
+        "/opt/cord/orchestration/xos_services/olt-service/xos/volt-onboard.yaml", 
+        "/opt/cord/orchestration/xos_services/vtn-service/xos/vtn-onboard.yaml", 
+        "/opt/cord/orchestration/xos_services/openstack/xos/openstack-onboard.yaml", 
+        "/opt/cord/orchestration/xos_services/onos-service/xos/onos-onboard.yaml", 
+        "/opt/cord/orchestration/xos_services/vrouter/xos/vrouter-onboard.yaml", 
+        "/opt/cord/orchestration/xos_services/addressmanager/xos/addressmanager-onboard.yaml", 
+        "/opt/cord/orchestration/xos_services/vsg/xos/vsg-onboard.yaml", 
+        "/opt/cord/orchestration/xos_services/vtr/xos/vtr-onboard.yaml", 
+        "/opt/cord/orchestration/xos_services/fabric/xos/fabric-onboard.yaml"
+    ]
+}
+
+TASK [xos-core-build : Create the BUILD directory] *********************************************************************************************************************************************************
+Tuesday 30 October 2018  18:05:09 -0500 (0:00:00.036)       0:00:01.124 ******* 
+ok: [localhost]
+
+TASK [xos-core-build : Run the corebuilder tool] ***********************************************************************************************************************************************************
+Tuesday 30 October 2018  18:05:09 -0500 (0:00:00.216)       0:00:01.340 ******* 
+changed: [localhost]
+
+TASK [xos-core-build : Build UI image] *********************************************************************************************************************************************************************
+Tuesday 30 October 2018  18:05:12 -0500 (0:00:02.605)       0:00:03.945 ******* 
+changed: [localhost]
+
+PLAY RECAP *************************************************************************************************************************************************************************************************
+localhost                  : ok=8    changed=2    unreachable=0    failed=0   
+
+Tuesday 30 October 2018  18:05:13 -0500 (0:00:00.816)       0:00:04.761 ******* 
+=============================================================================== 
+xos-core-build : Run the corebuilder tool ----------------------------------------------------------------------------------------------------------------------------------------------------------- 2.61s
+Gathering Facts ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.84s
+xos-core-build : Build UI image --------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.82s
+xos-core-build : Create the BUILD directory --------------------------------------------------------------------------------------------------------------------------------------------------------- 0.22s
+xos-core-build : Generate list of recipes ----------------------------------------------------------------------------------------------------------------------------------------------------------- 0.12s
+xos-core-build : debug ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ 0.04s
+xos-core-build : Join the list of recipes ----------------------------------------------------------------------------------------------------------------------------------------------------------- 0.03s
+xos-core-build : Intialize recipe list -------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.03s
+xos-core-build : Add in the profile library --------------------------------------------------------------------------------------------------------------------------------------------------------- 0.03s
+touch milestones/local-core-image
+ansible-playbook  -i ./genconfig/inventory.ini --extra-vars @./genconfig/config.yml ./platform-install/start-xos-playbook.yml 2>&1 | tee -a /home/cord/cord/build/logs/20181030T180506Z_local-start-xos
+
+PLAY [Start XOS containers with docker-compose] ************************************************************************************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************************************************************************************************
+Tuesday 30 October 2018  18:05:13 -0500 (0:00:00.030)       0:00:00.030 ******* 
+ok: [localhost]
+
+TASK [xos-up : Create docker networks] *********************************************************************************************************************************************************************
+Tuesday 30 October 2018  18:05:14 -0500 (0:00:00.726)       0:00:00.756 ******* 
+changed: [localhost] => (item=xos)
+
+TASK [xos-up : List xos services] **************************************************************************************************************************************************************************
+Tuesday 30 October 2018  18:05:30 -0500 (0:00:15.469)       0:00:16.226 ******* 
+
+TASK [xos-services-list : Inizialize docker-compose.yml list] **********************************************************************************************************************************************
+Tuesday 30 October 2018  18:05:30 -0500 (0:00:00.221)       0:00:16.448 ******* 
+ok: [localhost]
+
+TASK [xos-services-list : Read docker-compose.yml files for services] **************************************************************************************************************************************
+Tuesday 30 October 2018  18:05:30 -0500 (0:00:00.027)       0:00:16.475 ******* 
+ok: [localhost]
+
+TASK [xos-services-list : Add docker-compose.yml files for services to the list] ***************************************************************************************************************************
+Tuesday 30 October 2018  18:05:30 -0500 (0:00:00.215)       0:00:16.691 ******* 
+ok: [localhost] => (item={u'uid': 1001, u'woth': False, u'mtime': 1540936875.8732076, u'inode': 13895880, u'isgid': False, u'size': 1068, u'isuid': False, u'isreg': True, u'gid': 1001, u'ischr': False, u'wusr': True, u'xoth': False, u'islnk': False, u'nlink': 1, u'issock': False, u'rgrp': True, u'path': u'/home/cord/cord_profile/dynamic_load/exampleservice-docker-compose.yml', u'xusr': False, u'atime': 1540936887.1172078, u'isdir': False, u'ctime': 1540936875.9612074, u'isblk': False, u'wgrp': False, u'xgrp': False, u'dev': 64512, u'roth': True, u'isfifo': False, u'mode': u'0644', u'rusr': True})
+
+TASK [xos-services-list : debug] ***************************************************************************************************************************************************************************
+Tuesday 30 October 2018  18:05:30 -0500 (0:00:00.031)       0:00:16.722 ******* 
+ok: [localhost] => {
+    "onboarding_recipes": [
+        "docker-compose.yml", 
+        "/home/cord/cord_profile/dynamic_load/exampleservice-docker-compose.yml"
+    ]
+}
+
+TASK [xos-up : Bring up XOS services] **********************************************************************************************************************************************************************
+Tuesday 30 October 2018  18:05:30 -0500 (0:00:00.037)       0:00:16.759 ******* 
+changed: [localhost]
+
+PLAY RECAP *************************************************************************************************************************************************************************************************
+localhost                  : ok=7    changed=2    unreachable=0    failed=0   
+
+Tuesday 30 October 2018  18:05:42 -0500 (0:00:11.426)       0:00:28.186 ******* 
+=============================================================================== 
+xos-up : Create docker networks -------------------------------------------------------------------------------------------------------------------------------------------------------------------- 15.47s
+xos-up : Bring up XOS services --------------------------------------------------------------------------------------------------------------------------------------------------------------------- 11.43s
+Gathering Facts ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.73s
+xos-up : List xos services -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.22s
+xos-services-list : Read docker-compose.yml files for services -------------------------------------------------------------------------------------------------------------------------------------- 0.22s
+xos-services-list : debug --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.04s
+xos-services-list : Add docker-compose.yml files for services to the list --------------------------------------------------------------------------------------------------------------------------- 0.03s
+xos-services-list : Inizialize docker-compose.yml list ---------------------------------------------------------------------------------------------------------------------------------------------- 0.03s
+touch milestones/local-start-xos
+ansible-playbook  -i ./genconfig/inventory.ini --extra-vars @./genconfig/config.yml ./platform-install/onboard-profile-playbook.yml 2>&1 | tee -a /home/cord/cord/build/logs/20181030T180506Z_local-onboard-profile
+
+PLAY [Check XOS Ready] *************************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************************************************************************************************
+Tuesday 30 October 2018  18:05:42 -0500 (0:00:00.036)       0:00:00.036 ******* 
+ok: [localhost]
+
+TASK [xos-ready : Wait for XOS Chameleon to be ready after service onboarding] *****************************************************************************************************************************
+Tuesday 30 October 2018  18:05:43 -0500 (0:00:00.962)       0:00:00.998 ******* 
+FAILED - RETRYING: Wait for XOS Chameleon to be ready after service onboarding (40 retries left).
+FAILED - RETRYING: Wait for XOS Chameleon to be ready after service onboarding (39 retries left).
+FAILED - RETRYING: Wait for XOS Chameleon to be ready after service onboarding (38 retries left).
+ok: [localhost]
+
+TASK [xos-ready : Wait for XOS TOSCA engine to be ready after service onboarding] **************************************************************************************************************************
+Tuesday 30 October 2018  18:06:34 -0500 (0:00:50.803)       0:00:51.802 ******* 
+ok: [localhost]
+
+PLAY [Apply profile config] ********************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************************************************************************************************
+Tuesday 30 October 2018  18:06:36 -0500 (0:00:01.692)       0:00:53.495 ******* 
+ok: [localhost]
+
+TASK [xos-config : Bootstrap XOS database - create site, deployment, admin user] ***************************************************************************************************************************
+Tuesday 30 October 2018  18:06:37 -0500 (0:00:00.821)       0:00:54.316 ******* 
+FAILED - RETRYING: Bootstrap XOS database - create site, deployment, admin user (50 retries left).
+ok: [localhost] => (item=fixtures.yaml)
+FAILED - RETRYING: Bootstrap XOS database - create site, deployment, admin user (50 retries left).
+ok: [localhost] => (item=deployment.yaml)
+
+TASK [xos-config : Configure XOS with OpenStack config] ****************************************************************************************************************************************************
+Tuesday 30 October 2018  18:08:01 -0500 (0:01:24.676)       0:02:18.992 ******* 
+ok: [localhost] => (item=openstack.yaml)
+
+TASK [xos-config : Configure XOS with profile specific TOSCA (new Engine)] *********************************************************************************************************************************
+Tuesday 30 October 2018  18:08:02 -0500 (0:00:00.479)       0:02:19.472 ******* 
+ok: [localhost] => (item=vtn-service.yaml)
+ok: [localhost] => (item=fabric-service.yaml)
+ok: [localhost] => (item=management-net.yaml)
+ok: [localhost] => (item=cord-services.yaml)
+ok: [localhost] => (item=public-net.yaml)
+ok: [localhost] => (item=service-graph-constraints.yaml)
+ok: [localhost] => (item=xos-gui-extensions.yml)
+
+PLAY RECAP *************************************************************************************************************************************************************************************************
+localhost                  : ok=7    changed=0    unreachable=0    failed=0   
+
+Tuesday 30 October 2018  18:08:06 -0500 (0:00:03.779)       0:02:23.252 ******* 
+=============================================================================== 
+xos-config : Bootstrap XOS database - create site, deployment, admin user -------------------------------------------------------------------------------------------------------------------------- 84.68s
+xos-ready : Wait for XOS Chameleon to be ready after service onboarding ---------------------------------------------------------------------------------------------------------------------------- 50.80s
+xos-config : Configure XOS with profile specific TOSCA (new Engine) --------------------------------------------------------------------------------------------------------------------------------- 3.78s
+xos-ready : Wait for XOS TOSCA engine to be ready after service onboarding -------------------------------------------------------------------------------------------------------------------------- 1.69s
+Gathering Facts ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.96s
+Gathering Facts ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.82s
+xos-config : Configure XOS with OpenStack config ---------------------------------------------------------------------------------------------------------------------------------------------------- 0.48s
+touch milestones/local-onboard-profile

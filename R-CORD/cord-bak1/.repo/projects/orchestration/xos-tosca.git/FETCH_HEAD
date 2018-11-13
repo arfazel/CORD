@@ -1,0 +1,8 @@
+ba41da2b2d67d4eb7f692586a0d7e77bd14f8bb0		branch 'cord-2.0' of https://gerrit.opencord.org/xos-tosca
+ba41da2b2d67d4eb7f692586a0d7e77bd14f8bb0		branch 'cord-3.0' of https://gerrit.opencord.org/xos-tosca
+251ee3b98743997947ee0aa62341a69289691848		branch 'cord-4.0' of https://gerrit.opencord.org/xos-tosca
+6da2674e3cd84b49fdfb174965c1c109c7d61103		branch 'cord-4.1' of https://gerrit.opencord.org/xos-tosca
+08803a9e271343604486e5b1ef60f5a15999f929		branch 'cord-5.0' of https://gerrit.opencord.org/xos-tosca
+cd9db56b8a7a62112eb0cc9449940e3e7545db7b		branch 'master' of https://gerrit.opencord.org/xos-tosca
+45ca2347a07d49777c030b491832d38d66fa802c	not-for-merge	tag '1.0.0' of https://gerrit.opencord.org/xos-tosca
+2cfd8f1588eb801e846ba9f588f05c6c8ae793b6	not-for-merge	tag '1.0.1' of https://gerrit.opencord.org/xos-tosca
